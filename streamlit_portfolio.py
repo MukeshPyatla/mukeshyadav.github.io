@@ -549,6 +549,15 @@ dashboard_metrics = {
     }
 }
 
+# Helper function to get project links
+def get_project_links(project_name):
+    # This maps dashboard titles to project titles to get the correct URLs
+    clean_name = project_name.replace(' Dashboard', '')
+    for project in projects_data:
+        if project['title'] == clean_name:
+            return project['demo'], project['github']
+    return "#", "#"
+
 def main():
     st.markdown('<div class="centered-container">', unsafe_allow_html=True)
     
@@ -708,6 +717,9 @@ def main():
     
     st.markdown('<div class="dashboard-card-grid">', unsafe_allow_html=True)
     for project_name, metrics in dashboard_metrics.items():
+        # Get the correct links for the current project
+        demo_link, github_link = get_project_links(project_name)
+
         st.markdown(f"""
         <div class="dashboard-card">
             <h3 style="color: white; font-size: 1.8rem; margin-bottom: 15px; font-weight: 600;">{project_name} Dashboard</h3>
@@ -723,11 +735,11 @@ def main():
             </div>
             """, unsafe_allow_html=True)
         
-        st.markdown("""
+        st.markdown(f"""
             </div>
             <div style="display: flex; gap: 15px; justify-content: center;">
-                <a href="#" class="btn-primary">View Dashboard</a>
-                <a href="#" class="btn-secondary">Source Code</a>
+                <a href="{demo_link}" target="_blank" class="btn-primary">View Dashboard</a>
+                <a href="{github_link}" target="_blank" class="btn-secondary">Source Code</a>
             </div>
         </div>
         """, unsafe_allow_html=True)
