@@ -169,15 +169,15 @@ def load_css():
     }
     
     .tech-tag {
-        background: rgba(99, 102, 241, 0.1);
-        color: #63b3ed;
+        background: #e5e7eb; /* Light grey background */
+        color: #1a1a1a; /* Black text */
         font-size: 0.75rem;
         font-weight: 500;
         padding: 6px 12px;
         border-radius: 20px;
         margin: 4px;
         display: inline-block;
-        border: 1px solid rgba(99, 102, 241, 0.2);
+        border: 1px solid #d1d5db;
     }
     
     .timeline-item {
@@ -564,7 +564,7 @@ def main():
             <h3 style="font-size: 1.5rem; color: #9CA3AF; margin-bottom: 40px; text-align: center; font-weight: 400;">Building Intelligent Systems on Azure & AWS Cloud</h3>
             <p style="font-size: 1.3rem; color: #D1D5DB; line-height: 1.8; margin-bottom: 40px; text-align: center;">
                 Specializing in end-to-end MLOps pipelines, automated CI/CD workflows, and scalable cloud infrastructure. 
-                Passionate about deploying production-ready AI/ML systems with robust monitoring and observability.
+                Passionately deploying production-ready AI/ML systems with robust monitoring and observability.
             </p>
             <div style="display: flex; gap: 20px; margin-top: 40px; justify-content: center;">
                 <a href="#projects" class="btn-primary">View Projects</a>
@@ -595,7 +595,7 @@ def main():
     # Section Divider
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
     
-    # About Section with DevOps Visual
+    # About Section
     st.markdown('<h1 class="section-title">About Me</h1>', unsafe_allow_html=True)
     st.markdown('<p class="section-subtitle">Architecting the future of AI infrastructure</p>', unsafe_allow_html=True)
     
@@ -640,14 +640,18 @@ def main():
     # Skills details with interactive tabs
     st.markdown('<h2 style="color: white; margin-top: 60px; text-align: center; font-size: 2rem;">Detailed Skills Breakdown</h2>', unsafe_allow_html=True)
     
-    # Create tabs for different skill categories
-    skill_tabs = st.tabs([f"{skills_data[category]['icon']} {category}" for category in skills_data])
+    # Create tabs with plain text titles.
+    skill_tabs = st.tabs([category for category in skills_data.keys()])
     
     for i, (category, data) in enumerate(skills_data.items()):
         with skill_tabs[i]:
+            # Render the icon and title inside the tab using markdown
             st.markdown(f"""
-            <div class="category-card">
-                <h3 style="color: {data['color']}; font-size: 1.8rem; margin-bottom: 25px; text-align: center; font-weight: 600;">{category}</h3>
+            <div class="category-card" style="padding-top: 20px;">
+                <h3 style="color: {data['color']}; font-size: 1.8rem; margin-bottom: 25px; text-align: center; font-weight: 600;">
+                    <span style="font-size: 2rem; vertical-align: middle; margin-right: 15px;">{data['icon']}</span>
+                    {category}
+                </h3>
                 <div class="skill-grid">
             """, unsafe_allow_html=True)
             
