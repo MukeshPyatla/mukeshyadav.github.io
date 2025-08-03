@@ -209,6 +209,35 @@ def load_css():
         margin: 8px 0 !important;
         padding: 16px !important;
     }
+    
+    /* Style tabs for skills */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        padding: 8px;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        background: rgba(139, 92, 246, 0.1);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        border-radius: 6px;
+        color: white;
+        font-weight: 600;
+        padding: 8px 16px;
+        margin: 2px;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background: rgba(139, 92, 246, 0.3);
+        border-color: rgba(139, 92, 246, 0.6);
+        color: white;
+    }
+    
+    .stTabs [data-baseweb="tab"]:hover {
+        background: rgba(139, 92, 246, 0.2);
+        border-color: rgba(139, 92, 246, 0.5);
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -516,23 +545,25 @@ def main():
             </div>
             """, unsafe_allow_html=True)
     
-    # Skills details in expandable sections
+    # Skills details with interactive buttons
     st.markdown('<h2 style="color: white; margin-top: 40px; text-align: center;">Detailed Skills Breakdown</h2>', unsafe_allow_html=True)
     
-    # Create a more organized layout for detailed skills
+    # Create tabs for different skill categories
+    skill_tabs = st.tabs([f"{data['icon']} {category}" for category, data in skills_data.items()])
+    
     for i, (category, data) in enumerate(skills_data.items()):
-        with st.expander(f"{data['icon']} {category} ({data['count']} skills)", expanded=False):
+        with skill_tabs[i]:
             st.markdown(f"""
             <div style="background: rgba(0, 0, 0, 0.4); border-radius: 12px; padding: 20px; margin: 10px 0;">
-                <h3 style="color: {data['color']}; font-size: 1.2rem; margin-bottom: 15px; text-align: center;">{category}</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;">
+                <h3 style="color: {data['color']}; font-size: 1.5rem; margin-bottom: 20px; text-align: center;">{category}</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
             """, unsafe_allow_html=True)
             
             for skill in data['skills']:
                 st.markdown(f"""
                 <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); 
-                            border-radius: 8px; padding: 12px; text-align: center; margin: 5px 0;">
-                    <span style="color: {data['color']}; font-weight: 600; font-size: 0.9rem;">{skill}</span>
+                            border-radius: 8px; padding: 15px; text-align: center; margin: 5px 0; transition: all 0.3s ease;">
+                    <span style="color: {data['color']}; font-weight: 600; font-size: 1rem;">{skill}</span>
                 </div>
                 """, unsafe_allow_html=True)
             
