@@ -178,6 +178,13 @@ def load_css():
         border-color: #8B5CF6;
         color: white;
     }
+    
+    .section-divider {
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
+        margin: 60px 0;
+        border-radius: 1px;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -366,29 +373,7 @@ dashboard_metrics = {
 }
 
 def main():
-    # Navigation
-    st.sidebar.title("Navigation")
-    page = st.sidebar.selectbox(
-        "Choose a section",
-        ["🏠 Home", "👨‍💻 About", "🛠️ Skills", "🚀 Projects", "📊 Dashboards", "💼 Experience", "📞 Contact"]
-    )
-    
-    if page == "🏠 Home":
-        show_home()
-    elif page == "👨‍💻 About":
-        show_about()
-    elif page == "🛠️ Skills":
-        show_skills()
-    elif page == "🚀 Projects":
-        show_projects()
-    elif page == "📊 Dashboards":
-        show_dashboards()
-    elif page == "💼 Experience":
-        show_experience()
-    elif page == "📞 Contact":
-        show_contact()
-
-def show_home():
+    # Hero Section
     st.markdown("""
     <div class="hero-section">
         <h1 class="section-title">Mukesh Yadav</h1>
@@ -438,8 +423,11 @@ def show_home():
             <div class="metric-label">Live Projects</div>
         </div>
         """, unsafe_allow_html=True)
-
-def show_about():
+    
+    # Section Divider
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
+    
+    # About Section
     st.markdown('<h1 class="section-title">About Me</h1>', unsafe_allow_html=True)
     
     col1, col2 = st.columns([2, 1])
@@ -476,8 +464,11 @@ def show_about():
             <p style="color: #9CA3AF;">MLOps & DevOps Engineer</p>
         </div>
         """, unsafe_allow_html=True)
-
-def show_skills():
+    
+    # Section Divider
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
+    
+    # Skills Section
     st.markdown('<h1 class="section-title">Technical Skills</h1>', unsafe_allow_html=True)
     st.markdown('<p style="text-align: center; color: #9CA3AF; font-size: 1.2rem; margin-bottom: 40px;">Comprehensive skills across the MLOps and DevOps ecosystem</p>', unsafe_allow_html=True)
     
@@ -515,8 +506,11 @@ def show_skills():
                         <span style="color: {data['color']}; font-weight: 600;">{skill}</span>
                     </div>
                     """, unsafe_allow_html=True)
-
-def show_projects():
+    
+    # Section Divider
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
+    
+    # Projects Section
     st.markdown('<h1 class="section-title">Featured Projects</h1>', unsafe_allow_html=True)
     st.markdown('<p style="text-align: center; color: #9CA3AF; font-size: 1.2rem; margin-bottom: 40px;">End-to-end MLOps and DevOps solutions with live dashboards</p>', unsafe_allow_html=True)
     
@@ -543,8 +537,11 @@ def show_projects():
             </div>
         </div>
         """, unsafe_allow_html=True)
-
-def show_dashboards():
+    
+    # Section Divider
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
+    
+    # Dashboards Section
     st.markdown('<h1 class="section-title">Live Dashboards</h1>', unsafe_allow_html=True)
     st.markdown('<p style="text-align: center; color: #9CA3AF; font-size: 1.2rem; margin-bottom: 40px;">Real-time monitoring and analytics dashboards for my projects</p>', unsafe_allow_html=True)
     
@@ -572,8 +569,11 @@ def show_dashboards():
             </div>
         </div>
         """, unsafe_allow_html=True)
-
-def show_experience():
+    
+    # Section Divider
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
+    
+    # Experience Section
     st.markdown('<h1 class="section-title">Professional Journey</h1>', unsafe_allow_html=True)
     
     for exp in experience_data:
@@ -591,8 +591,11 @@ def show_experience():
             st.markdown(f'<li>{achievement}</li>', unsafe_allow_html=True)
         
         st.markdown("</ul></div>", unsafe_allow_html=True)
-
-def show_contact():
+    
+    # Section Divider
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
+    
+    # Contact Section
     st.markdown('<h1 class="section-title">Let\'s Connect</h1>', unsafe_allow_html=True)
     st.markdown('<h2 style="text-align: center; color: #34D399; font-size: 2rem; margin-bottom: 20px;">Ready to Build the Future Together</h2>', unsafe_allow_html=True)
     st.markdown('<p style="text-align: center; color: #9CA3AF; font-size: 1.1rem; margin-bottom: 40px;">I\'m actively seeking opportunities to architect and scale AI solutions. If you\'re looking for a passionate engineer to solve complex challenges in MLOps and DevOps, let\'s connect.</p>', unsafe_allow_html=True)
