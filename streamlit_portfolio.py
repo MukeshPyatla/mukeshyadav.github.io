@@ -632,9 +632,6 @@ def main():
         </div>
     </div>
     """, unsafe_allow_html=True)
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
     
     # Key metrics
     cols = st.columns(4)
