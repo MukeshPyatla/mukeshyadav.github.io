@@ -22,17 +22,17 @@ def load_css():
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     
     .main {
-        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        background: #000000;
         color: #ffffff;
         font-family: 'Inter', sans-serif;
     }
     
     .stApp {
-        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        background: #000000;
     }
     
     .hero-section {
-        background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(168, 85, 247, 0.05));
+        background: linear-gradient(135deg, rgba(135, 206, 250, 0.05), rgba(176, 224, 230, 0.05));
         border-radius: 24px;
         padding: 60px 40px;
         margin: 40px 0;
@@ -57,7 +57,7 @@ def load_css():
         font-family: 'Inter', sans-serif;
         font-size: 3rem;
         font-weight: 700;
-        background: linear-gradient(135deg, #ffffff 0%, #e5e7eb 100%);
+        background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -92,7 +92,7 @@ def load_css():
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+        background: linear-gradient(90deg, transparent, rgba(135, 206, 250, 0.1), transparent);
         transition: left 0.5s ease;
     }
     
@@ -102,8 +102,8 @@ def load_css():
     
     .category-card:hover {
         transform: translateY(-8px);
-        border-color: rgba(99, 102, 241, 0.3);
-        box-shadow: 0 20px 40px -12px rgba(99, 102, 241, 0.2);
+        border-color: rgba(135, 206, 250, 0.3);
+        box-shadow: 0 20px 40px -12px rgba(135, 206, 250, 0.2);
     }
     
     .project-card {
@@ -118,14 +118,14 @@ def load_css():
     }
     
     .project-card:hover {
-        border-color: rgba(99, 102, 241, 0.3);
-        box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+        border-color: rgba(135, 206, 250, 0.3);
+        box-shadow: 0 25px 50px -12px rgba(135, 206, 250, 0.25);
         transform: translateY(-4px);
     }
     
     .metric-card {
-        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
-        border: 1px solid rgba(99, 102, 241, 0.2);
+        background: linear-gradient(135deg, rgba(135, 206, 250, 0.1), rgba(176, 224, 230, 0.1));
+        border: 1px solid rgba(135, 206, 250, 0.2);
         border-radius: 16px;
         padding: 24px;
         text-align: center;
@@ -136,13 +136,13 @@ def load_css():
     
     .metric-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 15px 30px -10px rgba(99, 102, 241, 0.3);
+        box-shadow: 0 15px 30px -10px rgba(135, 206, 250, 0.3);
     }
     
     .metric-value {
         font-size: 2.5rem;
         font-weight: 700;
-        background: linear-gradient(135deg, #6366F1, #A855F7);
+        background: linear-gradient(135deg, #87CEEB, #B0E0E6);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -174,15 +174,15 @@ def load_css():
     }
     
     .tech-tag {
-        background: rgba(99, 102, 241, 0.1);
-        color: #6366F1;
+        background: rgba(135, 206, 250, 0.1);
+        color: #87CEEB;
         font-size: 0.75rem;
         font-weight: 500;
         padding: 6px 12px;
         border-radius: 20px;
         margin: 4px;
         display: inline-block;
-        border: 1px solid rgba(99, 102, 241, 0.2);
+        border: 1px solid rgba(135, 206, 250, 0.2);
     }
     
     .timeline-item {
@@ -192,13 +192,13 @@ def load_css():
         padding: 24px;
         margin: 20px 0;
         position: relative;
-        border-left: 4px solid #6366F1;
+        border-left: 4px solid #87CEEB;
         backdrop-filter: blur(20px);
     }
     
     .btn-primary {
-        background: linear-gradient(135deg, #6366F1, #A855F7);
-        color: white;
+        background: linear-gradient(135deg, #87CEEB, #B0E0E6);
+        color: #000000;
         border: none;
         padding: 14px 28px;
         border-radius: 12px;
@@ -211,7 +211,7 @@ def load_css():
     
     .btn-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+        box-shadow: 0 10px 25px rgba(135, 206, 250, 0.4);
     }
     
     .btn-secondary {
@@ -229,14 +229,14 @@ def load_css():
     
     .btn-secondary:hover {
         background: rgba(255, 255, 255, 0.1);
-        border-color: #6366F1;
+        border-color: #87CEEB;
         color: white;
         transform: translateY(-2px);
     }
     
     .section-divider {
         height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
+        background: linear-gradient(90deg, transparent, rgba(135, 206, 250, 0.3), transparent);
         margin: 80px 0;
         border-radius: 1px;
     }
@@ -251,8 +251,8 @@ def load_css():
     }
     
     .stTabs [data-baseweb="tab"] {
-        background: rgba(99, 102, 241, 0.1);
-        border: 1px solid rgba(99, 102, 241, 0.2);
+        background: rgba(135, 206, 250, 0.1);
+        border: 1px solid rgba(135, 206, 250, 0.2);
         border-radius: 8px;
         color: white;
         font-weight: 500;
@@ -262,23 +262,23 @@ def load_css():
     }
     
     .stTabs [aria-selected="true"] {
-        background: rgba(99, 102, 241, 0.2);
-        border-color: rgba(99, 102, 241, 0.4);
+        background: rgba(135, 206, 250, 0.2);
+        border-color: rgba(135, 206, 250, 0.4);
         color: white;
-        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+        box-shadow: 0 4px 12px rgba(135, 206, 250, 0.2);
     }
     
     .stTabs [data-baseweb="tab"]:hover {
-        background: rgba(99, 102, 241, 0.15);
-        border-color: rgba(99, 102, 241, 0.3);
+        background: rgba(135, 206, 250, 0.15);
+        border-color: rgba(135, 206, 250, 0.3);
     }
     
     .devops-visual {
-        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+        background: linear-gradient(135deg, rgba(135, 206, 250, 0.1), rgba(176, 224, 230, 0.1));
         border-radius: 20px;
         padding: 40px;
         margin: 30px 0;
-        border: 1px solid rgba(99, 102, 241, 0.2);
+        border: 1px solid rgba(135, 206, 250, 0.2);
         position: relative;
         overflow: hidden;
     }
@@ -290,7 +290,7 @@ def load_css():
         left: 0;
         right: 0;
         bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(99,102,241,0.1)" stroke-width="0.5"/></pattern></defs><rect width="200" height="100" fill="url(%23grid)"/></svg>');
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(135,206,250,0.1)" stroke-width="0.5"/></pattern></defs><rect width="200" height="100" fill="url(%23grid)"/></svg>');
         opacity: 0.3;
     }
     
@@ -311,8 +311,8 @@ def load_css():
     }
     
     .skill-item:hover {
-        background: rgba(99, 102, 241, 0.1);
-        border-color: rgba(99, 102, 241, 0.3);
+        background: rgba(135, 206, 250, 0.1);
+        border-color: rgba(135, 206, 250, 0.3);
         transform: translateY(-2px);
     }
     </style>
@@ -325,61 +325,61 @@ load_css()
 skills_data = {
     'Cloud & DevOps': {
         'icon': '☁️',
-        'color': '#6366F1',
+        'color': '#87CEEB',
         'skills': ['AWS', 'Azure', 'Terraform', 'Docker', 'Kubernetes', 'CI/CD'],
         'count': 6
     },
     'AI/ML Frameworks': {
         'icon': '🧠',
-        'color': '#F59E0B',
+        'color': '#B0E0E6',
         'skills': ['PyTorch', 'TensorFlow', 'LangChain', 'FastAPI', 'MLflow', 'BentoML'],
         'count': 6
     },
     'Programming Languages': {
         'icon': '💻',
-        'color': '#10B981',
+        'color': '#ADD8E6',
         'skills': ['Python', 'Go', 'C++', 'Bash', 'SQL'],
         'count': 5
     },
     'Data & Databases': {
         'icon': '🗄️',
-        'color': '#8B5CF6',
+        'color': '#E0F6FF',
         'skills': ['Pandas', 'Spark', 'DVC', 'Pinecone', 'Qdrant'],
         'count': 5
     },
     'Monitoring & Observability': {
         'icon': '📊',
-        'color': '#EF4444',
+        'color': '#F0F8FF',
         'skills': ['Prometheus', 'Grafana', 'ELK Stack', 'Backstage', 'W&B'],
         'count': 5
     },
     'CI/CD Tools': {
         'icon': '⚙️',
-        'color': '#F59E0B',
+        'color': '#E6F3FF',
         'skills': ['GitLab CI', 'Jenkins', 'ArgoCD', 'Tekton', 'GitHub Actions'],
         'count': 5
     },
     'AI/ML Concepts': {
         'icon': '🤖',
-        'color': '#6366F1',
+        'color': '#87CEEB',
         'skills': ['MLOps', 'GenAI', 'RAG', 'Federated Learning', 'Homomorphic Encryption', 'NLP'],
         'count': 6
     },
     'Blockchain': {
         'icon': '🔗',
-        'color': '#10B981',
+        'color': '#B0E0E6',
         'skills': ['Ethereum', 'Solidity', 'Blockchain'],
         'count': 3
     },
     'Operating Systems': {
         'icon': '🖥️',
-        'color': '#6B7280',
+        'color': '#ADD8E6',
         'skills': ['Linux', 'Windows'],
         'count': 2
     },
     'Networking': {
         'icon': '🌐',
-        'color': '#6366F1',
+        'color': '#87CEEB',
         'skills': ['VPC/VNet', 'DNS', 'Load Balancers', 'Security Groups'],
         'count': 4
     }
@@ -508,7 +508,7 @@ def main():
     <div class="hero-section">
         <div style="position: relative; z-index: 1;">
             <h1 class="section-title">Mukesh Yadav</h1>
-            <h2 style="font-size: 2.5rem; color: #6366F1; margin-bottom: 20px; text-align: center; font-weight: 600;">MLOPS & DEVOPS ENGINEER</h2>
+            <h2 style="font-size: 2.5rem; color: #87CEEB; margin-bottom: 20px; text-align: center; font-weight: 600;">MLOPS & DEVOPS ENGINEER</h2>
             <h3 style="font-size: 1.5rem; color: #9CA3AF; margin-bottom: 40px; text-align: center; font-weight: 400;">Building Intelligent Systems on Azure & AWS Cloud</h3>
             <p style="font-size: 1.3rem; color: #D1D5DB; line-height: 1.8; margin-bottom: 40px; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
                 Specializing in end-to-end MLOps pipelines, automated CI/CD workflows, and scalable cloud infrastructure. 
