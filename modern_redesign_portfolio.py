@@ -4,1079 +4,807 @@ import plotly.express as px
 import pandas as pd
 from datetime import datetime
 import base64
+from PIL import Image
+import io
 
 # Page configuration
 st.set_page_config(
-    page_title="Mukesh Yadav - MLOps Engineer",
+    page_title="Mukesh Yadav - MLOps & DevOps Engineer",
     page_icon="🚀",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# Custom CSS with completely new design
+# Custom CSS for modern minimal styling and responsiveness
 def load_css():
     st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
-    
-    * {
-        font-family: 'Space Grotesk', sans-serif;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    
-    body {
-        background: #0a0a0a;
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
+
+    html, body, .stApp {
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
         color: #ffffff;
-        overflow-x: hidden;
+        font-family: 'Inter', sans-serif;
     }
     
-    .main {
-        background: #0a0a0a;
-        color: #ffffff;
+    .hero-section {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(168, 85, 247, 0.05));
+        border-radius: 24px;
+        padding: 60px 40px;
+        margin: 40px 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        position: relative;
+        overflow: hidden;
+        animation: fadeIn 1s ease-out;
     }
     
-    .stApp {
-        background: #0a0a0a;
-    }
-    
-    /* Animated Background */
-    .bg-animation {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        background: 
-            radial-gradient(circle at 25% 25%, rgba(255, 0, 100, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 75% 75%, rgba(0, 255, 200, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 50% 50%, rgba(100, 0, 255, 0.05) 0%, transparent 50%);
-    }
-    
-    .floating-elements {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: -1;
-    }
-    
-    .floating-element {
+    .hero-section::before {
+        content: '';
         position: absolute;
-        width: 4px;
-        height: 4px;
-        background: #ff0064;
-        border-radius: 50%;
-        animation: float 6s ease-in-out infinite;
-    }
-    
-    .floating-element:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
-    .floating-element:nth-child(2) { top: 60%; left: 80%; animation-delay: 1s; }
-    .floating-element:nth-child(3) { top: 80%; left: 20%; animation-delay: 2s; }
-    .floating-element:nth-child(4) { top: 40%; left: 90%; animation-delay: 3s; }
-    .floating-element:nth-child(5) { top: 10%; left: 70%; animation-delay: 4s; }
-    .floating-element:nth-child(6) { top: 90%; left: 60%; animation-delay: 5s; }
-    
-    @keyframes float {
-        0%, 100% { transform: translateY(0px) scale(1); opacity: 0.3; }
-        50% { transform: translateY(-20px) scale(1.2); opacity: 0.8; }
-    }
-    
-    /* Navigation */
-    .nav-container {
-        position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        z-index: 1000;
-        background: rgba(10, 10, 10, 0.9);
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .nav-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    
-    .nav-logo {
-        font-size: 1.5rem;
-        font-weight: 700;
-        background: linear-gradient(45deg, #ff0064, #00ffc8);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-    
-    .nav-links {
-        display: flex;
-        gap: 2rem;
-    }
-    
-    .nav-link {
-        color: #ffffff;
-        text-decoration: none;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        position: relative;
-    }
-    
-    .nav-link::after {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: linear-gradient(45deg, #ff0064, #00ffc8);
-        transition: width 0.3s ease;
-    }
-    
-    .nav-link:hover::after {
-        width: 100%;
-    }
-    
-    /* Hero Section */
-    .hero-section {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 2rem;
-        position: relative;
-    }
-    
-    .hero-content {
-        text-align: center;
-        max-width: 800px;
-    }
-    
-    .hero-badge {
-        display: inline-block;
-        background: linear-gradient(45deg, #ff0064, #00ffc8);
-        color: white;
-        padding: 0.5rem 1.5rem;
-        border-radius: 50px;
-        font-size: 0.9rem;
-        font-weight: 500;
-        margin-bottom: 2rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-    }
-    
-    .hero-title {
-        font-size: 4rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        line-height: 1.2;
-    }
-    
-    .hero-title span {
-        background: linear-gradient(45deg, #ff0064, #00ffc8);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-    
-    .hero-subtitle {
-        font-size: 1.5rem;
-        color: #cccccc;
-        margin-bottom: 2rem;
-    }
-    
-    .hero-description {
-        font-size: 1.1rem;
-        color: #999999;
-        margin-bottom: 3rem;
-        line-height: 1.6;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .hero-stats {
-        display: flex;
-        justify-content: center;
-        gap: 3rem;
-        margin-bottom: 3rem;
-    }
-    
-    .stat-item {
-        text-align: center;
-    }
-    
-    .stat-number {
-        font-size: 2.5rem;
-        font-weight: 700;
-        background: linear-gradient(45deg, #ff0064, #00ffc8);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-    
-    .stat-label {
-        font-size: 0.9rem;
-        color: #999999;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-    
-    .hero-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        flex-wrap: wrap;
-    }
-    
-    .btn-primary {
-        background: linear-gradient(45deg, #ff0064, #00ffc8);
-        color: white;
-        border: none;
-        padding: 1rem 2rem;
-        border-radius: 50px;
-        font-weight: 600;
-        text-decoration: none;
-        display: inline-block;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        font-size: 1rem;
-    }
-    
-    .btn-primary:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(255, 0, 100, 0.3);
-        color: white;
-        text-decoration: none;
-    }
-    
-    .btn-secondary {
-        background: transparent;
-        color: #ffffff;
-        border: 2px solid #ff0064;
-        padding: 1rem 2rem;
-        border-radius: 50px;
-        font-weight: 600;
-        text-decoration: none;
-        display: inline-block;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        font-size: 1rem;
-    }
-    
-    .btn-secondary:hover {
-        background: #ff0064;
-        transform: translateY(-3px);
-        text-decoration: none;
-    }
-    
-    /* Section Styles */
-    .section {
-        padding: 6rem 2rem;
-        position: relative;
-    }
-    
-    .section-header {
-        text-align: center;
-        margin-bottom: 4rem;
-    }
-    
-    .section-badge {
-        display: inline-block;
-        background: linear-gradient(45deg, #ff0064, #00ffc8);
-        color: white;
-        padding: 0.5rem 1.5rem;
-        border-radius: 50px;
-        font-size: 0.9rem;
-        font-weight: 500;
-        margin-bottom: 1rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.5;
     }
     
     .section-title {
+        font-family: 'Inter', sans-serif;
         font-size: 3rem;
         font-weight: 700;
-        margin-bottom: 1rem;
-        color: #ffffff;
+        background: linear-gradient(135deg, #ffffff 0%, #e5e7eb 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 30px;
+        text-align: center;
     }
     
     .section-subtitle {
         font-size: 1.2rem;
-        color: #999999;
-        max-width: 600px;
-        margin: 0 auto;
-        line-height: 1.6;
+        color: #9CA3AF;
+        text-align: center;
+        margin-bottom: 40px;
+        font-weight: 400;
     }
     
-    /* Skills Grid */
-    .skills-container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    
-    .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2rem;
-    }
-    
-    .skill-card {
-        background: rgba(255, 255, 255, 0.05);
+    .category-card {
+        background: rgba(255, 255, 255, 0.02);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-        padding: 2rem;
-        transition: all 0.3s ease;
+        border-radius: 16px;
+        padding: 32px 24px;
+        margin: 16px 0;
+        backdrop-filter: blur(20px);
+        transition: all 0.4s ease;
         position: relative;
         overflow: hidden;
-        backdrop-filter: blur(10px);
     }
     
-    .skill-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #ff0064, #00ffc8);
+    .category-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        border-color: rgba(99, 102, 241, 0.3);
+        box-shadow: 0 20px 40px -12px rgba(99, 102, 241, 0.2);
     }
     
-    .skill-card:hover {
-        transform: translateY(-10px);
-        border-color: #ff0064;
-        box-shadow: 0 20px 40px rgba(255, 0, 100, 0.2);
-    }
-    
-    .skill-icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-    }
-    
-    .skill-title {
-        font-size: 1.4rem;
-        font-weight: 600;
-        color: #ffffff;
-        margin-bottom: 1rem;
-    }
-    
-    .skill-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-    
-    .skill-tag {
-        background: rgba(255, 0, 100, 0.2);
-        color: #ff0064;
-        padding: 0.25rem 0.75rem;
+    .project-card, .timeline-item {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 20px;
-        font-size: 0.8rem;
-        border: 1px solid rgba(255, 0, 100, 0.3);
+        padding: 32px;
+        margin: 24px 0;
+        backdrop-filter: blur(20px);
+        transition: all 0.4s ease;
+    }
+    
+    .project-card:hover, .timeline-item:hover {
+        border-color: rgba(99, 102, 241, 0.3);
+        box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+        transform: translateY(-4px);
+    }
+    
+    .metric-card {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        border-radius: 16px;
+        padding: 24px;
+        text-align: center;
+        margin: 12px;
+        backdrop-filter: blur(20px);
+        transition: all 0.3s ease;
+    }
+    
+    .metric-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 30px -10px rgba(99, 102, 241, 0.3);
+    }
+    
+    .metric-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #6366F1, #A855F7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 8px;
+    }
+    
+    .metric-label {
+        font-size: 0.875rem;
+        color: #9CA3AF;
         font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
     
-    /* Projects Grid */
-    .projects-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
+    .status-live {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #10B981;
+        box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+        margin-right: 8px;
+        animation: pulse 2s infinite;
     }
     
-    .project-card {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+    @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.7; transform: scale(1.1); }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tech-tag {
+        background: rgba(99, 102, 241, 0.1);
+        color: #6366F1;
+        font-size: 0.75rem;
+        font-weight: 500;
+        padding: 6px 12px;
         border-radius: 20px;
-        padding: 2rem;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        backdrop-filter: blur(10px);
-    }
-    
-    .project-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #ff0064, #00ffc8);
-    }
-    
-    .project-card:hover {
-        transform: translateY(-10px);
-        border-color: #ff0064;
-        box-shadow: 0 20px 40px rgba(255, 0, 100, 0.2);
-    }
-    
-    .project-header {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1rem;
-    }
-    
-    .project-icon {
-        font-size: 2rem;
-        color: #ff0064;
-    }
-    
-    .project-title {
-        font-size: 1.3rem;
-        font-weight: 600;
-        color: #ffffff;
-        line-height: 1.3;
-    }
-    
-    .project-desc {
-        color: #999999;
-        margin-bottom: 1.5rem;
-        line-height: 1.6;
-    }
-    
-    .project-link {
-        color: #ff0064;
-        text-decoration: none;
-        font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        transition: all 0.3s ease;
-    }
-    
-    .project-link:hover {
-        color: #00ffc8;
-        text-decoration: none;
-        transform: translateX(5px);
-    }
-    
-    /* Experience Timeline */
-    .timeline {
-        max-width: 800px;
-        margin: 0 auto;
-        position: relative;
-    }
-    
-    .timeline::before {
-        content: '';
-        position: absolute;
-        left: 50%;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background: linear-gradient(to bottom, #ff0064, #00ffc8);
-        transform: translateX(-50%);
+        margin: 4px;
+        display: inline-block;
+        border: 1px solid rgba(99, 102, 241, 0.2);
     }
     
     .timeline-item {
-        position: relative;
-        margin-bottom: 3rem;
-        width: 45%;
+        border-left: 4px solid #6366F1;
     }
     
-    .timeline-item:nth-child(odd) {
-        left: 0;
-    }
-    
-    .timeline-item:nth-child(even) {
-        left: 55%;
-    }
-    
-    .timeline-content {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
-        padding: 2rem;
-        position: relative;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-    }
-    
-    .timeline-content:hover {
-        transform: translateY(-5px);
-        border-color: #ff0064;
-        box-shadow: 0 15px 30px rgba(255, 0, 100, 0.2);
-    }
-    
-    .timeline-content::before {
-        content: '';
-        position: absolute;
-        top: 20px;
-        width: 0;
-        height: 0;
-        border: 10px solid transparent;
-    }
-    
-    .timeline-item:nth-child(odd) .timeline-content::before {
-        right: -20px;
-        border-left-color: rgba(255, 255, 255, 0.05);
-    }
-    
-    .timeline-item:nth-child(even) .timeline-content::before {
-        left: -20px;
-        border-right-color: rgba(255, 255, 255, 0.05);
-    }
-    
-    .timeline-dot {
-        position: absolute;
-        top: 20px;
-        width: 20px;
-        height: 20px;
-        background: #ff0064;
-        border-radius: 50%;
-        border: 4px solid #0a0a0a;
-    }
-    
-    .timeline-item:nth-child(odd) .timeline-dot {
-        right: -60px;
-    }
-    
-    .timeline-item:nth-child(even) .timeline-dot {
-        left: -60px;
-    }
-    
-    .timeline-title {
-        font-size: 1.3rem;
-        font-weight: 600;
-        color: #ffffff;
-        margin-bottom: 0.5rem;
-    }
-    
-    .timeline-company {
-        color: #ff0064;
-        font-weight: 500;
-        margin-bottom: 0.5rem;
-    }
-    
-    .timeline-period {
-        color: #999999;
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
-    }
-    
-    .timeline-desc {
-        color: #cccccc;
-        line-height: 1.6;
-    }
-    
-    /* Contact Grid */
-    .contact-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-    
-    .contact-card {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-        padding: 2rem;
-        text-align: center;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-    }
-    
-    .contact-card:hover {
-        transform: translateY(-5px);
-        border-color: #ff0064;
-        box-shadow: 0 15px 30px rgba(255, 0, 100, 0.2);
-    }
-    
-    .contact-icon {
-        font-size: 2.5rem;
-        color: #ff0064;
-        margin-bottom: 1rem;
-    }
-    
-    .contact-title {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: #ffffff;
-        margin-bottom: 0.5rem;
-    }
-    
-    .contact-value {
-        color: #999999;
-        font-size: 1rem;
-    }
-    
-    /* Responsive Design */
-    @media (max-width: 768px) {
-        .hero-title {
-            font-size: 2.5rem;
-        }
-        
-        .hero-stats {
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .nav-links {
-            display: none;
-        }
-        
-        .timeline::before {
-            left: 20px;
-        }
-        
-        .timeline-item {
-            width: 100%;
-            left: 0 !important;
-        }
-        
-        .timeline-item .timeline-dot {
-            left: -40px !important;
-        }
-        
-        .timeline-item .timeline-content::before {
-            left: -20px !important;
-            border-right-color: rgba(255, 255, 255, 0.05) !important;
-        }
-    }
-    
-    /* Streamlit overrides */
-    .stButton > button {
-        background: linear-gradient(45deg, #ff0064, #00ffc8);
+    .btn-primary {
+        background: linear-gradient(135deg, #6366F1, #A855F7);
         color: white;
         border: none;
-        border-radius: 50px;
-        padding: 1rem 2rem;
+        padding: 14px 28px;
+        border-radius: 12px;
         font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+    }
+    
+    .btn-secondary {
+        background: rgba(255, 255, 255, 0.05);
+        color: #D1D5DB;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 14px 28px;
+        border-radius: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+    }
+    
+    .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: #6366F1;
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    .section-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
+        margin: 80px 0;
+        border-radius: 1px;
+    }
+    
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 12px;
+        padding: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        background: rgba(99, 102, 241, 0.1);
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        border-radius: 8px;
+        color: white;
+        font-weight: 500;
+        padding: 10px 16px;
+        margin: 2px;
         transition: all 0.3s ease;
     }
     
-    .stButton > button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(255, 0, 100, 0.3);
+    .stTabs [aria-selected="true"] {
+        background: rgba(99, 102, 241, 0.2);
+        border-color: rgba(99, 102, 241, 0.4);
+        color: white;
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+    }
+    
+    .stTabs [data-baseweb="tab"]:hover {
+        background: rgba(99, 102, 241, 0.15);
+        border-color: rgba(99, 102, 241, 0.3);
+    }
+    
+    .devops-visual {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+        border-radius: 20px;
+        padding: 40px;
+        margin: 30px 0;
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .devops-visual::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(99,102,241,0.1)" stroke-width="0.5"/></pattern></defs><rect width="200" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.3;
+    }
+    
+    .skill-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 12px;
+        margin-top: 20px;
+    }
+    
+    .skill-item {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    
+    .skill-item:hover {
+        background: rgba(99, 102, 241, 0.1);
+        border-color: rgba(99, 102, 241, 0.3);
+        transform: translateY(-2px);
+    }
+    
+    /* Responsive Design with Media Queries */
+    @media (max-width: 1024px) {
+        .section-title { font-size: 2.5rem; }
+        .hero-section { padding: 40px 20px; }
+        .metric-card { padding: 16px; margin: 8px; }
+        .metric-value { font-size: 2rem; }
+    }
+
+    @media (max-width: 768px) {
+        .section-title { font-size: 2rem; margin-bottom: 20px; }
+        .hero-section { padding: 30px 15px; margin: 20px 0; }
+        .hero-section > div > h2 { font-size: 1.8rem; }
+        .hero-section > div > h3 { font-size: 1.2rem; }
+        .hero-section > div > p { font-size: 1rem; }
+        .metric-card { padding: 12px; margin: 4px; }
+        .metric-value { font-size: 1.8rem; }
+        .st-emotion-cache-1r650jc { gap: 10px; } /* Adjust column gap in Streamlit */
+        .project-card, .timeline-item { padding: 20px; }
+        .skill-grid {
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        }
+    }
+
+    @media (max-width: 480px) {
+        .section-title { font-size: 1.8rem; }
+        .hero-section > div > h2 { font-size: 1.5rem; }
+        .hero-section > div > h3 { font-size: 1rem; }
+        .hero-section > div > p { font-size: 0.9rem; }
+        .hero-section > div > div { flex-direction: column; gap: 10px; }
+        .project-card, .timeline-item { padding: 15px; }
+        .metric-value { font-size: 1.5rem; }
+        .metric-label { font-size: 0.75rem; }
+        .skill-grid { grid-template-columns: 1fr; }
     }
     </style>
     """, unsafe_allow_html=True)
 
-# Data
+# Load CSS
+load_css()
+
+# Skills data
 skills_data = {
-    "Cloud/DevOps": {
-        "icon": "☁️",
-        "skills": ["Azure", "AWS", "Terraform (IaC)", "Kubernetes", "Docker", "CI/CD (GitLab CI, Jenkins, ArgoCD, Tekton)", "GitOps"]
+    'Cloud & DevOps': {
+        'icon': '<i class="fa-solid fa-cloud"></i>',
+        'color': '#6366F1',
+        'skills': ['AWS', 'Azure', 'Terraform', 'Docker', 'Kubernetes', 'CI/CD'],
+        'count': 6
     },
-    "AI/ML Frameworks": {
-        "icon": "🤖",
-        "skills": ["LangChain", "PyTorch", "TensorFlow", "FastAPI", "TensorRT", "Flower", "MLflow", "BentoML"]
+    'AI/ML Frameworks': {
+        'icon': '<i class="fa-solid fa-brain"></i>',
+        'color': '#F59E0B',
+        'skills': ['PyTorch', 'TensorFlow', 'LangChain', 'FastAPI', 'MLflow', 'BentoML'],
+        'count': 6
     },
-    "Data & Databases": {
-        "icon": "📊",
-        "skills": ["SQL", "Vector Databases (Pinecone, Qdrant)", "Pandas", "Spark", "DVC", "LakeFS"]
+    'Programming Languages': {
+        'icon': '<i class="fa-solid fa-code"></i>',
+        'color': '#10B981',
+        'skills': ['Python', 'Go', 'C++', 'Bash', 'SQL'],
+        'count': 5
     },
-    "Monitoring & Observability": {
-        "icon": "📈",
-        "skills": ["Prometheus", "Grafana", "ELK Stack", "Backstage", "Weights & Biases (W&B)"]
+    'Data & Databases': {
+        'icon': '<i class="fa-solid fa-database"></i>',
+        'color': '#8B5CF6',
+        'skills': ['Pandas', 'Spark', 'DVC', 'Pinecone', 'Qdrant'],
+        'count': 5
     },
-    "Languages": {
-        "icon": "💻",
-        "skills": ["Python", "SQL", "Bash", "C++", "Go (learning)"]
+    'Monitoring & Observability': {
+        'icon': '<i class="fa-solid fa-chart-line"></i>',
+        'color': '#EF4444',
+        'skills': ['Prometheus', 'Grafana', 'ELK Stack', 'Backstage', 'W&B'],
+        'count': 5
     },
-    "AI/ML Concepts": {
-        "icon": "🧠",
-        "skills": ["MLOps", "GenAI", "RAG", "Federated Learning (FL)", "Homomorphic Encryption (HE)", "Transformers", "NLP"]
+    'CI/CD Tools': {
+        'icon': '<i class="fa-solid fa-gear"></i>',
+        'color': '#F59E0B',
+        'skills': ['GitLab CI', 'Jenkins', 'ArgoCD', 'Tekton', 'GitHub Actions'],
+        'count': 5
     },
-    "Blockchain": {
-        "icon": "⛓️",
-        "skills": ["Ethereum", "Smart Contracts (Solidity)", "Immutable Ledgers"]
+    'AI/ML Concepts': {
+        'icon': '<i class="fa-solid fa-robot"></i>',
+        'color': '#6366F1',
+        'skills': ['MLOps', 'GenAI', 'RAG', 'Federated Learning', 'Homomorphic Encryption', 'NLP'],
+        'count': 6
     },
-    "Operating Systems": {
-        "icon": "🖥️",
-        "skills": ["Linux (RHEL, Ubuntu)", "Windows"]
+    'Blockchain': {
+        'icon': '<i class="fa-solid fa-link"></i>',
+        'color': '#10B981',
+        'skills': ['Ethereum', 'Solidity', 'Blockchain'],
+        'count': 3
     },
-    "Networking": {
-        "icon": "🌐",
-        "skills": ["VPC/VNet", "DNS", "Load Balancers", "Security Groups"]
+    'Operating Systems': {
+        'icon': '<i class="fa-solid fa-computer"></i>',
+        'color': '#6B7280',
+        'skills': ['Linux', 'Windows'],
+        'count': 2
+    },
+    'Networking': {
+        'icon': '<i class="fa-solid fa-globe"></i>',
+        'color': '#6366F1',
+        'skills': ['VPC/VNet', 'DNS', 'Load Balancers', 'Security Groups'],
+        'count': 4
     }
 }
 
+# Projects data
 projects_data = [
     {
-        "title": "Guardian AI: Zero-Trust Multi-Modal Compliance & Risk Auditor",
-        "description": "Engineered a privacy-preserving MLOps pipeline using Federated Learning (FL) and Homomorphic Encryption (HE) to securely audit multi-modal data, and integrated a private blockchain to provide an immutable, verifiable audit trail.",
-        "link": "https://mukeshpyatla-guardian-ai-auditor-srcuiapp-c6jflx.streamlit.app/",
-        "icon": "🛡️"
+        'title': 'DeFi Fraud Detection',
+        'description': 'Comprehensive MLOps pipeline for detecting fraud in Decentralized Finance transactions with private-by-design approach and modern Streamlit dashboard.',
+        'status': 'LIVE',
+        'tech': ['Python', 'Streamlit', 'MLOps'],
+        'github': 'https://github.com/MukeshPyatla/DeFi_Fraud-Detection_MLOps_Pipeline',
+        'demo': 'https://defifraud-detectionmlopspipeline.streamlit.app/',
+        'icon': '<i class="fa-solid fa-shield-halved"></i>'
     },
     {
-        "title": "DeFi Fraud Detection MLOps Pipeline",
-        "description": "A comprehensive MLOps pipeline for detecting fraud in Decentralized Finance (DeFi) transactions with a private-by-design approach and modern Streamlit dashboard.",
-        "link": "https://defifraud-detectionmlopspipeline.streamlit.app/",
-        "icon": "💰"
+        'title': 'Guardian AI Auditor',
+        'description': 'Zero-trust multi-modal compliance & risk auditor with privacy-preserving MLOps pipeline using Federated Learning and Homomorphic Encryption.',
+        'status': 'LIVE',
+        'tech': ['Federated Learning', 'Homomorphic Encryption', 'Blockchain'],
+        'github': 'https://github.com/MukeshPyatla/guardian-ai-auditor',
+        'demo': 'https://mukeshpyatla-guardian-ai-auditor-srcuiapp-c6jflx.streamlit.app/',
+        'icon': '<i class="fa-solid fa-robot"></i>'
     },
     {
-        "title": "MLOps QA System",
-        "description": "LLM-Powered Multi-Source Q&A System with Automated Freshness Pipeline - Advanced MLOps Demo",
-        "link": "https://mlops-app-system.streamlit.app/",
-        "icon": "❓"
+        'title': 'MLOps Q&A System',
+        'description': 'LLM-Powered Multi-Source Q&A System with Automated Freshness Pipeline - Advanced MLOps Demo with real-time updates.',
+        'status': 'LIVE',
+        'tech': ['LLM', 'RAG', 'Vector DB'],
+        'github': 'https://github.com/MukeshPyatla/mlops-qa-system',
+        'demo': 'https://mlops-app-system.streamlit.app/',
+        'icon': '<i class="fa-solid fa-comments"></i>'
     },
     {
-        "title": "Azure MLOps Anomaly Detector",
-        "description": "End-to-End MLOps pipeline for anomaly detection on Azure",
-        "link": "https://azure-mlops-anomaly-detector.streamlit.app/",
-        "icon": "🔍"
+        'title': 'Azure Anomaly Detector',
+        'description': 'End-to-End MLOps pipeline for anomaly detection on Azure with real-time monitoring and alerting system.',
+        'status': 'LIVE',
+        'tech': ['Azure', 'MLOps', 'Python'],
+        'github': 'https://github.com/MukeshPyatla/Azure-MLOPS-Anomaly-Detector',
+        'demo': 'https://azure-mlops-anomaly-detector.streamlit.app/',
+        'icon': '<i class="fa-solid fa-satellite-dish"></i>'
     },
     {
-        "title": "MLOps Secure Churn",
-        "description": "Secure customer churn prediction with MLOps pipeline",
-        "link": "https://mlops-secure-churn.streamlit.app/",
-        "icon": "📉"
+        'title': 'Secure Churn Prediction',
+        'description': 'Privacy-preserving customer churn prediction with PII masking and SHAP explainability in Azure Databricks.',
+        'status': 'LIVE',
+        'tech': ['Azure Databricks', 'SHAP', 'Data Security'],
+        'github': 'https://github.com/MukeshPyatla/MLOPS-Secure-Churn',
+        'demo': 'https://mlops-secure-churn.streamlit.app/',
+        'icon': '<i class="fa-solid fa-user-secret"></i>'
     },
     {
-        "title": "MLOps Demand Forecasting",
-        "description": "Advanced demand forecasting with MLOps pipeline",
-        "link": "https://mlops-demand-forecasting.streamlit.app/",
-        "icon": "📈"
+        'title': 'Demand Forecasting',
+        'description': 'Scalable demand forecasting system with integrated MLOps for continuous training and monitoring.',
+        'status': 'LIVE',
+        'tech': ['Python', 'Forecasting', 'MLOps'],
+        'github': 'https://github.com/MukeshPyatla/MLOPS-Demand-Forecasting',
+        'demo': 'https://mlops-demand-forecasting.streamlit.app/',
+        'icon': '<i class="fa-solid fa-chart-simple"></i>'
     }
 ]
 
+# Experience data
 experience_data = [
     {
-        "company": "Aidoc",
-        "position": "MLOps Engineer",
-        "period": "Oct 2023 - Present",
-        "description": [
-            "Engineered and implemented a robust monitoring and alerting system with Prometheus and Grafana to track critical LLM performance metrics, ensuring GenAI model reliability and reducing the mean time to detection for issues by over 70%.",
-            "Designed and deployed a CI/CD pipeline for GenAI applications using GitLab CI, decreasing model deployment time by 80% and enabling faster RAG framework updates and feature delivery.",
-            "Automated the provisioning of cloud infrastructure on Azure using Terraform, to support a full RAG stack including Vector Databases, eliminating manual setup and reducing infrastructure costs by 20% by optimizing resource allocation.",
-            "Developed containerized GenAI microservices with BentoML and Kubernetes, ensuring production environments were scalable and consistent with development, which solved the problem of 'it works on my machine' for multi-tool AI stacks.",
-            "Architected and integrated a private blockchain as an immutable audit trail for MLOps pipeline activities, ensuring full compliance and providing a verifiable record of every model change and data event."
+        'title': 'MLOps Engineer',
+        'company': 'Aidoc',
+        'period': 'Oct 2023 - Present',
+        'achievements': [
+            'Engineered monitoring system with Prometheus and Grafana, reducing MTTR by 70%',
+            'Deployed CI/CD pipeline for GenAI applications, decreasing deployment time by 80%',
+            'Automated cloud infrastructure with Terraform, reducing costs by 20%',
+            'Integrated private blockchain for immutable MLOps audit trail'
         ]
     },
     {
-        "company": "Missouri University of Science and Technology",
-        "position": "Graduate Research Assistant",
-        "period": "Apr 2023 - Sep 2023",
-        "location": "Rolla, MO",
-        "description": [
-            "Managed and scaled cloud computing resources on Azure to support computationally intensive machine learning experiments, ensuring project success and providing a stable environment for a team of 10 researchers.",
-            "Implemented Data Version Control (DVC) for project data and machine learning models to solve the problem of reproducibility, establishing an auditable lineage for all experiments and enabling seamless team collaboration.",
-            "Designed and executed CI/CD pipelines with Prefect for data processing and model training workflows, reducing environment setup time by 90% and streamlining the research workflow.",
-            "Managed and secured access controls to cloud resources for multiple research projects, ensuring data privacy and preventing unauthorized access in compliance with academic standards.",
-            "Provided technical support and mentorship to junior researchers on cloud computing best practices, which improved team efficiency and reduced resource mismanagement by 15%."
+        'title': 'Graduate Research Assistant',
+        'company': 'Missouri University of Science and Technology',
+        'period': 'Apr 2023 - Sep 2023',
+        'achievements': [
+            'Managed Azure cloud resources for ML experiments supporting 10 researchers',
+            'Implemented DVC for reproducible ML experiments',
+            'Designed CI/CD pipelines with Prefect, reducing setup time by 90%',
+            'Provided technical mentorship to junior researchers'
         ]
     },
     {
-        "company": "PineLabs",
-        "position": "Junior Systems Administrator | DevOps Engineer",
-        "period": "Jun 2021 - Dec 2022",
-        "location": "Bengaluru, India",
-        "description": [
-            "Contributed to the development of a CI/CD pipeline using Jenkins and Docker to automate software deployments, which reduced deployment errors by 30% and significantly improved the development cycle.",
-            "Automated routine system administration tasks using Bash and Python scripts, which solved the problem of manual labor and saved the team an average of 5 hours per week in server maintenance.",
-            "Managed and maintained Linux servers for a team of 5 developers, ensuring system stability and security, and achieving 99.9% uptime for internal applications.",
-            "Implemented a daily backup routine for all project data, which successfully prevented data loss during two critical system failures and ensured project continuity.",
-            "Assisted in troubleshooting and resolving infrastructure issues, which reduced downtime by 25% and allowed the development team to focus on coding."
+        'title': 'Junior Systems Administrator | DevOps Engineer',
+        'company': 'PineLabs',
+        'period': 'Jun 2021 - Dec 2022',
+        'achievements': [
+            'Developed CI/CD pipeline using Jenkins and Docker, reducing deployment errors by 30%',
+            'Automated system administration tasks, saving 5 hours/week',
+            'Maintained Linux servers achieving 99.9% uptime',
+            'Implemented backup routines preventing data loss during system failures'
         ]
     }
 ]
 
-def create_mlops_visualization():
-    """Create a modern MLOps pipeline visualization"""
-    fig = go.Figure()
-    
-    # Create a more sophisticated pipeline visualization
-    pipeline_steps = [
-        {"name": "Data Ingestion", "x": 0, "y": 0, "color": "#ff0064", "icon": "📥"},
-        {"name": "Preprocessing", "x": 2, "y": 0, "color": "#00ffc8", "icon": "🔧"},
-        {"name": "Model Training", "x": 4, "y": 0, "color": "#ff0064", "icon": "🤖"},
-        {"name": "Validation", "x": 6, "y": 0, "color": "#00ffc8", "icon": "✅"},
-        {"name": "Deployment", "x": 8, "y": 0, "color": "#ff0064", "icon": "🚀"},
-        {"name": "Monitoring", "x": 10, "y": 0, "color": "#00ffc8", "icon": "📊"}
-    ]
-    
-    # Add pipeline nodes with icons
-    for step in pipeline_steps:
-        fig.add_trace(go.Scatter(
-            x=[step["x"]],
-            y=[step["y"]],
-            mode='markers+text',
-            marker=dict(
-                size=40,
-                color=step["color"],
-                line=dict(width=3, color='white'),
-                symbol='circle'
-            ),
-            text=step["icon"],
-            textposition="middle center",
-            textfont=dict(size=16, color='white'),
-            name=step["name"],
-            showlegend=False
-        ))
-        
-        # Add step labels
-        fig.add_trace(go.Scatter(
-            x=[step["x"]],
-            y=[step["y"] - 0.8],
-            mode='text',
-            text=step["name"],
-            textposition="middle center",
-            textfont=dict(size=10, color='#cccccc'),
-            showlegend=False
-        ))
-    
-    # Add connecting lines with gradient
-    for i in range(len(pipeline_steps) - 1):
-        fig.add_trace(go.Scatter(
-            x=[pipeline_steps[i]["x"], pipeline_steps[i+1]["x"]],
-            y=[pipeline_steps[i]["y"], pipeline_steps[i+1]["y"]],
-            mode='lines',
-            line=dict(color='#ff0064', width=4),
-            showlegend=False
-        ))
-    
-    # Add floating tech elements
-    tech_elements = [
-        {"name": "K8s", "x": 1, "y": 1.5, "color": "#ff0064", "icon": "☸️"},
-        {"name": "Docker", "x": 3, "y": -1.5, "color": "#00ffc8", "icon": "🐳"},
-        {"name": "Terraform", "x": 5, "y": 1.5, "color": "#ff0064", "icon": "🏗️"},
-        {"name": "Prometheus", "x": 7, "y": -1.5, "color": "#00ffc8", "icon": "📈"},
-        {"name": "Grafana", "x": 9, "y": 1.5, "color": "#ff0064", "icon": "📊"}
-    ]
-    
-    for elem in tech_elements:
-        fig.add_trace(go.Scatter(
-            x=[elem["x"]],
-            y=[elem["y"]],
-            mode='markers+text',
-            marker=dict(
-                size=25,
-                color=elem["color"],
-                symbol='diamond',
-                line=dict(width=2, color='white')
-            ),
-            text=elem["icon"],
-            textposition="middle center",
-            textfont=dict(size=12, color='white'),
-            name=elem["name"],
-            showlegend=False
-        ))
-    
-    fig.update_layout(
-        title="MLOps Pipeline Architecture",
-        title_font=dict(size=24, color='#ff0064'),
-        plot_bgcolor='rgba(0,0,0,0)',
-        paper_bgcolor='rgba(0,0,0,0)',
-        xaxis=dict(showgrid=False, showticklabels=False, range=[-1, 11]),
-        yaxis=dict(showgrid=False, showticklabels=False, range=[-2, 2]),
-        margin=dict(l=0, r=0, t=80, b=0),
-        height=400
-    )
-    
-    return fig
+# Dashboard metrics data
+dashboard_metrics = {
+    'DeFi Fraud Detection': {
+        'accuracy': '99.2%',
+        'transactions': '1.2K',
+        'response': '45ms',
+        'false_positives': '0.8%'
+    },
+    'Guardian AI Auditor': {
+        'privacy': '100%',
+        'audits': '2.5K',
+        'breaches': '0',
+        'audit_trail': 'Immutable'
+    },
+    'MLOps Observability': {
+        'monitoring': '24/7',
+        'alerts': '0',
+        'uptime': '99.9%',
+        'response': '5min'
+    }
+}
 
 def main():
-    load_css()
-    
-    # Animated Background
-    st.markdown("""
-    <div class="bg-animation"></div>
-    <div class="floating-elements">
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Navigation
-    st.markdown("""
-    <div class="nav-container">
-        <div class="nav-content">
-            <div class="nav-logo">Mukesh Yadav</div>
-            <div class="nav-links">
-                <a href="#about" class="nav-link">About</a>
-                <a href="#skills" class="nav-link">Skills</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#experience" class="nav-link">Experience</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
     # Hero Section
     st.markdown("""
     <div class="hero-section">
-        <div class="hero-content">
-            <div class="hero-badge">MLOps Engineer</div>
-            <h1 class="hero-title">Building the Future of <span>AI Infrastructure</span></h1>
-            <h2 class="hero-subtitle">Specialized in MLOps, DevOps, and Cloud Architecture</h2>
-            <p class="hero-description">
-                A passionate engineer building scalable and secure AI pipelines on Azure. 
-                Expert in automation, data-driven solutions, and robust model deployment with expertise in 
-                Federated Learning, Homomorphic Encryption, and blockchain-based audit trails.
+        <div style="position: relative; z-index: 1;">
+            <h1 class="section-title">Mukesh Yadav</h1>
+            <h2 style="font-size: 2.5rem; color: #6366F1; margin-bottom: 20px; text-align: center; font-weight: 600;">MLOPS & DEVOPS ENGINEER</h2>
+            <h3 style="font-size: 1.5rem; color: #9CA3AF; margin-bottom: 40px; text-align: center; font-weight: 400;">Building Intelligent Systems on Azure & AWS Cloud</h3>
+            <p style="font-size: 1.3rem; color: #D1D5DB; line-height: 1.8; margin-bottom: 40px; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Specializing in end-to-end MLOps pipelines, automated CI/CD workflows, and scalable cloud infrastructure. 
+                Passionate about deploying production-ready AI/ML systems with robust monitoring and observability.
             </p>
-            
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <div class="stat-number">80%</div>
-                    <div class="stat-label">Faster Deployments</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">70%</div>
-                    <div class="stat-label">Reduced MTTR</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">20%</div>
-                    <div class="stat-label">Cost Savings</div>
-                </div>
-            </div>
-            
-            <div class="hero-buttons">
+            <div style="display: flex; gap: 20px; margin-top: 40px; justify-content: center;">
                 <a href="#projects" class="btn-primary">View Projects</a>
-                <a href="mailto:mukeshyadavp91@gmail.com" class="btn-secondary">Get In Touch</a>
+                <a href="#dashboards" class="btn-secondary">Live Dashboards</a>
             </div>
         </div>
     </div>
     """, unsafe_allow_html=True)
     
-    # Skills Section
+    # Key metrics
+    cols = st.columns(4)
+    metric_data = [
+        {'value': '80%', 'label': 'Faster Deployments'},
+        {'value': '70%', 'label': 'Reduced MTTR'},
+        {'value': '47', 'label': 'Technical Skills'},
+        {'value': '6', 'label': 'Live Projects'},
+    ]
+    
+    for col, data in zip(cols, metric_data):
+        with col:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-value">{data['value']}</div>
+                <div class="metric-label">{data['label']}</div>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    # Section Divider
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
+    
+    # About Section with DevOps Visual
+    st.markdown('<h1 class="section-title">About Me</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="section-subtitle">Architecting the future of AI infrastructure</p>', unsafe_allow_html=True)
+    
+    # DevOps Visual Representation
     st.markdown("""
-    <div class="section" id="skills">
-        <div class="section-header">
-            <div class="section-badge">Technical Expertise</div>
-            <h2 class="section-title">Skills & Technologies</h2>
-            <p class="section-subtitle">Comprehensive expertise across the MLOps and DevOps ecosystem</p>
+    <div class="devops-visual">
+        <div style="position: relative; z-index: 1;">
+            <h3 style="color: white; font-size: 1.5rem; margin-bottom: 20px; text-align: center;">MLOps Pipeline Architecture</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px;">
+                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <span style="font-size: 2rem; margin-bottom: 10px; display: block;">📊</span>
+                    <h4 style="color: #6366F1; margin: 10px 0;">Data Ingestion</h4>
+                    <p style="color: #9CA3AF; font-size: 0.9rem;">Real-time data processing with Apache Kafka</p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <span style="font-size: 2rem; margin-bottom: 10px; display: block;">🤖</span>
+                    <h4 style="color: #6366F1; margin: 10px 0;">Model Training</h4>
+                    <p style="color: #9CA3AF; font-size: 0.9rem;">Automated ML pipeline with MLflow</p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <span style="font-size: 2rem; margin-bottom: 10px; display: block;">🚀</span>
+                    <h4 style="color: #6366F1; margin: 10px 0;">Deployment</h4>
+                    <p style="color: #9CA3AF; font-size: 0.9rem;">Kubernetes orchestration with ArgoCD</p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <span style="font-size: 2rem; margin-bottom: 10px; display: block;">📈</span>
+                    <h4 style="color: #6366F1; margin: 10px 0;">Monitoring</h4>
+                    <p style="color: #9CA3AF; font-size: 0.9rem;">Prometheus & Grafana observability</p>
+                </div>
+            </div>
         </div>
-        <div class="skills-container">
-            <div class="skills-grid">
+    </div>
     """, unsafe_allow_html=True)
     
-    for category, data in skills_data.items():
-        st.markdown(f"""
-        <div class="skill-card">
-            <div class="skill-icon">{data['icon']}</div>
-            <h3 class="skill-title">{category}</h3>
-            <div class="skill-tags">
-        """, unsafe_allow_html=True)
-        
-        for skill in data['skills']:
-            st.markdown(f'<span class="skill-tag">{skill}</span>', unsafe_allow_html=True)
-        
-        st.markdown("</div></div>", unsafe_allow_html=True)
+    col1, col2 = st.columns([2, 1])
     
-    st.markdown("</div></div></div>", unsafe_allow_html=True)
+    with col1:
+        st.markdown("""
+        <div style="background: rgba(255, 255, 255, 0.02); border-radius: 20px; padding: 40px; margin: 20px 0; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px);">
+            <p style="font-size: 1.1rem; line-height: 1.8; color: #D1D5DB; margin-bottom: 20px;">
+                As an MLOps Engineer at Aidoc, I architect and deploy intelligent systems that process millions of data points daily. 
+                My expertise spans from building robust monitoring systems with Prometheus and Grafana to implementing CI/CD pipelines 
+                that reduce deployment time by 80%.
+            </p>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: #D1D5DB; margin-bottom: 20px;">
+                I specialize in privacy-preserving AI using Federated Learning and Homomorphic Encryption, ensuring compliance while 
+                maintaining model performance. My work includes developing containerized GenAI microservices with BentoML and Kubernetes, 
+                solving the classic "it works on my machine" problem.
+            </p>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: #D1D5DB;">
+                Currently exploring cutting-edge technologies like LLMOps, Vector Databases for RAG systems, and blockchain integration 
+                for immutable audit trails in MLOps pipelines.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div style="text-align: center; padding: 20px;">
+            <div style="width: 200px; height: 200px; background: linear-gradient(135deg, #6366F1, #A855F7); 
+                        border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; 
+                        font-size: 4rem; color: white; box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);">
+                MY
+            </div>
+            <h3 style="color: #6366F1; margin-bottom: 10px; font-weight: 600;">Mukesh Yadav</h3>
+            <p style="color: #9CA3AF;">MLOps & DevOps Engineer</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Section Divider
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
+    
+    # Skills Section
+    st.markdown('<h1 class="section-title">Technical Skills</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="section-subtitle">Comprehensive skills across the MLOps and DevOps ecosystem</p>', unsafe_allow_html=True)
+    
+    # Create columns for skill categories
+    cols = st.columns(3)
+    
+    for i, (category, data) in enumerate(skills_data.items()):
+        with cols[i % 3]:
+            st.markdown(f"""
+            <div class="category-card">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <span style="font-size: 3rem; color: {data['color']};">{data['icon']}</span>
+                </div>
+                <h3 style="color: white; font-size: 1.3rem; margin-bottom: 10px; text-align: center; font-weight: 600;">{category}</h3>
+                <p style="color: #9CA3AF; font-size: 0.9rem; text-align: center; margin-bottom: 15px;">
+                    {', '.join(data['skills'][:3])}{'...' if len(data['skills']) > 3 else ''}
+                </p>
+                <div style="text-align: center;">
+                    <span style="color: {data['color']}; font-size: 0.8rem; font-weight: 500;">{data['count']} skills</span>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    # Skills details with interactive tabs
+    st.markdown('<h2 style="color: white; margin-top: 60px; text-align: center; font-size: 2rem;">Detailed Skills Breakdown</h2>', unsafe_allow_html=True)
+    
+    # Create tabs for different skill categories
+    skill_tabs = st.tabs([f"{skills_data[category]['icon']} {category}" for category in skills_data])
+    
+    for i, (category, data) in enumerate(skills_data.items()):
+        with skill_tabs[i]:
+            st.markdown(f"""
+            <div style="background: rgba(255, 255, 255, 0.02); border-radius: 16px; padding: 30px; margin: 10px 0; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <h3 style="color: {data['color']}; font-size: 1.8rem; margin-bottom: 25px; text-align: center; font-weight: 600;">{category}</h3>
+                <div class="skill-grid">
+            """, unsafe_allow_html=True)
+            
+            for skill in data['skills']:
+                st.markdown(f"""
+                <div class="skill-item">
+                    <span style="color: {data['color']}; font-weight: 600; font-size: 1rem;">{skill}</span>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            st.markdown("</div></div>", unsafe_allow_html=True)
+    
+    # Section Divider
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
     
     # Projects Section
-    st.markdown("""
-    <div class="section" id="projects">
-        <div class="section-header">
-            <div class="section-badge">Live Demonstrations</div>
-            <h2 class="section-title">Projects & Dashboards</h2>
-            <p class="section-subtitle">End-to-end MLOps and DevOps solutions with live dashboards</p>
-        </div>
-        <div class="projects-grid">
-    """, unsafe_allow_html=True)
+    st.markdown('<h1 class="section-title" id="projects">Featured Projects</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="section-subtitle">End-to-end MLOps and DevOps solutions with live dashboards</p>', unsafe_allow_html=True)
     
     for project in projects_data:
         st.markdown(f"""
         <div class="project-card">
-            <div class="project-header">
-                <div class="project-icon">{project['icon']}</div>
-                <h3 class="project-title">{project['title']}</h3>
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <span style="font-size: 2.5rem; margin-right: 20px; color: #6366F1;">{project['icon']}</span>
+                <div>
+                    <h3 style="color: white; font-size: 1.8rem; margin: 0; font-weight: 600;">{project['title']}</h3>
+                    <div style="display: flex; align-items: center; margin-top: 8px;">
+                        <span class="status-live"></span>
+                        <span style="color: #10B981; font-size: 1rem; font-weight: 600;">{project['status']}</span>
+                    </div>
+                </div>
             </div>
-            <p class="project-desc">{project['description']}</p>
-            <a href="{project['link']}" target="_blank" class="project-link">
-                View Live Dashboard <i class="fas fa-external-link-alt"></i>
-            </a>
+            <p style="color: #9CA3AF; line-height: 1.7; margin-bottom: 20px; font-size: 1.1rem;">{project['description']}</p>
+            <div style="margin-bottom: 25px;">
+                {''.join([f'<span class="tech-tag">{tech}</span>' for tech in project['tech']])}
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <a href="{project['github']}" target="_blank" class="btn-secondary">GitHub</a>
+                <a href="{project['demo']}" target="_blank" class="btn-primary">Live Demo</a>
+            </div>
         </div>
         """, unsafe_allow_html=True)
     
-    st.markdown("</div></div>", unsafe_allow_html=True)
+    # Section Divider
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
     
-    # MLOps Visualization Section
-    st.markdown("""
-    <div class="section">
-        <div class="section-header">
-            <div class="section-badge">Pipeline Architecture</div>
-            <h2 class="section-title">MLOps Pipeline Visualization</h2>
-            <p class="section-subtitle">Interactive visualization of the complete MLOps workflow</p>
+    # Dashboards Section
+    st.markdown('<h1 class="section-title" id="dashboards">Live Dashboards</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="section-subtitle">Real-time monitoring and analytics dashboards for my projects</p>', unsafe_allow_html=True)
+    
+    for project_name, metrics in dashboard_metrics.items():
+        st.markdown(f"""
+        <div class="project-card">
+            <h3 style="color: white; font-size: 1.8rem; margin-bottom: 15px; font-weight: 600;">{project_name} Dashboard</h3>
+            <p style="color: #9CA3AF; margin-bottom: 25px; font-size: 1.1rem;">Real-time metrics and performance monitoring</p>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 25px;">
+        """, unsafe_allow_html=True)
+        
+        for metric_name, value in metrics.items():
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-value">{value}</div>
+                <div class="metric-label">{metric_name.replace('_', ' ').title()}</div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        st.markdown("""
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <a href="#" class="btn-primary">View Dashboard</a>
+                <a href="#" class="btn-secondary">Source Code</a>
+            </div>
         </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
     
-    fig = create_mlops_visualization()
-    st.plotly_chart(fig, use_container_width=True)
-    
-    st.markdown("</div>", unsafe_allow_html=True)
+    # Section Divider
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
     
     # Experience Section
-    st.markdown("""
-    <div class="section" id="experience">
-        <div class="section-header">
-            <div class="section-badge">Professional Journey</div>
-            <h2 class="section-title">Work Experience</h2>
-            <p class="section-subtitle">My professional journey in MLOps and DevOps</p>
-        </div>
-        <div class="timeline">
-    """, unsafe_allow_html=True)
+    st.markdown('<h1 class="section-title">Professional Journey</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="section-subtitle">Building the future of AI infrastructure</p>', unsafe_allow_html=True)
     
-    for i, exp in enumerate(experience_data):
+    for exp in experience_data:
         st.markdown(f"""
         <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-                <h3 class="timeline-title">{exp['position']}</h3>
-                <div class="timeline-company">{exp['company']}</div>
-                <div class="timeline-period">{exp['period']}{' - ' + exp['location'] if 'location' in exp else ''}</div>
-                <div class="timeline-desc">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 style="color: white; font-size: 1.5rem; margin: 0; font-weight: 600;">{exp['title']}</h3>
+                <span style="color: #10B981; font-size: 1rem; font-weight: 500;">{exp['period']}</span>
+            </div>
+            <h4 style="color: #6366F1; font-size: 1.3rem; margin-bottom: 20px; font-weight: 600;">{exp['company']}</h4>
+            <ul style="color: #9CA3AF; line-height: 1.8; font-size: 1.1rem; list-style-type: '—  '; padding-left: 20px;">
         """, unsafe_allow_html=True)
         
-        for desc in exp['description']:
-            st.markdown(f"• {desc}<br>", unsafe_allow_html=True)
+        for achievement in exp['achievements']:
+            st.markdown(f'<li style="margin-bottom: 8px;">{achievement}</li>', unsafe_allow_html=True)
         
-        st.markdown("</div></div></div>", unsafe_allow_html=True)
+        st.markdown("</ul></div>", unsafe_allow_html=True)
     
-    st.markdown("</div></div>", unsafe_allow_html=True)
+    # Section Divider
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
     
     # Contact Section
+    st.markdown('<h1 class="section-title">Let\'s Connect</h1>', unsafe_allow_html=True)
+    st.markdown('<h2 style="text-align: center; color: #6366F1; font-size: 2.5rem; margin-bottom: 20px; font-weight: 600;">Ready to Build the Future Together</h2>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align: center; color: #9CA3AF; font-size: 1.2rem; margin-bottom: 50px; max-width: 600px; margin-left: auto; margin-right: auto;">I\'m actively seeking opportunities to architect and scale AI solutions. If you\'re looking for a passionate engineer to solve complex challenges in MLOps and DevOps, let\'s connect.</p>', unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("""
+        <div style="text-align: center; padding: 40px; background: rgba(255, 255, 255, 0.02); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px);">
+            <span style="font-size: 3rem;">📧</span>
+            <h3 style="color: white; margin: 20px 0; font-weight: 600;">Email</h3>
+            <p style="color: #9CA3AF; font-size: 1.1rem;">mukeshyadavp91@gmail.com</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div style="text-align: center; padding: 40px; background: rgba(255, 255, 255, 0.02); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px);">
+            <span style="font-size: 3rem;">💼</span>
+            <h3 style="color: white; margin: 20px 0; font-weight: 600;">LinkedIn</h3>
+            <p style="color: #9CA3AF; font-size: 1.1rem;">linkedin.com/in/mukesh-mlops</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown("""
+        <div style="text-align: center; padding: 40px; background: rgba(255, 255, 255, 0.02); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px);">
+            <span style="font-size: 3rem;">🐙</span>
+            <h3 style="color: white; margin: 20px 0; font-weight: 600;">GitHub</h3>
+            <p style="color: #9CA3AF; font-size: 1.1rem;">github.com/MukeshPyatla</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
     st.markdown("""
-    <div class="section" id="contact">
-        <div class="section-header">
-            <div class="section-badge">Get In Touch</div>
-            <h2 class="section-title">Contact Information</h2>
-            <p class="section-subtitle">Ready to build the future together? Let's connect!</p>
-        </div>
-        <div class="contact-grid">
-            <div class="contact-card">
-                <div class="contact-icon">📧</div>
-                <div class="contact-title">Email</div>
-                <div class="contact-value">mukeshyadavp91@gmail.com</div>
-            </div>
-            <div class="contact-card">
-                <div class="contact-icon">📱</div>
-                <div class="contact-title">Phone</div>
-                <div class="contact-value">+1-573-639-8737</div>
-            </div>
-            <div class="contact-card">
-                <div class="contact-icon">🎓</div>
-                <div class="contact-title">Education</div>
-                <div class="contact-value">Master of Science, Computer Science<br>Missouri University of Science and Technology</div>
-            </div>
-            <div class="contact-card">
-                <div class="contact-icon">🏆</div>
-                <div class="contact-title">Certifications</div>
-                <div class="contact-value">Azure Administrator Associate (AZ-104)<br>AWS Certified Developer - Associate</div>
-            </div>
-        </div>
+    <div style="text-align: center; margin-top: 50px;">
+        <a href="mailto:mukeshyadavp91@gmail.com" class="btn-primary">Get In Touch</a>
     </div>
     """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    main() 
+    main()
