@@ -167,26 +167,11 @@ def load_css():
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    
-    .tech-tag {
-        background: #63b3ed; /* Light blue background as requested */
-        color: #1a1a1a; /* Black text color for high contrast */
-        font-size: 0.75rem;
-        font-weight: 500;
-        padding: 6px 12px;
-        border-radius: 20px;
-        margin: 4px;
-        display: inline-block;
-        border: 1px solid rgba(99, 102, 241, 0.2);
-    }
-    
-    .timeline-item {
-        border-left: 4px solid #63b3ed; /* Light contrast blue */
-    }
-    
+
+    /* === FIX: HIGH-CONTRAST TEXT STYLING === */
     .btn-primary {
-        background: linear-gradient(135deg, #63b3ed, #9f7aea); /* Light contrast blue gradient */
-        color: #1a1a1a; /* Black text color for high contrast */
+        background: linear-gradient(135deg, #63b3ed, #9f7aea);
+        color: #1a1a1a !important; /* Force black text for high contrast */
         border: none;
         padding: 14px 28px;
         border-radius: 12px;
@@ -200,6 +185,22 @@ def load_css():
     .btn-primary:hover {
         transform: translateY(-2px);
         box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+    }
+
+    .tech-tag {
+        background: #63b3ed; /* Light blue background */
+        color: #1a1a1a !important; /* Force black text */
+        font-size: 0.75rem;
+        font-weight: 500;
+        padding: 6px 12px;
+        border-radius: 20px;
+        margin: 4px;
+        display: inline-block;
+        border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+    
+    .timeline-item {
+        border-left: 4px solid #63b3ed; /* Light contrast blue */
     }
     
     .btn-secondary {
@@ -248,10 +249,11 @@ def load_css():
         transition: all 0.3s ease;
     }
     
+    /* The fix for the active tab title color */
     .stTabs [aria-selected="true"] {
         background: rgba(99, 102, 241, 0.2);
         border-color: #63b3ed; /* Light contrast blue */
-        color: #1a1a1a; /* Black text color on active tab */
+        color: #1a1a1a !important; /* Force black text */
         box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
     }
     
@@ -644,8 +646,7 @@ def main():
     # Skills details with interactive tabs
     st.markdown('<h2 style="color: white; margin-top: 60px; text-align: center; font-size: 2rem;">Detailed Skills Breakdown</h2>', unsafe_allow_html=True)
     
-    # Create tabs with plain text titles.
-    # The fix: Pass only the category name to st.tabs
+    # The fix: Create tabs with plain text titles.
     skill_tabs = st.tabs([category for category in skills_data.keys()])
     
     for i, (category, data) in enumerate(skills_data.items()):
