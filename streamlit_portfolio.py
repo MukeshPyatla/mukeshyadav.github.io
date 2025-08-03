@@ -185,6 +185,30 @@ def load_css():
         margin: 60px 0;
         border-radius: 1px;
     }
+    
+    /* Improve expandable sections */
+    .streamlit-expanderHeader {
+        background: rgba(139, 92, 246, 0.1) !important;
+        border: 1px solid rgba(139, 92, 246, 0.3) !important;
+        border-radius: 8px !important;
+        color: white !important;
+        font-weight: 600 !important;
+        padding: 12px 16px !important;
+        margin: 8px 0 !important;
+    }
+    
+    .streamlit-expanderHeader:hover {
+        background: rgba(139, 92, 246, 0.2) !important;
+        border-color: rgba(139, 92, 246, 0.5) !important;
+    }
+    
+    .streamlit-expanderContent {
+        background: rgba(0, 0, 0, 0.3) !important;
+        border: 1px solid rgba(139, 92, 246, 0.2) !important;
+        border-radius: 8px !important;
+        margin: 8px 0 !important;
+        padding: 16px !important;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -493,19 +517,26 @@ def main():
             """, unsafe_allow_html=True)
     
     # Skills details in expandable sections
-    st.markdown('<h2 style="color: white; margin-top: 40px;">Detailed Skills</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 style="color: white; margin-top: 40px; text-align: center;">Detailed Skills Breakdown</h2>', unsafe_allow_html=True)
     
-    for category, data in skills_data.items():
-        with st.expander(f"{data['icon']} {category} ({data['count']} skills)"):
-            cols = st.columns(3)
-            for i, skill in enumerate(data['skills']):
-                with cols[i % 3]:
-                    st.markdown(f"""
-                    <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); 
-                                border-radius: 8px; padding: 12px; text-align: center; margin: 8px 0;">
-                        <span style="color: {data['color']}; font-weight: 600;">{skill}</span>
-                    </div>
-                    """, unsafe_allow_html=True)
+    # Create a more organized layout for detailed skills
+    for i, (category, data) in enumerate(skills_data.items()):
+        with st.expander(f"{data['icon']} {category} ({data['count']} skills)", expanded=False):
+            st.markdown(f"""
+            <div style="background: rgba(0, 0, 0, 0.4); border-radius: 12px; padding: 20px; margin: 10px 0;">
+                <h3 style="color: {data['color']}; font-size: 1.2rem; margin-bottom: 15px; text-align: center;">{category}</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;">
+            """, unsafe_allow_html=True)
+            
+            for skill in data['skills']:
+                st.markdown(f"""
+                <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); 
+                            border-radius: 8px; padding: 12px; text-align: center; margin: 5px 0;">
+                    <span style="color: {data['color']}; font-weight: 600; font-size: 0.9rem;">{skill}</span>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            st.markdown("</div></div>", unsafe_allow_html=True)
     
     # Section Divider
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
