@@ -186,7 +186,7 @@ def load_css():
     
     .btn-primary {
         background: linear-gradient(135deg, #63b3ed, #9f7aea); /* Light contrast blue gradient */
-        color: white;
+        color: #1a1a1a; /* Black text color for high contrast */
         border: none;
         padding: 14px 28px;
         border-radius: 12px;
@@ -251,7 +251,7 @@ def load_css():
     .stTabs [aria-selected="true"] {
         background: rgba(99, 102, 241, 0.2);
         border-color: #63b3ed; /* Light contrast blue */
-        color: white;
+        color: #1a1a1a; /* Black text color on active tab */
         box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
     }
     
@@ -644,8 +644,7 @@ def main():
     # Skills details with interactive tabs
     st.markdown('<h2 style="color: white; margin-top: 60px; text-align: center; font-size: 2rem;">Detailed Skills Breakdown</h2>', unsafe_allow_html=True)
     
-    # Create tabs with plain text titles.
-    # The fix: Pass only the category name to st.tabs
+    # The fix: Create tabs with plain text titles.
     skill_tabs = st.tabs([category for category in skills_data.keys()])
     
     for i, (category, data) in enumerate(skills_data.items()):
