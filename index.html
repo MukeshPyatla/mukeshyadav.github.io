@@ -343,10 +343,19 @@
         .skill-item {
             position: relative;
             @apply flex flex-col items-center justify-center p-4 bg-gray-900/30 rounded-lg transition-all duration-300;
+            cursor: pointer;
         }
         .skill-item:hover {
             transform: translateY(-5px);
             background: rgba(22, 27, 34, 0.7);
+        }
+        .skill-item i {
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 0 rgba(139, 92, 246, 0));
+        }
+        .skill-item:hover i {
+            filter: drop-shadow(0 0 8px currentColor);
+            transform: scale(1.1);
         }
 
         /* Timeline */
@@ -507,71 +516,71 @@
             </div>
             <div class="mt-16 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8" data-aos="fade-up" data-aos-delay="100">
                 <!-- Cloud & DevOps -->
-                <div class="skill-item" data-skill="aws"><i class="fab fa-aws fa-3x text-green-400 mb-2"></i><p>AWS</p></div>
-                <div class="skill-item" data-skill="azure"><i class="fab fa-microsoft fa-3x text-blue-400 mb-2"></i><p>Azure</p></div>
-                <div class="skill-item" data-skill="terraform"><i class="fas fa-server fa-3x text-purple-400 mb-2"></i><p>Terraform</p></div>
-                <div class="skill-item" data-skill="docker"><i class="fab fa-docker fa-3x text-blue-500 mb-2"></i><p>Docker</p></div>
-                <div class="skill-item" data-skill="kubernetes"><i class="fas fa-dharmachakra fa-3x text-blue-600 mb-2"></i><p>Kubernetes</p></div>
-                <div class="skill-item" data-skill="cicd"><i class="fab fa-github fa-3x text-gray-300 mb-2"></i><p>CI/CD</p></div>
+                <div class="skill-item"><i class="fab fa-aws fa-3x text-green-400 mb-2"></i><p>AWS</p></div>
+                <div class="skill-item"><i class="fab fa-microsoft fa-3x text-blue-400 mb-2"></i><p>Azure</p></div>
+                <div class="skill-item"><i class="fas fa-server fa-3x text-purple-400 mb-2"></i><p>Terraform</p></div>
+                <div class="skill-item"><i class="fab fa-docker fa-3x text-blue-500 mb-2"></i><p>Docker</p></div>
+                <div class="skill-item"><i class="fas fa-dharmachakra fa-3x text-blue-600 mb-2"></i><p>Kubernetes</p></div>
+                <div class="skill-item"><i class="fab fa-github fa-3x text-gray-300 mb-2"></i><p>CI/CD</p></div>
                 
                 <!-- AI/ML Frameworks -->
-                <div class="skill-item" data-skill="pytorch"><i class="fas fa-brain fa-3x text-orange-500 mb-2"></i><p>PyTorch</p></div>
-                <div class="skill-item" data-skill="tensorflow"><i class="fas fa-network-wired fa-3x text-orange-600 mb-2"></i><p>TensorFlow</p></div>
-                <div class="skill-item" data-skill="langchain"><i class="fas fa-link fa-3x text-blue-400 mb-2"></i><p>LangChain</p></div>
-                <div class="skill-item" data-skill="fastapi"><i class="fas fa-rocket fa-3x text-green-500 mb-2"></i><p>FastAPI</p></div>
-                <div class="skill-item" data-skill="mlflow"><i class="fas fa-flask fa-3x text-orange-400 mb-2"></i><p>MLflow</p></div>
-                <div class="skill-item" data-skill="bentoml"><i class="fas fa-box fa-3x text-purple-500 mb-2"></i><p>BentoML</p></div>
+                <div class="skill-item"><i class="fas fa-brain fa-3x text-orange-500 mb-2"></i><p>PyTorch</p></div>
+                <div class="skill-item"><i class="fas fa-network-wired fa-3x text-orange-600 mb-2"></i><p>TensorFlow</p></div>
+                <div class="skill-item"><i class="fas fa-link fa-3x text-blue-400 mb-2"></i><p>LangChain</p></div>
+                <div class="skill-item"><i class="fas fa-rocket fa-3x text-green-500 mb-2"></i><p>FastAPI</p></div>
+                <div class="skill-item"><i class="fas fa-flask fa-3x text-orange-400 mb-2"></i><p>MLflow</p></div>
+                <div class="skill-item"><i class="fas fa-box fa-3x text-purple-500 mb-2"></i><p>BentoML</p></div>
                 
                 <!-- Programming Languages -->
-                <div class="skill-item" data-skill="python"><i class="fab fa-python fa-3x text-blue-500 mb-2"></i><p>Python</p></div>
-                <div class="skill-item" data-skill="golang"><i class="fas fa-code fa-3x text-blue-600 mb-2"></i><p>Go</p></div>
-                <div class="skill-item" data-skill="cpp"><i class="fas fa-cogs fa-3x text-blue-700 mb-2"></i><p>C++</p></div>
-                <div class="skill-item" data-skill="bash"><i class="fas fa-terminal fa-3x text-green-600 mb-2"></i><p>Bash</p></div>
-                <div class="skill-item" data-skill="sql"><i class="fas fa-database fa-3x text-blue-400 mb-2"></i><p>SQL</p></div>
+                <div class="skill-item"><i class="fab fa-python fa-3x text-blue-500 mb-2"></i><p>Python</p></div>
+                <div class="skill-item"><i class="fas fa-code fa-3x text-blue-600 mb-2"></i><p>Go</p></div>
+                <div class="skill-item"><i class="fas fa-cogs fa-3x text-blue-700 mb-2"></i><p>C++</p></div>
+                <div class="skill-item"><i class="fas fa-terminal fa-3x text-green-600 mb-2"></i><p>Bash</p></div>
+                <div class="skill-item"><i class="fas fa-database fa-3x text-blue-400 mb-2"></i><p>SQL</p></div>
                 
                 <!-- Data & Databases -->
-                <div class="skill-item" data-skill="pandas"><i class="fas fa-table fa-3x text-blue-500 mb-2"></i><p>Pandas</p></div>
-                <div class="skill-item" data-skill="spark"><i class="fas fa-fire fa-3x text-orange-500 mb-2"></i><p>Spark</p></div>
-                <div class="skill-item" data-skill="dvc"><i class="fas fa-version fa-3x text-green-500 mb-2"></i><p>DVC</p></div>
-                <div class="skill-item" data-skill="pinecone"><i class="fas fa-cube fa-3x text-purple-400 mb-2"></i><p>Pinecone</p></div>
-                <div class="skill-item" data-skill="qdrant"><i class="fas fa-search fa-3x text-blue-500 mb-2"></i><p>Qdrant</p></div>
+                <div class="skill-item"><i class="fas fa-table fa-3x text-blue-500 mb-2"></i><p>Pandas</p></div>
+                <div class="skill-item"><i class="fas fa-fire fa-3x text-orange-500 mb-2"></i><p>Spark</p></div>
+                <div class="skill-item"><i class="fas fa-version fa-3x text-green-500 mb-2"></i><p>DVC</p></div>
+                <div class="skill-item"><i class="fas fa-cube fa-3x text-purple-400 mb-2"></i><p>Pinecone</p></div>
+                <div class="skill-item"><i class="fas fa-search fa-3x text-blue-500 mb-2"></i><p>Qdrant</p></div>
                 
                 <!-- Monitoring & Observability -->
-                <div class="skill-item" data-skill="prometheus"><i class="fas fa-chart-line fa-3x text-red-500 mb-2"></i><p>Prometheus</p></div>
-                <div class="skill-item" data-skill="grafana"><i class="fas fa-chart-bar fa-3x text-orange-500 mb-2"></i><p>Grafana</p></div>
-                <div class="skill-item" data-skill="elk"><i class="fas fa-search fa-3x text-yellow-500 mb-2"></i><p>ELK Stack</p></div>
-                <div class="skill-item" data-skill="backstage"><i class="fas fa-home fa-3x text-blue-400 mb-2"></i><p>Backstage</p></div>
-                <div class="skill-item" data-skill="wandb"><i class="fas fa-chart-area fa-3x text-orange-400 mb-2"></i><p>W&B</p></div>
+                <div class="skill-item"><i class="fas fa-chart-line fa-3x text-red-500 mb-2"></i><p>Prometheus</p></div>
+                <div class="skill-item"><i class="fas fa-chart-bar fa-3x text-orange-500 mb-2"></i><p>Grafana</p></div>
+                <div class="skill-item"><i class="fas fa-search fa-3x text-yellow-500 mb-2"></i><p>ELK Stack</p></div>
+                <div class="skill-item"><i class="fas fa-home fa-3x text-blue-400 mb-2"></i><p>Backstage</p></div>
+                <div class="skill-item"><i class="fas fa-chart-area fa-3x text-orange-400 mb-2"></i><p>W&B</p></div>
                 
                 <!-- CI/CD Tools -->
-                <div class="skill-item" data-skill="gitlab"><i class="fab fa-gitlab fa-3x text-orange-500 mb-2"></i><p>GitLab CI</p></div>
-                <div class="skill-item" data-skill="jenkins"><i class="fas fa-cog fa-3x text-red-500 mb-2"></i><p>Jenkins</p></div>
-                <div class="skill-item" data-skill="argocd"><i class="fas fa-ship fa-3x text-blue-500 mb-2"></i><p>ArgoCD</p></div>
-                <div class="skill-item" data-skill="tekton"><i class="fas fa-tools fa-3x text-purple-500 mb-2"></i><p>Tekton</p></div>
-                <div class="skill-item" data-skill="github-actions"><i class="fab fa-github fa-3x text-gray-300 mb-2"></i><p>GitHub Actions</p></div>
+                <div class="skill-item"><i class="fab fa-gitlab fa-3x text-orange-500 mb-2"></i><p>GitLab CI</p></div>
+                <div class="skill-item"><i class="fas fa-cog fa-3x text-red-500 mb-2"></i><p>Jenkins</p></div>
+                <div class="skill-item"><i class="fas fa-ship fa-3x text-blue-500 mb-2"></i><p>ArgoCD</p></div>
+                <div class="skill-item"><i class="fas fa-tools fa-3x text-purple-500 mb-2"></i><p>Tekton</p></div>
+                <div class="skill-item"><i class="fab fa-github fa-3x text-gray-300 mb-2"></i><p>GitHub Actions</p></div>
                 
                 <!-- AI/ML Concepts -->
-                <div class="skill-item" data-skill="mlops"><i class="fas fa-cogs fa-3x text-green-500 mb-2"></i><p>MLOps</p></div>
-                <div class="skill-item" data-skill="genai"><i class="fas fa-robot fa-3x text-blue-500 mb-2"></i><p>GenAI</p></div>
-                <div class="skill-item" data-skill="rag"><i class="fas fa-search fa-3x text-purple-500 mb-2"></i><p>RAG</p></div>
-                <div class="skill-item" data-skill="federated"><i class="fas fa-network-wired fa-3x text-green-600 mb-2"></i><p>Federated Learning</p></div>
-                <div class="skill-item" data-skill="homomorphic"><i class="fas fa-lock fa-3x text-blue-600 mb-2"></i><p>Homomorphic Encryption</p></div>
-                <div class="skill-item" data-skill="nlp"><i class="fas fa-comments fa-3x text-green-400 mb-2"></i><p>NLP</p></div>
+                <div class="skill-item"><i class="fas fa-cogs fa-3x text-green-500 mb-2"></i><p>MLOps</p></div>
+                <div class="skill-item"><i class="fas fa-robot fa-3x text-blue-500 mb-2"></i><p>GenAI</p></div>
+                <div class="skill-item"><i class="fas fa-search fa-3x text-purple-500 mb-2"></i><p>RAG</p></div>
+                <div class="skill-item"><i class="fas fa-network-wired fa-3x text-green-600 mb-2"></i><p>Federated Learning</p></div>
+                <div class="skill-item"><i class="fas fa-lock fa-3x text-blue-600 mb-2"></i><p>Homomorphic Encryption</p></div>
+                <div class="skill-item"><i class="fas fa-comments fa-3x text-green-400 mb-2"></i><p>NLP</p></div>
                 
                 <!-- Blockchain -->
-                <div class="skill-item" data-skill="ethereum"><i class="fas fa-link fa-3x text-purple-500 mb-2"></i><p>Ethereum</p></div>
-                <div class="skill-item" data-skill="solidity"><i class="fas fa-file-code fa-3x text-blue-500 mb-2"></i><p>Solidity</p></div>
-                <div class="skill-item" data-skill="blockchain"><i class="fas fa-cube fa-3x text-green-500 mb-2"></i><p>Blockchain</p></div>
+                <div class="skill-item"><i class="fas fa-link fa-3x text-purple-500 mb-2"></i><p>Ethereum</p></div>
+                <div class="skill-item"><i class="fas fa-file-code fa-3x text-blue-500 mb-2"></i><p>Solidity</p></div>
+                <div class="skill-item"><i class="fas fa-cube fa-3x text-green-500 mb-2"></i><p>Blockchain</p></div>
                 
                 <!-- Operating Systems -->
-                <div class="skill-item" data-skill="linux"><i class="fab fa-linux fa-3x text-yellow-500 mb-2"></i><p>Linux</p></div>
-                <div class="skill-item" data-skill="windows"><i class="fab fa-windows fa-3x text-blue-500 mb-2"></i><p>Windows</p></div>
+                <div class="skill-item"><i class="fab fa-linux fa-3x text-yellow-500 mb-2"></i><p>Linux</p></div>
+                <div class="skill-item"><i class="fab fa-windows fa-3x text-blue-500 mb-2"></i><p>Windows</p></div>
                 
                 <!-- Networking -->
-                <div class="skill-item" data-skill="vpc"><i class="fas fa-network-wired fa-3x text-blue-500 mb-2"></i><p>VPC/VNet</p></div>
-                <div class="skill-item" data-skill="dns"><i class="fas fa-globe fa-3x text-green-500 mb-2"></i><p>DNS</p></div>
-                <div class="skill-item" data-skill="loadbalancer"><i class="fas fa-balance-scale fa-3x text-blue-600 mb-2"></i><p>Load Balancers</p></div>
-                <div class="skill-item" data-skill="security"><i class="fas fa-shield-alt fa-3x text-red-500 mb-2"></i><p>Security Groups</p></div>
+                <div class="skill-item"><i class="fas fa-network-wired fa-3x text-blue-500 mb-2"></i><p>VPC/VNet</p></div>
+                <div class="skill-item"><i class="fas fa-globe fa-3x text-green-500 mb-2"></i><p>DNS</p></div>
+                <div class="skill-item"><i class="fas fa-balance-scale fa-3x text-blue-600 mb-2"></i><p>Load Balancers</p></div>
+                <div class="skill-item"><i class="fas fa-shield-alt fa-3x text-red-500 mb-2"></i><p>Security Groups</p></div>
             </div>
         </section>
 
@@ -1092,15 +1101,15 @@
                 });
             });
 
-            // Add hover effects to skill items
+            // Add soft hover effects to skill items
             const skillItems = document.querySelectorAll('.skill-item');
             skillItems.forEach(item => {
                 item.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px) scale(1.05)';
-                    this.style.boxShadow = '0 10px 25px rgba(139, 92, 246, 0.3)';
+                    this.style.transform = 'translateY(-3px)';
+                    this.style.boxShadow = '0 8px 20px rgba(139, 92, 246, 0.2)';
                 });
                 item.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
+                    this.style.transform = 'translateY(0)';
                     this.style.boxShadow = 'none';
                 });
             });
