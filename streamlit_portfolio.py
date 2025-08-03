@@ -355,6 +355,11 @@ def load_css():
             grid-template-columns: 1fr;
         }
     }
+    
+    /* Smooth scrolling for navigation */
+    html {
+        scroll-behavior: smooth;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -541,11 +546,11 @@ dashboard_metrics = {
         'breaches': '0',
         'audit_trail': 'Immutable'
     },
-    'MLOps Observability': {
-        'monitoring': '24/7',
-        'alerts': '0',
-        'uptime': '99.9%',
-        'response': '5min'
+    'MLOps Q&A System': {
+        'queries': '5.2K',
+        'accuracy': '94.5%',
+        'response': '2.3s',
+        'sources': '15+'
     }
 }
 
@@ -556,6 +561,7 @@ def get_project_links(project_name):
     for project in projects_data:
         if project['title'] == clean_name:
             return project['demo'], project['github']
+    # If no match found, return default links
     return "#", "#"
 
 def main():
@@ -582,8 +588,8 @@ def main():
                 Passionately deploying production-ready AI/ML systems with robust monitoring and observability.
             </p>
             <div style="display: flex; gap: 20px; margin-top: 40px; justify-content: center;">
-                <a href="#projects" class="btn-primary">View Projects</a>
-                <a href="#dashboards" class="btn-secondary">Live Dashboards</a>
+                <a href="#projects" class="btn-primary" style="text-decoration: none; display: inline-block;">View Projects</a>
+                <a href="#dashboards" class="btn-secondary" style="text-decoration: none; display: inline-block;">Live Dashboards</a>
             </div>
         </div>
     </div>
@@ -738,8 +744,8 @@ def main():
         st.markdown(f"""
             </div>
             <div style="display: flex; gap: 15px; justify-content: center;">
-                <a href="{demo_link}" target="_blank" class="btn-primary">View Dashboard</a>
-                <a href="{github_link}" target="_blank" class="btn-secondary">Source Code</a>
+                <a href="{demo_link}" target="_blank" class="btn-primary" style="text-decoration: none; display: inline-block;">View Dashboard</a>
+                <a href="{github_link}" target="_blank" class="btn-secondary" style="text-decoration: none; display: inline-block;">Source Code</a>
             </div>
         </div>
         """, unsafe_allow_html=True)
