@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mukesh Yadav - Cloud & MLOps Engineer</title>
+    <title>Mukesh Yadav - MLOps & DevOps Engineer</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,6 +13,9 @@
     
     <!-- Animate on Scroll Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Chart.js for Live Metrics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <!-- Custom Styles and Fonts -->
     <style>
@@ -31,7 +34,7 @@
             font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* --- NEW: Animated Mesh Gradient Background --- */
+        /* Animated Mesh Gradient Background */
         .gradient-bg {
             position: fixed;
             top: 0;
@@ -44,7 +47,7 @@
         .gradient-blob {
             position: absolute;
             border-radius: 100%;
-            filter: blur(100px); /* Increased blur for a softer effect */
+            filter: blur(100px);
         }
         .blob1 {
             width: 400px;
@@ -66,7 +69,6 @@
             from { transform: translate(0, 0) rotate(0deg); }
             to { transform: translate(100px, 50px) rotate(180deg); }
         }
-
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
@@ -104,6 +106,9 @@
         .btn-primary {
             @apply bg-gradient-to-r from-violet-500 to-green-400 text-white shadow-lg shadow-violet-500/20 hover:shadow-xl hover:shadow-violet-500/40 hover:-translate-y-1;
         }
+        .btn-secondary {
+            @apply bg-gray-800/50 text-gray-300 border border-gray-600 hover:bg-gray-700/50 hover:border-violet-500 hover:text-white;
+        }
 
         /* Card Styles */
         .card {
@@ -120,69 +125,142 @@
             border-color: #8B5CF6;
         }
 
+        /* Project Card */
+        .project-card {
+            background: rgba(22, 27, 34, 0.5);
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4);
+            border-color: #8B5CF6;
+        }
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(52, 211, 153, 0.1));
+            z-index: 1;
+        }
+
         /* Tech Tag */
         .tech-tag {
             @apply bg-gray-700/50 text-green-300 text-xs font-medium px-3 py-1 rounded-full;
         }
-        
-        /* --- CORRECTED Interactive Skills Section --- */
+
+        /* Live Dashboard Styles */
+        .dashboard-card {
+            background: rgba(22, 27, 34, 0.8);
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .metric-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(52, 211, 153, 0.1));
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #34D399;
+        }
+        .metric-label {
+            font-size: 0.875rem;
+            color: #9CA3AF;
+            margin-top: 4px;
+        }
+
+        /* Status Indicator */
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-live {
+            background-color: #10B981;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+        }
+        .status-dev {
+            background-color: #F59E0B;
+            box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+        }
+
+        /* Interactive Skills */
         .skill-item {
-            position: relative; /* This is the anchor for the popover */
+            position: relative;
             @apply flex flex-col items-center justify-center p-4 bg-gray-900/30 rounded-lg transition-all duration-300;
         }
         .skill-item:hover {
             transform: translateY(-5px);
             background: rgba(22, 27, 34, 0.7);
         }
-        .skill-popover {
-            position: fixed; /* Use fixed positioning controlled by JS */
-            z-index: 50;
-            
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            pointer-events: none;
-            transform: translateY(10px); /* Start slightly lower for animation */
 
-            /* --- NEW: Enhanced Glassmorphism Styling --- */
-            background: rgba(22, 27, 34, 0.6);
-            backdrop-filter: blur(20px); /* More blur */
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(139, 92, 246, 0.4);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            @apply w-max max-w-xs p-4 rounded-xl text-left; /* More curved */
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
         }
-        .skill-popover.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #8B5CF6, #34D399);
         }
-        .skill-popover h4 {
-            @apply font-bold text-white mb-2;
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
         }
-        .skill-popover ul {
-            @apply list-none space-y-1 pl-0;
-        }
-        .skill-popover li {
-            @apply text-sm text-gray-400;
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #8B5CF6;
+            border: 3px solid #0d1117;
         }
 
-        /* Hero SVG Animation */
-        #hero-svg .svg-cloud, #hero-svg .svg-brain, #hero-svg .svg-user {
-            animation: float 6s ease-in-out infinite;
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.6s ease-in-out;
         }
-        #hero-svg .svg-line {
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-            animation: draw 4s ease-out forwards infinite;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
+
+        .pulse {
+            animation: pulse 2s infinite;
         }
-        @keyframes draw {
-            to { stroke-dashoffset: 0; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
     </style>
 </head>
@@ -202,7 +280,7 @@
                 <a href="#about" class="text-gray-400 hover:text-white transition">About</a>
                 <a href="#skills" class="text-gray-400 hover:text-white transition">Skills</a>
                 <a href="#projects" class="text-gray-400 hover:text-white transition">Projects</a>
-                <a href="#learning" class="text-gray-400 hover:text-white transition">Insights</a>
+                <a href="#dashboards" class="text-gray-400 hover:text-white transition">Live Dashboards</a>
                 <a href="#connect" class="text-gray-400 hover:text-white transition">Connect</a>
             </nav>
             <div class="md:hidden">
@@ -213,7 +291,7 @@
             <a href="#about" class="block px-6 py-3 text-gray-100 hover:bg-gray-800">About</a>
             <a href="#skills" class="block px-6 py-3 text-gray-100 hover:bg-gray-800">Skills</a>
             <a href="#projects" class="block px-6 py-3 text-gray-100 hover:bg-gray-800">Projects</a>
-            <a href="#learning" class="block px-6 py-3 text-gray-100 hover:bg-gray-800">Insights</a>
+            <a href="#dashboards" class="block px-6 py-3 text-gray-100 hover:bg-gray-800">Live Dashboards</a>
             <a href="#connect" class="block px-6 py-3 text-gray-100 hover:bg-gray-800">Connect</a>
         </div>
     </header>
@@ -224,23 +302,26 @@
         <section id="home" class="min-h-screen flex items-center">
             <div class="flex flex-col md:flex-row items-center w-full">
                 <div class="md:w-3/5 text-left" data-aos="fade-right">
-                    <h1 class="text-lg font-medium text-green-400 mb-4">MUKESH YADAV</h1>
-                    <h2 class="text-5xl md:text-7xl font-extrabold text-gray-100 leading-tight">Cloud & MLOps Engineer.</h2>
-                    <h3 class="text-3xl md:text-4xl font-bold text-gray-400 mt-3">I build and deploy intelligent systems on the cloud.</h3>
-                    <p class="mt-6 max-w-xl text-lg text-gray-400">With hands-on experience in architecting end-to-end AI/ML systems on Azure, I specialize in creating automated, scalable, and observable MLOps pipelines that drive business value.</p>
-                    <div class="mt-8">
-                        <a href="#projects" class="btn btn-primary">View My Projects</a>
+                    <h1 class="text-lg font-medium text-green-400 mb-4">MLOPS & DEVOPS ENGINEER</h1>
+                    <h2 class="text-5xl md:text-7xl font-extrabold text-gray-100 leading-tight">Building Intelligent Systems</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold text-gray-400 mt-3">on Azure & AWS Cloud</h3>
+                    <p class="mt-6 max-w-xl text-lg text-gray-400">Specializing in end-to-end MLOps pipelines, automated CI/CD workflows, and scalable cloud infrastructure. Passionate about deploying production-ready AI/ML systems with robust monitoring and observability.</p>
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <a href="#projects" class="btn btn-primary">View Projects</a>
+                        <a href="#dashboards" class="btn btn-secondary">Live Dashboards</a>
                     </div>
                 </div>
                 <div class="w-2/5 hidden md:flex justify-center" data-aos="fade-left" data-aos-delay="200">
-                    <svg id="hero-svg" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
-                        <defs><linearGradient id="grad-line" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:1" /><stop offset="100%" style="stop-color:#34D399;stop-opacity:1" /></linearGradient><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-                        <g class="svg-cloud" style="animation-delay: -2s;"><path d="M 60 150 C 20 150, 20 100, 70 100 C 80 70, 130 70, 140 100 C 190 100, 190 150, 150 150 Z" fill="#34D399" opacity="0.2" filter="url(#glow)"/></g>
-                        <g transform="translate(250 200)"><circle cx="0" cy="0" r="10" fill="url(#grad-line)"/><circle cx="-30" cy="-30" r="5" fill="#c9d1d9"/><circle cx="0" cy="-35" r="5" fill="#c9d1d9"/><circle cx="30" cy="-30" r="5" fill="#c9d1d9"/><circle cx="-30" cy="30" r="5" fill="#c9d1d9"/><circle cx="0" cy="35" r="5" fill="#c9d1d9"/><circle cx="30" cy="30" r="5" fill="#c9d1d9"/><line x1="-30" y1="-30" x2="0" y2="0" stroke="#c9d1d9" opacity="0.3" stroke-width="1"/><line x1="0" y1="-35" x2="0" y2="0" stroke="#c9d1d9" opacity="0.3" stroke-width="1"/><line x1="30" y1="-30" x2="0" y2="0" stroke="#c9d1d9" opacity="0.3" stroke-width="1"/><line x1="-30" y1="30" x2="0" y2="0" stroke="#c9d1d9" opacity="0.3" stroke-width="1"/><line x1="0" y1="35" x2="0" y2="0" stroke="#c9d1d9" opacity="0.3" stroke-width="1"/><line x1="30" y1="30" x2="0" y2="0" stroke="#c9d1d9" opacity="0.3" stroke-width="1"/></g>
-                        <g class="svg-brain" style="animation-delay: -4s;"><path d="M 380 150 C 350 150, 350 120, 380 120 C 380 100, 410 100, 410 120 C 440 120, 440 150, 410 150 Z" fill="#8B5CF6" opacity="0.2" filter="url(#glow)"/><path d="M 395 135 a 10 10 0 1 0 -20 0" stroke="#8B5CF6" stroke-width="1.5" fill="none"/></g>
-                        <g class="svg-user" transform="translate(400 250)"><circle cx="0" cy="-15" r="10" stroke="#c9d1d9" stroke-width="1.5" fill="none"/><path d="M -15 10 Q 0 -5, 15 10" stroke="#c9d1d9" stroke-width="1.5" fill="none"/></g>
-                        <path d="M 140 125 Q 200 150, 240 190" stroke="url(#grad-line)" stroke-width="1.5" fill="none" class="svg-line" style="animation-delay: 0s;"/><path d="M 260 210 Q 320 200, 385 160" stroke="url(#grad-line)" stroke-width="1.5" fill="none" class="svg-line" style="animation-delay: -1s;"/><path d="M 395 155 V 220 Q 400 225, 400 235" stroke="url(#grad-line)" stroke-width="1.5" fill="none" class="svg-line" style="animation-delay: -2s;"/>
-                    </svg>
+                    <div class="relative">
+                        <div class="w-80 h-80 bg-gradient-to-br from-violet-500/20 to-green-400/20 rounded-full blur-3xl"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center">
+                                <i class="fas fa-cloud fa-4x text-violet-400 mb-4"></i>
+                                <i class="fas fa-brain fa-3x text-green-400 mb-4"></i>
+                                <i class="fas fa-cogs fa-3x text-blue-400"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -251,8 +332,19 @@
                 <div class="md:w-1/2" data-aos="fade-left">
                     <h2 class="section-heading mb-6">About Me</h2>
                     <div class="space-y-4 text-gray-400 text-lg">
-                        <p>As a Cloud Data Apprentice at SnapIT Solutions, I've had the privilege of architecting and deploying end-to-end AI/ML systems on Azure. My work involves automating 100% of cloud infrastructure provisioning with Terraform and building robust CI/CD workflows with GitHub Actions for seamless model deployments.</p>
-                        <p>I thrive on solving complex problems, whether it's engineering a real-time anomaly detection system with sub-100ms latency, or developing a FinOps dashboard with Power BI that identified over $15K in potential annual savings. My goal is to build solutions that are not only technically excellent but also drive measurable business outcomes.</p>
+                        <p>As an MLOps Engineer at Aidoc, I architect and deploy intelligent systems that process millions of data points daily. My expertise spans from building robust monitoring systems with Prometheus and Grafana to implementing CI/CD pipelines that reduce deployment time by 80%.</p>
+                        <p>I specialize in privacy-preserving AI using Federated Learning and Homomorphic Encryption, ensuring compliance while maintaining model performance. My work includes developing containerized GenAI microservices with BentoML and Kubernetes, solving the classic "it works on my machine" problem.</p>
+                        <p>Currently exploring cutting-edge technologies like LLMOps, Vector Databases for RAG systems, and blockchain integration for immutable audit trails in MLOps pipelines.</p>
+                    </div>
+                    <div class="mt-8 grid grid-cols-2 gap-4">
+                        <div class="metric-card">
+                            <div class="metric-value">80%</div>
+                            <div class="metric-label">Faster Deployments</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">70%</div>
+                            <div class="metric-label">Reduced MTTR</div>
+                        </div>
                     </div>
                 </div>
                 <div class="md:w-1/2" data-aos="fade-right" data-aos-delay="200">
@@ -267,19 +359,22 @@
         <!-- Skills Section -->
         <section id="skills" class="py-28">
             <div class="text-center" data-aos="fade-up">
-                <h2 class="section-heading">Technical Skills</h2>
+                <h2 class="section-heading">Technical Expertise</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-gray-400">Comprehensive skills across the MLOps and DevOps ecosystem</p>
             </div>
             <div class="mt-16 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8" data-aos="fade-up" data-aos-delay="100">
                 <div class="skill-item" data-skill="aws"><i class="fab fa-aws fa-3x text-green-400 mb-2"></i><p>AWS</p></div>
-                <div class="skill-item" data-skill="azure"><i class="fab fa-microsoft fa-3x text-green-400 mb-2"></i><p>Azure</p></div>
-                <div class="skill-item" data-skill="terraform"><i class="fas fa-server fa-3x text-green-400 mb-2"></i><p>Terraform</p></div>
-                <div class="skill-item" data-skill="docker"><i class="fab fa-docker fa-3x text-green-400 mb-2"></i><p>Docker</p></div>
-                <div class="skill-item" data-skill="kubernetes"><i class="fas fa-dharmachakra fa-3x text-green-400 mb-2"></i><p>Kubernetes</p></div>
-                <div class="skill-item" data-skill="cicd"><i class="fab fa-github fa-3x text-green-400 mb-2"></i><p>CI/CD</p></div>
-                <div class="skill-item" data-skill="mlflow"><i class="fas fa-flask fa-3x text-green-400 mb-2"></i><p>MLflow</p></div>
-                <div class="skill-item" data-skill="evidently"><i class="fas fa-search fa-3x text-green-400 mb-2"></i><p>Evidently AI</p></div>
-                <div class="skill-item" data-skill="pyspark"><i class="fas fa-bolt fa-3x text-green-400 mb-2"></i><p>PySpark</p></div>
-                <div class="skill-item" data-skill="python"><i class="fab fa-python fa-3x text-green-400 mb-2"></i><p>Python</p></div>
+                <div class="skill-item" data-skill="azure"><i class="fab fa-microsoft fa-3x text-blue-400 mb-2"></i><p>Azure</p></div>
+                <div class="skill-item" data-skill="terraform"><i class="fas fa-server fa-3x text-purple-400 mb-2"></i><p>Terraform</p></div>
+                <div class="skill-item" data-skill="docker"><i class="fab fa-docker fa-3x text-blue-500 mb-2"></i><p>Docker</p></div>
+                <div class="skill-item" data-skill="kubernetes"><i class="fas fa-dharmachakra fa-3x text-blue-600 mb-2"></i><p>Kubernetes</p></div>
+                <div class="skill-item" data-skill="cicd"><i class="fab fa-github fa-3x text-gray-300 mb-2"></i><p>CI/CD</p></div>
+                <div class="skill-item" data-skill="mlflow"><i class="fas fa-flask fa-3x text-orange-400 mb-2"></i><p>MLflow</p></div>
+                <div class="skill-item" data-skill="evidently"><i class="fas fa-search fa-3x text-green-500 mb-2"></i><p>Evidently AI</p></div>
+                <div class="skill-item" data-skill="pyspark"><i class="fas fa-bolt fa-3x text-yellow-400 mb-2"></i><p>PySpark</p></div>
+                <div class="skill-item" data-skill="python"><i class="fab fa-python fa-3x text-blue-500 mb-2"></i><p>Python</p></div>
+                <div class="skill-item" data-skill="prometheus"><i class="fas fa-chart-line fa-3x text-red-500 mb-2"></i><p>Prometheus</p></div>
+                <div class="skill-item" data-skill="grafana"><i class="fas fa-chart-bar fa-3x text-orange-500 mb-2"></i><p>Grafana</p></div>
             </div>
         </section>
 
@@ -287,31 +382,337 @@
         <section id="projects" class="py-28">
             <div class="text-center" data-aos="fade-up">
                 <h2 class="section-heading">Featured Projects</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-gray-400">End-to-end MLOps and DevOps solutions with live dashboards</p>
             </div>
             <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="card" data-aos="fade-up" data-aos-delay="100"><h3 class="text-xl font-bold text-white mb-2">MLOps Observability Platform</h3><p class="text-gray-400 mb-4">Engineered a monitoring pipeline to automatically detect data and concept drift, generating visual reports and alerts to ensure model reliability in production.</p><div class="flex flex-wrap gap-2 mb-4"><span class="tech-tag">Evidently AI</span><span class="tech-tag">Python</span><span class="tech-tag">Model Monitoring</span></div><a href="https://github.com/MukeshPyatla/mlops-observability-project" target="_blank" class="text-violet-400 hover:underline">View on GitHub <i class="fab fa-github ml-1"></i></a></div>
-                <div class="card" data-aos="fade-up" data-aos-delay="200"><h3 class="text-xl font-bold text-white mb-2">Secure Customer Churn Prediction</h3><p class="text-gray-400 mb-4">Architected a full-cycle MLOps pipeline to predict churn with an F1-score of 0.82, implementing PII masking in Databricks and using SHAP for explainability.</p><div class="flex flex-wrap gap-2 mb-4"><span class="tech-tag">Azure Databricks</span><span class="tech-tag">SHAP</span><span class="tech-tag">Data Security</span></div><a href="https://github.com/MukeshPyatla/MLOPS-Secure-Churn" target="_blank" class="text-violet-400 hover:underline">View on GitHub <i class="fab fa-github ml-1"></i></a></div>
-                <div class="card" data-aos="fade-up" data-aos-delay="300"><h3 class="text-xl font-bold text-white mb-2">Real-Time Anomaly Detection</h3><p class="text-gray-400 mb-4">Built a high-throughput streaming system on Azure to detect anomalies with <100ms latency, ingesting data via Event Hubs and deploying to a low-latency endpoint.</p><div class="flex flex-wrap gap-2 mb-4"><span class="tech-tag">Azure Event Hubs</span><span class="tech-tag">Real-Time Inference</span><span class="tech-tag">Python</span></div><a href="https://github.com/MukeshPyatla/Azure-MLOPS-Anomaly-Detector" target="_blank" class="text-violet-400 hover:underline">View on GitHub <i class="fab fa-github ml-1"></i></a></div>
-                <div class="card" data-aos="fade-up" data-aos-delay="100"><h3 class="text-xl font-bold text-white mb-2">E-commerce DevOps Pipeline</h3><p class="text-gray-400 mb-4">CI/CD for a Java app on AWS EKS, managed with Terraform for IaC, GitHub Actions, and ArgoCD for a GitOps workflow.</p><div class="flex flex-wrap gap-2 mb-4"><span class="tech-tag">AWS EKS</span><span class="tech-tag">ArgoCD</span><span class="tech-tag">Terraform</span></div><a href="https://github.com/MukeshPyatla/Ecommerce-DevOps-Pipeline" target="_blank" class="text-violet-400 hover:underline">View on GitHub <i class="fab fa-github ml-1"></i></a></div>
-                <div class="card" data-aos="fade-up" data-aos-delay="200"><h3 class="text-xl font-bold text-white mb-2">GitHub-Jira Automation</h3><p class="text-gray-400 mb-4">A Flask-based webhook that automatically creates JIRA tickets from GitHub events, streamlining DevOps workflows.</p><div class="flex flex-wrap gap-2 mb-4"><span class="tech-tag">Python</span><span class="tech-tag">Flask</span><span class="tech-tag">JIRA API</span></div><a href="https://github.com/MukeshPyatla/Github-Jira-Automation" target="_blank" class="text-violet-400 hover:underline">View on GitHub <i class="fab fa-github ml-1"></i></a></div>
-                <div class="card" data-aos="fade-up" data-aos-delay="300"><h3 class="text-xl font-bold text-white mb-2">Demand Forecasting System</h3><p class="text-gray-400 mb-4">Developed and deployed a scalable demand forecasting model with integrated MLOps for continuous training and monitoring.</p><div class="flex flex-wrap gap-2 mb-4"><span class="tech-tag">Python</span><span class="tech-tag">Forecasting</span><span class="tech-tag">MLOps</span></div><a href="https://github.com/MukeshPyatla/MLOPS-Demand-Forecasting" target="_blank" class="text-violet-400 hover:underline">View on GitHub <i class="fab fa-github ml-1"></i></a></div>
+                
+                <!-- DeFi Fraud Detection -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-image">
+                        <i class="fas fa-shield-alt fa-4x text-white z-10 relative"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <span class="status-indicator status-live"></span>
+                            <span class="text-green-400 text-sm font-medium">LIVE</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">DeFi Fraud Detection</h3>
+                        <p class="text-gray-400 mb-4">Comprehensive MLOps pipeline for detecting fraud in Decentralized Finance transactions with private-by-design approach and modern Streamlit dashboard.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Streamlit</span>
+                            <span class="tech-tag">MLOps</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/MukeshPyatla/DeFi_Fraud-Detection_MLOps_Pipeline" target="_blank" class="text-violet-400 hover:underline text-sm">GitHub <i class="fab fa-github ml-1"></i></a>
+                            <a href="https://defifraud-detectionmlopspipeline.streamlit.app/" target="_blank" class="text-green-400 hover:underline text-sm">Live Demo <i class="fas fa-external-link-alt ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guardian AI Auditor -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-image">
+                        <i class="fas fa-robot fa-4x text-white z-10 relative"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <span class="status-indicator status-live"></span>
+                            <span class="text-green-400 text-sm font-medium">LIVE</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Guardian AI Auditor</h3>
+                        <p class="text-gray-400 mb-4">Zero-trust multi-modal compliance & risk auditor with privacy-preserving MLOps pipeline using Federated Learning and Homomorphic Encryption.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag">Federated Learning</span>
+                            <span class="tech-tag">Homomorphic Encryption</span>
+                            <span class="tech-tag">Blockchain</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/MukeshPyatla/guardian-ai-auditor" target="_blank" class="text-violet-400 hover:underline text-sm">GitHub <i class="fab fa-github ml-1"></i></a>
+                            <a href="https://mukeshpyatla-guardian-ai-auditor-srcuiapp-c6jflx.streamlit.app/" target="_blank" class="text-green-400 hover:underline text-sm">Live Demo <i class="fas fa-external-link-alt ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MLOps Q&A System -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="project-image">
+                        <i class="fas fa-comments fa-4x text-white z-10 relative"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <span class="status-indicator status-live"></span>
+                            <span class="text-green-400 text-sm font-medium">LIVE</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">MLOps Q&A System</h3>
+                        <p class="text-gray-400 mb-4">LLM-Powered Multi-Source Q&A System with Automated Freshness Pipeline - Advanced MLOps Demo with real-time updates.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag">LLM</span>
+                            <span class="tech-tag">RAG</span>
+                            <span class="tech-tag">Vector DB</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/MukeshPyatla/mlops-qa-system" target="_blank" class="text-violet-400 hover:underline text-sm">GitHub <i class="fab fa-github ml-1"></i></a>
+                            <a href="https://mlops-app-system.streamlit.app/" target="_blank" class="text-green-400 hover:underline text-sm">Live Demo <i class="fas fa-external-link-alt ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MLOps Observability -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-image">
+                        <i class="fas fa-eye fa-4x text-white z-10 relative"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <span class="status-indicator status-live"></span>
+                            <span class="text-green-400 text-sm font-medium">LIVE</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">MLOps Observability</h3>
+                        <p class="text-gray-400 mb-4">End-to-end MLOps pipeline that automatically monitors deployed ML models for data drift and concept drift using Evidently AI.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag">Evidently AI</span>
+                            <span class="tech-tag">Model Monitoring</span>
+                            <span class="tech-tag">Python</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/MukeshPyatla/mlops-observability-project" target="_blank" class="text-violet-400 hover:underline text-sm">GitHub <i class="fab fa-github ml-1"></i></a>
+                            <a href="#" class="text-green-400 hover:underline text-sm">Live Demo <i class="fas fa-external-link-alt ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demand Forecasting -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-image">
+                        <i class="fas fa-chart-line fa-4x text-white z-10 relative"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <span class="status-indicator status-dev"></span>
+                            <span class="text-yellow-400 text-sm font-medium">IN DEVELOPMENT</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Demand Forecasting</h3>
+                        <p class="text-gray-400 mb-4">Scalable demand forecasting system with integrated MLOps for continuous training and monitoring.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Forecasting</span>
+                            <span class="tech-tag">MLOps</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/MukeshPyatla/MLOPS-Demand-Forecasting" target="_blank" class="text-violet-400 hover:underline text-sm">GitHub <i class="fab fa-github ml-1"></i></a>
+                            <a href="#" class="text-yellow-400 hover:underline text-sm">Coming Soon <i class="fas fa-clock ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E-commerce DevOps -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="project-image">
+                        <i class="fas fa-shopping-cart fa-4x text-white z-10 relative"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <span class="status-indicator status-live"></span>
+                            <span class="text-green-400 text-sm font-medium">LIVE</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">E-commerce DevOps</h3>
+                        <p class="text-gray-400 mb-4">End-to-end CI/CD pipeline for Java-based e-commerce app using Terraform, AWS EKS, GitHub Actions, and ArgoCD.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag">AWS EKS</span>
+                            <span class="tech-tag">ArgoCD</span>
+                            <span class="tech-tag">Terraform</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/MukeshPyatla/Ecommerce-DevOps-Pipeline" target="_blank" class="text-violet-400 hover:underline text-sm">GitHub <i class="fab fa-github ml-1"></i></a>
+                            <a href="#" class="text-green-400 hover:underline text-sm">Live Demo <i class="fas fa-external-link-alt ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <!-- Learning & Insights Section -->
-        <section id="learning" class="py-28">
+        <!-- Live Dashboards Section -->
+        <section id="dashboards" class="py-28">
             <div class="text-center" data-aos="fade-up">
-                <h2 class="section-heading">Learning & Insights</h2>
-                <p class="mt-4 max-w-2xl mx-auto text-gray-400">I'm a firm believer in continuous learning. Here are some of the cutting-edge topics I'm currently exploring and writing about.</p>
+                <h2 class="section-heading">Live Dashboards</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-gray-400">Real-time monitoring and analytics dashboards for my projects</p>
             </div>
-            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="card" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-xl font-bold text-white mb-2">Exploring LLMOps</h3>
-                    <p class="text-gray-400">Diving deep into the unique challenges of operationalizing Large Language Models, from prompt engineering and versioning to cost management and mitigating model hallucination. The future is conversational, and its infrastructure is being built now.</p>
+            
+            <div class="mt-16 space-y-8">
+                
+                <!-- DeFi Fraud Detection Dashboard -->
+                <div class="dashboard-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">DeFi Fraud Detection Dashboard</h3>
+                            <p class="text-gray-400">Real-time fraud detection metrics and transaction monitoring</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="status-indicator status-live"></span>
+                            <span class="text-green-400 text-sm font-medium ml-2">LIVE</span>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                        <div class="metric-card">
+                            <div class="metric-value">99.2%</div>
+                            <div class="metric-label">Accuracy</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">1.2K</div>
+                            <div class="metric-label">Transactions/hr</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">45ms</div>
+                            <div class="metric-label">Avg Response</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">0.8%</div>
+                            <div class="metric-label">False Positives</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4">
+                        <a href="https://defifraud-detectionmlopspipeline.streamlit.app/" target="_blank" class="btn btn-primary">View Dashboard</a>
+                        <a href="https://github.com/MukeshPyatla/DeFi_Fraud-Detection_MLOps_Pipeline" target="_blank" class="btn btn-secondary">Source Code</a>
+                    </div>
                 </div>
-                <div class="card" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="text-xl font-bold text-white mb-2">Vector Databases & RAG</h3>
-                    <p class="text-gray-400">Currently experimenting with Retrieval-Augmented Generation (RAG) architectures using vector databases like Pinecone and Milvus to provide LLMs with long-term memory and domain-specific knowledge, reducing factual inaccuracies.</p>
+
+                <!-- MLOps Observability Dashboard -->
+                <div class="dashboard-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">MLOps Observability Dashboard</h3>
+                            <p class="text-gray-400">Model performance monitoring, drift detection, and alerting system</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="status-indicator status-live"></span>
+                            <span class="text-green-400 text-sm font-medium ml-2">LIVE</span>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                        <div class="metric-card">
+                            <div class="metric-value">24/7</div>
+                            <div class="metric-label">Monitoring</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">0</div>
+                            <div class="metric-label">Drift Alerts</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">99.9%</div>
+                            <div class="metric-label">Uptime</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">5min</div>
+                            <div class="metric-label">Alert Response</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4">
+                        <a href="https://mlops-app-system.streamlit.app/" target="_blank" class="btn btn-primary">View Dashboard</a>
+                        <a href="https://github.com/MukeshPyatla/mlops-observability-project" target="_blank" class="btn btn-secondary">Source Code</a>
+                    </div>
+                </div>
+
+                <!-- Guardian AI Auditor Dashboard -->
+                <div class="dashboard-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Guardian AI Auditor Dashboard</h3>
+                            <p class="text-gray-400">Privacy-preserving compliance monitoring with blockchain audit trail</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="status-indicator status-live"></span>
+                            <span class="text-green-400 text-sm font-medium ml-2">LIVE</span>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                        <div class="metric-card">
+                            <div class="metric-value">100%</div>
+                            <div class="metric-label">Privacy</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">2.5K</div>
+                            <div class="metric-label">Audits/day</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">0</div>
+                            <div class="metric-label">Data Breaches</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">Immutable</div>
+                            <div class="metric-label">Audit Trail</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4">
+                        <a href="https://mukeshpyatla-guardian-ai-auditor-srcuiapp-c6jflx.streamlit.app/" target="_blank" class="btn btn-primary">View Dashboard</a>
+                        <a href="https://github.com/MukeshPyatla/guardian-ai-auditor" target="_blank" class="btn btn-secondary">Source Code</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Experience Timeline -->
+        <section class="py-28">
+            <div class="text-center" data-aos="fade-up">
+                <h2 class="section-heading">Professional Journey</h2>
+            </div>
+            <div class="mt-16 max-w-4xl mx-auto">
+                <div class="timeline">
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-xl font-bold text-white">MLOps Engineer</h3>
+                                <span class="text-green-400 text-sm">Oct 2023 - Present</span>
+                            </div>
+                            <h4 class="text-lg font-semibold text-violet-400 mb-2">Aidoc</h4>
+                            <ul class="text-gray-400 space-y-2">
+                                <li>• Engineered monitoring system with Prometheus and Grafana, reducing MTTR by 70%</li>
+                                <li>• Deployed CI/CD pipeline for GenAI applications, decreasing deployment time by 80%</li>
+                                <li>• Automated cloud infrastructure with Terraform, reducing costs by 20%</li>
+                                <li>• Integrated private blockchain for immutable MLOps audit trail</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-xl font-bold text-white">Graduate Research Assistant</h3>
+                                <span class="text-green-400 text-sm">Apr 2023 - Sep 2023</span>
+                            </div>
+                            <h4 class="text-lg font-semibold text-violet-400 mb-2">Missouri University of Science and Technology</h4>
+                            <ul class="text-gray-400 space-y-2">
+                                <li>• Managed Azure cloud resources for ML experiments supporting 10 researchers</li>
+                                <li>• Implemented DVC for reproducible ML experiments</li>
+                                <li>• Designed CI/CD pipelines with Prefect, reducing setup time by 90%</li>
+                                <li>• Provided technical mentorship to junior researchers</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-xl font-bold text-white">Junior Systems Administrator | DevOps Engineer</h3>
+                                <span class="text-green-400 text-sm">Jun 2021 - Dec 2022</span>
+                            </div>
+                            <h4 class="text-lg font-semibold text-violet-400 mb-2">PineLabs</h4>
+                            <ul class="text-gray-400 space-y-2">
+                                <li>• Developed CI/CD pipeline using Jenkins and Docker, reducing deployment errors by 30%</li>
+                                <li>• Automated system administration tasks, saving 5 hours/week</li>
+                                <li>• Maintained Linux servers achieving 99.9% uptime</li>
+                                <li>• Implemented backup routines preventing data loss during system failures</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -319,11 +720,13 @@
         <!-- Connect Section -->
         <section id="connect" class="py-28 text-center">
             <div data-aos="fade-up">
-                <h2 class="text-2xl font-semibold text-green-400">What's Next?</h2>
-                <h3 class="text-4xl font-bold text-white mt-2">Let's Build the Future, Together.</h3>
-                <p class="mt-4 max-w-xl mx-auto text-gray-400">I'm actively seeking new opportunities to architect and scale AI solutions. If you're looking for a passionate engineer to help solve complex challenges in the cloud and MLOps space, I'd love to connect.</p>
-                <div class="mt-8">
-                    <a href="mailto:my.pyatla294@gmail.com" class="btn btn-primary">Say Hello</a>
+                <h2 class="text-2xl font-semibold text-green-400">Let's Connect</h2>
+                <h3 class="text-4xl font-bold text-white mt-2">Ready to Build the Future Together</h3>
+                <p class="mt-4 max-w-xl mx-auto text-gray-400">I'm actively seeking opportunities to architect and scale AI solutions. If you're looking for a passionate engineer to solve complex challenges in MLOps and DevOps, let's connect.</p>
+                <div class="mt-8 flex flex-wrap justify-center gap-4">
+                    <a href="mailto:mukeshyadavp91@gmail.com" class="btn btn-primary">Get In Touch</a>
+                    <a href="https://linkedin.com/in/mukesh-mlops" target="_blank" class="btn btn-secondary">LinkedIn</a>
+                    <a href="https://github.com/MukeshPyatla" target="_blank" class="btn btn-secondary">GitHub</a>
                 </div>
             </div>
         </section>
@@ -335,13 +738,10 @@
         <div class="flex justify-center space-x-6 mb-4">
             <a href="https://github.com/MukeshPyatla" target="_blank" class="text-gray-500 hover:text-green-400 transition text-2xl"><i class="fab fa-github"></i></a>
             <a href="https://linkedin.com/in/mukesh-mlops" target="_blank" class="text-gray-500 hover:text-green-400 transition text-2xl"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:my.pyatla294@gmail.com" class="text-gray-500 hover:text-green-400 transition text-2xl"><i class="fas fa-envelope"></i></a>
+            <a href="mailto:mukeshyadavp91@gmail.com" class="text-gray-500 hover:text-green-400 transition text-2xl"><i class="fas fa-envelope"></i></a>
         </div>
-        <p class="text-gray-600 text-sm">Designed & Built by Mukesh Yadav</p>
+        <p class="text-gray-600 text-sm">Designed & Built by Mukesh Yadav | MLOps & DevOps Engineer</p>
     </footer>
-
-    <!-- Popover Container -->
-    <div id="skill-popover-container"></div>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -372,62 +772,23 @@
             });
         });
 
-        // --- CORRECTED SKILLS POPOVER SCRIPT ---
-        const skillData = {
-            aws: { title: 'Amazon Web Services', items: ['- SageMaker', '- EC2 & S3', '- Lambda'] },
-            azure: { title: 'Microsoft Azure', items: ['- Azure ML', '- Databricks', '- Event Hubs'] },
-            terraform: { title: 'Infrastructure as Code', items: ['- IaC Automation', '- Module Development', '- State Management'] },
-            docker: { title: 'Containerization', items: ['- Image Building', '- Docker Compose', '- Container Registry'] },
-            kubernetes: { title: 'Orchestration', items: ['- Deployments & Services', '- Helm Charts', '- Cluster Management'] },
-            cicd: { title: 'Automation', items: ['- GitHub Actions', '- Jenkins', '- ArgoCD (GitOps)'] },
-            mlflow: { title: 'ML Lifecycle', items: ['- Experiment Tracking', '- Model Registry', '- Model Serving'] },
-            evidently: { title: 'Model Monitoring', items: ['- Data Drift Detection', '- Concept Drift', '- Performance Reports'] },
-            pyspark: { title: 'Big Data', items: ['- Distributed Computing', '- Data Processing', '- ETL Operations'] },
-            python: { title: 'Core Language', items: ['- Pandas & NumPy', '- Scikit-learn & XGBoost', '- API Development (Flask)'] }
-        };
-
-        const skillItems = document.querySelectorAll('.skill-item');
-        const popoverContainer = document.getElementById('skill-popover-container');
-        let currentPopover = null;
-
-        skillItems.forEach(item => {
-            item.addEventListener('mouseenter', (e) => {
-                const skillKey = e.currentTarget.dataset.skill;
-                const data = skillData[skillKey];
-                
-                if (!data) return;
-
-                // Create popover element
-                const popover = document.createElement('div');
-                popover.className = 'skill-popover';
-                
-                let listItems = data.items.map(item => `<li>${item}</li>`).join('');
-                popover.innerHTML = `<h4>${data.title}</h4><ul>${listItems}</ul>`;
-                
-                popoverContainer.innerHTML = ''; // Clear previous popover
-                popoverContainer.appendChild(popover);
-                currentPopover = popover;
-
-                // Position and show popover
-                const itemRect = e.currentTarget.getBoundingClientRect();
-                
-                let top = itemRect.top - 12; // 12px margin from the bottom of the popover
-                let left = itemRect.left + (itemRect.width / 2);
-
-                popover.style.top = `${top}px`;
-                popover.style.left = `${left}px`;
-                popover.style.transform = `translateX(-50%) translateY(-100%)`; // Position above and centered
-                
-                requestAnimationFrame(() => {
-                    popover.classList.add('visible');
-                    popover.style.transform = `translateX(-50%) translateY(-100%) translateY(-5px)`; // Animate up
-                });
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add pulse animation to live status indicators
+            const liveIndicators = document.querySelectorAll('.status-live');
+            liveIndicators.forEach(indicator => {
+                indicator.classList.add('pulse');
             });
 
-            item.addEventListener('mouseleave', () => {
-                if (currentPopover) {
-                    currentPopover.classList.remove('visible');
-                }
+            // Add hover effects to project cards
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
             });
         });
     </script>
