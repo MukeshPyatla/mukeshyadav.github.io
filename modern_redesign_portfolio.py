@@ -644,7 +644,8 @@ def main():
     # Skills details with interactive tabs
     st.markdown('<h2 style="color: white; margin-top: 60px; text-align: center; font-size: 2rem;">Detailed Skills Breakdown</h2>', unsafe_allow_html=True)
     
-    # The fix: Create tabs with plain text titles.
+    # Create tabs with plain text titles.
+    # The fix: Pass only the category name to st.tabs
     skill_tabs = st.tabs([category for category in skills_data.keys()])
     
     for i, (category, data) in enumerate(skills_data.items()):
