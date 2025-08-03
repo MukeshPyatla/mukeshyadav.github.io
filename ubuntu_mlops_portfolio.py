@@ -30,24 +30,24 @@ def load_css():
     }
     
     body {
-        background: linear-gradient(135deg, #2D3748 0%, #1A202C 100%);
+        background: #000000;
         color: #E2E8F0;
         overflow-x: hidden;
     }
     
     .main {
-        background: linear-gradient(135deg, #2D3748 0%, #1A202C 100%);
+        background: #000000;
         color: #E2E8F0;
     }
     
     .stApp {
-        background: linear-gradient(135deg, #2D3748 0%, #1A202C 100%);
+        background: #000000;
     }
     
     /* Ubuntu Desktop Simulation */
     .ubuntu-desktop {
         min-height: 100vh;
-        background: linear-gradient(135deg, #2D3748 0%, #1A202C 100%);
+        background: #000000;
         position: relative;
         overflow: hidden;
     }
@@ -60,9 +60,9 @@ def load_css():
         width: 100%;
         height: 100%;
         background: 
-            radial-gradient(circle at 20% 80%, rgba(66, 153, 225, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(237, 137, 54, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 40% 40%, rgba(159, 122, 234, 0.05) 0%, transparent 50%);
+            radial-gradient(circle at 20% 80%, rgba(135, 206, 250, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(173, 216, 230, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(176, 224, 230, 0.05) 0%, transparent 50%);
         z-index: -2;
     }
     
@@ -159,13 +159,13 @@ def load_css():
     .icon-image {
         width: 48px;
         height: 48px;
-        background: linear-gradient(135deg, #4299E1, #ED8936);
+        background: linear-gradient(135deg, #87CEEB, #B0E0E6);
         border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 24px;
-        color: white;
+        color: #000000;
     }
     
     .icon-label {
@@ -288,8 +288,8 @@ def load_css():
     }
     
     .sidebar-item.active {
-        background: rgba(66, 153, 225, 0.2);
-        color: #4299E1;
+        background: rgba(135, 206, 250, 0.2);
+        color: #87CEEB;
     }
     
     .main-content {
@@ -324,13 +324,13 @@ def load_css():
     .project-icon {
         width: 40px;
         height: 40px;
-        background: linear-gradient(135deg, #4299E1, #ED8936);
+        background: linear-gradient(135deg, #87CEEB, #B0E0E6);
         border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 18px;
-        color: white;
+        color: #000000;
     }
     
     .project-title {
@@ -352,8 +352,8 @@ def load_css():
     
     .project-link {
         padding: 8px 16px;
-        background: rgba(66, 153, 225, 0.2);
-        color: #4299E1;
+        background: rgba(135, 206, 250, 0.2);
+        color: #87CEEB;
         text-decoration: none;
         border-radius: 6px;
         font-size: 14px;
@@ -361,7 +361,7 @@ def load_css():
     }
     
     .project-link:hover {
-        background: rgba(66, 153, 225, 0.3);
+        background: rgba(135, 206, 250, 0.3);
         text-decoration: none;
     }
     
@@ -425,8 +425,8 @@ def load_css():
     
     /* Streamlit overrides */
     .stButton > button {
-        background: linear-gradient(135deg, #4299E1, #ED8936);
-        color: white;
+        background: linear-gradient(135deg, #87CEEB, #B0E0E6);
+        color: #000000;
         border: none;
         border-radius: 8px;
         padding: 10px 20px;
@@ -436,7 +436,7 @@ def load_css():
     
     .stButton > button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(66, 153, 225, 0.3);
+        box-shadow: 0 10px 20px rgba(135, 206, 250, 0.3);
     }
     </style>
     """, unsafe_allow_html=True)
@@ -509,12 +509,12 @@ def create_mlops_visualization():
     
     # Pipeline steps
     pipeline_steps = [
-        {"name": "Data Ingestion", "x": 0, "y": 0, "color": "#4299E1", "icon": "📥"},
-        {"name": "Preprocessing", "x": 2, "y": 0, "color": "#ED8936", "icon": "🔧"},
-        {"name": "Model Training", "x": 4, "y": 0, "color": "#48BB78", "icon": "🤖"},
-        {"name": "Validation", "x": 6, "y": 0, "color": "#F56565", "icon": "✅"},
-        {"name": "Deployment", "x": 8, "y": 0, "color": "#9F7AEA", "icon": "🚀"},
-        {"name": "Monitoring", "x": 10, "y": 0, "color": "#38B2AC", "icon": "📊"}
+        {"name": "Data Ingestion", "x": 0, "y": 0, "color": "#87CEEB", "icon": "📥"},
+        {"name": "Preprocessing", "x": 2, "y": 0, "color": "#B0E0E6", "icon": "🔧"},
+        {"name": "Model Training", "x": 4, "y": 0, "color": "#ADD8E6", "icon": "🤖"},
+        {"name": "Validation", "x": 6, "y": 0, "color": "#E0F6FF", "icon": "✅"},
+        {"name": "Deployment", "x": 8, "y": 0, "color": "#F0F8FF", "icon": "🚀"},
+        {"name": "Monitoring", "x": 10, "y": 0, "color": "#E6F3FF", "icon": "📊"}
     ]
     
     # Add pipeline nodes
@@ -553,7 +553,7 @@ def create_mlops_visualization():
             x=[pipeline_steps[i]["x"], pipeline_steps[i+1]["x"]],
             y=[pipeline_steps[i]["y"], pipeline_steps[i+1]["y"]],
             mode='lines',
-            line=dict(color='#4299E1', width=4),
+            line=dict(color='#87CEEB', width=4),
             showlegend=False
         ))
     
@@ -789,12 +789,12 @@ def main():
                     </p>
                 </div>
                 <div style="text-align: center;">
-                    <div style="width: 150px; height: 150px; background: linear-gradient(135deg, #4299E1, #ED8936); 
+                    <div style="width: 150px; height: 150px; background: linear-gradient(135deg, #87CEEB, #B0E0E6); 
                                 border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; 
-                                font-size: 3rem; color: white; box-shadow: 0 10px 30px rgba(66, 153, 225, 0.3);">
+                                font-size: 3rem; color: #000000; box-shadow: 0 10px 30px rgba(135, 206, 250, 0.3);">
                         MY
                     </div>
-                    <h4 style="color: #4299E1; margin-bottom: 10px; font-weight: 600;">Mukesh Yadav</h4>
+                    <h4 style="color: #87CEEB; margin-bottom: 10px; font-weight: 600;">Mukesh Yadav</h4>
                     <p style="color: #A0AEC0;">MLOps & DevOps Engineer</p>
                     <p style="color: #A0AEC0; font-size: 14px;">Aidoc</p>
                 </div>
@@ -844,8 +844,8 @@ def main():
             
             <div style="text-align: center; margin-top: 30px;">
                 <a href="mailto:mukeshyadavp91@gmail.com" style="
-                    background: linear-gradient(135deg, #4299E1, #ED8936);
-                    color: white;
+                    background: linear-gradient(135deg, #87CEEB, #B0E0E6);
+                    color: #000000;
                     padding: 12px 24px;
                     border-radius: 8px;
                     text-decoration: none;
