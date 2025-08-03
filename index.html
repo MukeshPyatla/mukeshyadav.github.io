@@ -339,15 +339,102 @@
             box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
         }
 
-        /* Interactive Skills */
-        .skill-item {
+        /* Category Cards */
+        .category-card {
             position: relative;
-            @apply flex flex-col items-center justify-center p-4 bg-gray-900/30 rounded-lg transition-all duration-300;
+            @apply flex flex-col items-center justify-center p-6 bg-gray-900/30 rounded-xl transition-all duration-300;
             cursor: pointer;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .category-card:hover {
+            transform: translateY(-8px);
+            background: rgba(22, 27, 34, 0.8);
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 20px 40px -12px rgba(139, 92, 246, 0.2);
+        }
+        .category-card i {
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 0 rgba(139, 92, 246, 0));
+        }
+        .category-card:hover i {
+            filter: drop-shadow(0 0 12px currentColor);
+            transform: scale(1.1);
+        }
+
+        /* Dialog Styles */
+        .dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .dialog-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .dialog-content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 90vw;
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+        .dialog-overlay.active .dialog-content {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .dialog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dialog-close {
+            background: none;
+            border: none;
+            color: #9CA3AF;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .dialog-close:hover {
+            color: #EF4444;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .skill-item {
+            @apply flex flex-col items-center justify-center p-4 bg-gray-800/50 rounded-lg transition-all duration-300;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .skill-item:hover {
-            transform: translateY(-5px);
-            background: rgba(22, 27, 34, 0.7);
+            transform: translateY(-4px);
+            background: rgba(139, 92, 246, 0.1);
+            border-color: rgba(139, 92, 246, 0.3);
         }
         .skill-item i {
             transition: all 0.3s ease;
@@ -514,73 +601,126 @@
                 <h2 class="section-heading">Technical Expertise</h2>
                 <p class="mt-4 max-w-2xl mx-auto text-gray-400">Comprehensive skills across the MLOps and DevOps ecosystem</p>
             </div>
-            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8" data-aos="fade-up" data-aos-delay="100">
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" data-aos="fade-up" data-aos-delay="100">
                 <!-- Cloud & DevOps -->
-                <div class="skill-item"><i class="fab fa-aws fa-3x text-green-400 mb-2"></i><p>AWS</p></div>
-                <div class="skill-item"><i class="fab fa-microsoft fa-3x text-blue-400 mb-2"></i><p>Azure</p></div>
-                <div class="skill-item"><i class="fas fa-server fa-3x text-purple-400 mb-2"></i><p>Terraform</p></div>
-                <div class="skill-item"><i class="fab fa-docker fa-3x text-blue-500 mb-2"></i><p>Docker</p></div>
-                <div class="skill-item"><i class="fas fa-dharmachakra fa-3x text-blue-600 mb-2"></i><p>Kubernetes</p></div>
-                <div class="skill-item"><i class="fab fa-github fa-3x text-gray-300 mb-2"></i><p>CI/CD</p></div>
+                <div class="category-card" data-category="cloud-devops">
+                    <div class="category-icon">
+                        <i class="fas fa-cloud fa-4x text-blue-400 mb-4"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Cloud & DevOps</h3>
+                    <p class="text-gray-400 text-sm">AWS, Azure, Terraform, Docker, Kubernetes, CI/CD</p>
+                    <div class="mt-4">
+                        <span class="text-blue-400 text-xs">6 skills</span>
+                    </div>
+                </div>
                 
                 <!-- AI/ML Frameworks -->
-                <div class="skill-item"><i class="fas fa-brain fa-3x text-orange-500 mb-2"></i><p>PyTorch</p></div>
-                <div class="skill-item"><i class="fas fa-network-wired fa-3x text-orange-600 mb-2"></i><p>TensorFlow</p></div>
-                <div class="skill-item"><i class="fas fa-link fa-3x text-blue-400 mb-2"></i><p>LangChain</p></div>
-                <div class="skill-item"><i class="fas fa-rocket fa-3x text-green-500 mb-2"></i><p>FastAPI</p></div>
-                <div class="skill-item"><i class="fas fa-flask fa-3x text-orange-400 mb-2"></i><p>MLflow</p></div>
-                <div class="skill-item"><i class="fas fa-box fa-3x text-purple-500 mb-2"></i><p>BentoML</p></div>
+                <div class="category-card" data-category="ai-ml">
+                    <div class="category-icon">
+                        <i class="fas fa-brain fa-4x text-orange-500 mb-4"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">AI/ML Frameworks</h3>
+                    <p class="text-gray-400 text-sm">PyTorch, TensorFlow, LangChain, FastAPI, MLflow, BentoML</p>
+                    <div class="mt-4">
+                        <span class="text-orange-500 text-xs">6 skills</span>
+                    </div>
+                </div>
                 
                 <!-- Programming Languages -->
-                <div class="skill-item"><i class="fab fa-python fa-3x text-blue-500 mb-2"></i><p>Python</p></div>
-                <div class="skill-item"><i class="fas fa-code fa-3x text-blue-600 mb-2"></i><p>Go</p></div>
-                <div class="skill-item"><i class="fas fa-cogs fa-3x text-blue-700 mb-2"></i><p>C++</p></div>
-                <div class="skill-item"><i class="fas fa-terminal fa-3x text-green-600 mb-2"></i><p>Bash</p></div>
-                <div class="skill-item"><i class="fas fa-database fa-3x text-blue-400 mb-2"></i><p>SQL</p></div>
+                <div class="category-card" data-category="languages">
+                    <div class="category-icon">
+                        <i class="fas fa-code fa-4x text-green-400 mb-4"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Programming Languages</h3>
+                    <p class="text-gray-400 text-sm">Python, Go, C++, Bash, SQL</p>
+                    <div class="mt-4">
+                        <span class="text-green-400 text-xs">5 skills</span>
+                    </div>
+                </div>
                 
                 <!-- Data & Databases -->
-                <div class="skill-item"><i class="fas fa-table fa-3x text-blue-500 mb-2"></i><p>Pandas</p></div>
-                <div class="skill-item"><i class="fas fa-fire fa-3x text-orange-500 mb-2"></i><p>Spark</p></div>
-                <div class="skill-item"><i class="fas fa-version fa-3x text-green-500 mb-2"></i><p>DVC</p></div>
-                <div class="skill-item"><i class="fas fa-cube fa-3x text-purple-400 mb-2"></i><p>Pinecone</p></div>
-                <div class="skill-item"><i class="fas fa-search fa-3x text-blue-500 mb-2"></i><p>Qdrant</p></div>
+                <div class="category-card" data-category="data">
+                    <div class="category-icon">
+                        <i class="fas fa-database fa-4x text-purple-400 mb-4"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Data & Databases</h3>
+                    <p class="text-gray-400 text-sm">Pandas, Spark, DVC, Pinecone, Qdrant</p>
+                    <div class="mt-4">
+                        <span class="text-purple-400 text-xs">5 skills</span>
+                    </div>
+                </div>
                 
                 <!-- Monitoring & Observability -->
-                <div class="skill-item"><i class="fas fa-chart-line fa-3x text-red-500 mb-2"></i><p>Prometheus</p></div>
-                <div class="skill-item"><i class="fas fa-chart-bar fa-3x text-orange-500 mb-2"></i><p>Grafana</p></div>
-                <div class="skill-item"><i class="fas fa-search fa-3x text-yellow-500 mb-2"></i><p>ELK Stack</p></div>
-                <div class="skill-item"><i class="fas fa-home fa-3x text-blue-400 mb-2"></i><p>Backstage</p></div>
-                <div class="skill-item"><i class="fas fa-chart-area fa-3x text-orange-400 mb-2"></i><p>W&B</p></div>
+                <div class="category-card" data-category="monitoring">
+                    <div class="category-icon">
+                        <i class="fas fa-chart-line fa-4x text-red-500 mb-4"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Monitoring & Observability</h3>
+                    <p class="text-gray-400 text-sm">Prometheus, Grafana, ELK Stack, Backstage, W&B</p>
+                    <div class="mt-4">
+                        <span class="text-red-500 text-xs">5 skills</span>
+                    </div>
+                </div>
                 
                 <!-- CI/CD Tools -->
-                <div class="skill-item"><i class="fab fa-gitlab fa-3x text-orange-500 mb-2"></i><p>GitLab CI</p></div>
-                <div class="skill-item"><i class="fas fa-cog fa-3x text-red-500 mb-2"></i><p>Jenkins</p></div>
-                <div class="skill-item"><i class="fas fa-ship fa-3x text-blue-500 mb-2"></i><p>ArgoCD</p></div>
-                <div class="skill-item"><i class="fas fa-tools fa-3x text-purple-500 mb-2"></i><p>Tekton</p></div>
-                <div class="skill-item"><i class="fab fa-github fa-3x text-gray-300 mb-2"></i><p>GitHub Actions</p></div>
+                <div class="category-card" data-category="cicd">
+                    <div class="category-icon">
+                        <i class="fas fa-cogs fa-4x text-yellow-500 mb-4"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">CI/CD Tools</h3>
+                    <p class="text-gray-400 text-sm">GitLab CI, Jenkins, ArgoCD, Tekton, GitHub Actions</p>
+                    <div class="mt-4">
+                        <span class="text-yellow-500 text-xs">5 skills</span>
+                    </div>
+                </div>
                 
                 <!-- AI/ML Concepts -->
-                <div class="skill-item"><i class="fas fa-cogs fa-3x text-green-500 mb-2"></i><p>MLOps</p></div>
-                <div class="skill-item"><i class="fas fa-robot fa-3x text-blue-500 mb-2"></i><p>GenAI</p></div>
-                <div class="skill-item"><i class="fas fa-search fa-3x text-purple-500 mb-2"></i><p>RAG</p></div>
-                <div class="skill-item"><i class="fas fa-network-wired fa-3x text-green-600 mb-2"></i><p>Federated Learning</p></div>
-                <div class="skill-item"><i class="fas fa-lock fa-3x text-blue-600 mb-2"></i><p>Homomorphic Encryption</p></div>
-                <div class="skill-item"><i class="fas fa-comments fa-3x text-green-400 mb-2"></i><p>NLP</p></div>
+                <div class="category-card" data-category="concepts">
+                    <div class="category-icon">
+                        <i class="fas fa-robot fa-4x text-blue-500 mb-4"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">AI/ML Concepts</h3>
+                    <p class="text-gray-400 text-sm">MLOps, GenAI, RAG, Federated Learning, Homomorphic Encryption, NLP</p>
+                    <div class="mt-4">
+                        <span class="text-blue-500 text-xs">6 skills</span>
+                    </div>
+                </div>
                 
                 <!-- Blockchain -->
-                <div class="skill-item"><i class="fas fa-link fa-3x text-purple-500 mb-2"></i><p>Ethereum</p></div>
-                <div class="skill-item"><i class="fas fa-file-code fa-3x text-blue-500 mb-2"></i><p>Solidity</p></div>
-                <div class="skill-item"><i class="fas fa-cube fa-3x text-green-500 mb-2"></i><p>Blockchain</p></div>
+                <div class="category-card" data-category="blockchain">
+                    <div class="category-icon">
+                        <i class="fas fa-cube fa-4x text-green-500 mb-4"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Blockchain</h3>
+                    <p class="text-gray-400 text-sm">Ethereum, Solidity, Blockchain</p>
+                    <div class="mt-4">
+                        <span class="text-green-500 text-xs">3 skills</span>
+                    </div>
+                </div>
                 
                 <!-- Operating Systems -->
-                <div class="skill-item"><i class="fab fa-linux fa-3x text-yellow-500 mb-2"></i><p>Linux</p></div>
-                <div class="skill-item"><i class="fab fa-windows fa-3x text-blue-500 mb-2"></i><p>Windows</p></div>
+                <div class="category-card" data-category="os">
+                    <div class="category-icon">
+                        <i class="fas fa-desktop fa-4x text-gray-400 mb-4"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Operating Systems</h3>
+                    <p class="text-gray-400 text-sm">Linux, Windows</p>
+                    <div class="mt-4">
+                        <span class="text-gray-400 text-xs">2 skills</span>
+                    </div>
+                </div>
                 
                 <!-- Networking -->
-                <div class="skill-item"><i class="fas fa-network-wired fa-3x text-blue-500 mb-2"></i><p>VPC/VNet</p></div>
-                <div class="skill-item"><i class="fas fa-globe fa-3x text-green-500 mb-2"></i><p>DNS</p></div>
-                <div class="skill-item"><i class="fas fa-balance-scale fa-3x text-blue-600 mb-2"></i><p>Load Balancers</p></div>
-                <div class="skill-item"><i class="fas fa-shield-alt fa-3x text-red-500 mb-2"></i><p>Security Groups</p></div>
+                <div class="category-card" data-category="networking">
+                    <div class="category-icon">
+                        <i class="fas fa-network-wired fa-4x text-blue-600 mb-4"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Networking</h3>
+                    <p class="text-gray-400 text-sm">VPC/VNet, DNS, Load Balancers, Security Groups</p>
+                    <div class="mt-4">
+                        <span class="text-blue-600 text-xs">4 skills</span>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -1043,6 +1183,19 @@
 
     </main>
 
+    <!-- Skills Dialog -->
+    <div class="dialog-overlay" id="skillsDialog">
+        <div class="dialog-content">
+            <div class="dialog-header">
+                <h3 class="text-2xl font-bold text-white" id="dialogTitle">Skills</h3>
+                <button class="dialog-close" onclick="closeSkillsDialog()">&times;</button>
+            </div>
+            <div class="skills-grid" id="dialogSkills">
+                <!-- Skills will be populated here -->
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="text-center py-8 border-t border-gray-800/50">
         <div class="flex justify-center space-x-6 mb-4">
@@ -1082,6 +1235,107 @@
             });
         });
 
+        // Skills data for dialogs
+        const skillsData = {
+            'cloud-devops': {
+                title: 'Cloud & DevOps',
+                skills: [
+                    { name: 'AWS', icon: 'fab fa-aws', color: 'text-green-400' },
+                    { name: 'Azure', icon: 'fab fa-microsoft', color: 'text-blue-400' },
+                    { name: 'Terraform', icon: 'fas fa-server', color: 'text-purple-400' },
+                    { name: 'Docker', icon: 'fab fa-docker', color: 'text-blue-500' },
+                    { name: 'Kubernetes', icon: 'fas fa-dharmachakra', color: 'text-blue-600' },
+                    { name: 'CI/CD', icon: 'fab fa-github', color: 'text-gray-300' }
+                ]
+            },
+            'ai-ml': {
+                title: 'AI/ML Frameworks',
+                skills: [
+                    { name: 'PyTorch', icon: 'fas fa-brain', color: 'text-orange-500' },
+                    { name: 'TensorFlow', icon: 'fas fa-network-wired', color: 'text-orange-600' },
+                    { name: 'LangChain', icon: 'fas fa-link', color: 'text-blue-400' },
+                    { name: 'FastAPI', icon: 'fas fa-rocket', color: 'text-green-500' },
+                    { name: 'MLflow', icon: 'fas fa-flask', color: 'text-orange-400' },
+                    { name: 'BentoML', icon: 'fas fa-box', color: 'text-purple-500' }
+                ]
+            },
+            'languages': {
+                title: 'Programming Languages',
+                skills: [
+                    { name: 'Python', icon: 'fab fa-python', color: 'text-blue-500' },
+                    { name: 'Go', icon: 'fas fa-code', color: 'text-blue-600' },
+                    { name: 'C++', icon: 'fas fa-cogs', color: 'text-blue-700' },
+                    { name: 'Bash', icon: 'fas fa-terminal', color: 'text-green-600' },
+                    { name: 'SQL', icon: 'fas fa-database', color: 'text-blue-400' }
+                ]
+            },
+            'data': {
+                title: 'Data & Databases',
+                skills: [
+                    { name: 'Pandas', icon: 'fas fa-table', color: 'text-blue-500' },
+                    { name: 'Spark', icon: 'fas fa-fire', color: 'text-orange-500' },
+                    { name: 'DVC', icon: 'fas fa-version', color: 'text-green-500' },
+                    { name: 'Pinecone', icon: 'fas fa-cube', color: 'text-purple-400' },
+                    { name: 'Qdrant', icon: 'fas fa-search', color: 'text-blue-500' }
+                ]
+            },
+            'monitoring': {
+                title: 'Monitoring & Observability',
+                skills: [
+                    { name: 'Prometheus', icon: 'fas fa-chart-line', color: 'text-red-500' },
+                    { name: 'Grafana', icon: 'fas fa-chart-bar', color: 'text-orange-500' },
+                    { name: 'ELK Stack', icon: 'fas fa-search', color: 'text-yellow-500' },
+                    { name: 'Backstage', icon: 'fas fa-home', color: 'text-blue-400' },
+                    { name: 'W&B', icon: 'fas fa-chart-area', color: 'text-orange-400' }
+                ]
+            },
+            'cicd': {
+                title: 'CI/CD Tools',
+                skills: [
+                    { name: 'GitLab CI', icon: 'fab fa-gitlab', color: 'text-orange-500' },
+                    { name: 'Jenkins', icon: 'fas fa-cog', color: 'text-red-500' },
+                    { name: 'ArgoCD', icon: 'fas fa-ship', color: 'text-blue-500' },
+                    { name: 'Tekton', icon: 'fas fa-tools', color: 'text-purple-500' },
+                    { name: 'GitHub Actions', icon: 'fab fa-github', color: 'text-gray-300' }
+                ]
+            },
+            'concepts': {
+                title: 'AI/ML Concepts',
+                skills: [
+                    { name: 'MLOps', icon: 'fas fa-cogs', color: 'text-green-500' },
+                    { name: 'GenAI', icon: 'fas fa-robot', color: 'text-blue-500' },
+                    { name: 'RAG', icon: 'fas fa-search', color: 'text-purple-500' },
+                    { name: 'Federated Learning', icon: 'fas fa-network-wired', color: 'text-green-600' },
+                    { name: 'Homomorphic Encryption', icon: 'fas fa-lock', color: 'text-blue-600' },
+                    { name: 'NLP', icon: 'fas fa-comments', color: 'text-green-400' }
+                ]
+            },
+            'blockchain': {
+                title: 'Blockchain',
+                skills: [
+                    { name: 'Ethereum', icon: 'fas fa-link', color: 'text-purple-500' },
+                    { name: 'Solidity', icon: 'fas fa-file-code', color: 'text-blue-500' },
+                    { name: 'Blockchain', icon: 'fas fa-cube', color: 'text-green-500' }
+                ]
+            },
+            'os': {
+                title: 'Operating Systems',
+                skills: [
+                    { name: 'Linux', icon: 'fab fa-linux', color: 'text-yellow-500' },
+                    { name: 'Windows', icon: 'fab fa-windows', color: 'text-blue-500' }
+                ]
+            },
+            'networking': {
+                title: 'Networking',
+                skills: [
+                    { name: 'VPC/VNet', icon: 'fas fa-network-wired', color: 'text-blue-500' },
+                    { name: 'DNS', icon: 'fas fa-globe', color: 'text-green-500' },
+                    { name: 'Load Balancers', icon: 'fas fa-balance-scale', color: 'text-blue-600' },
+                    { name: 'Security Groups', icon: 'fas fa-shield-alt', color: 'text-red-500' }
+                ]
+            }
+        };
+
         // Add some interactive elements
         document.addEventListener('DOMContentLoaded', function() {
             // Add pulse animation to live status indicators
@@ -1101,6 +1355,15 @@
                 });
             });
 
+            // Add click handlers to category cards
+            const categoryCards = document.querySelectorAll('.category-card');
+            categoryCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    openSkillsDialog(category);
+                });
+            });
+
             // Add soft hover effects to skill items
             const skillItems = document.querySelectorAll('.skill-item');
             skillItems.forEach(item => {
@@ -1113,6 +1376,41 @@
                     this.style.boxShadow = 'none';
                 });
             });
+        });
+
+        // Dialog functions
+        function openSkillsDialog(category) {
+            const data = skillsData[category];
+            if (!data) return;
+
+            document.getElementById('dialogTitle').textContent = data.title;
+            const skillsContainer = document.getElementById('dialogSkills');
+            skillsContainer.innerHTML = '';
+
+            data.skills.forEach(skill => {
+                const skillElement = document.createElement('div');
+                skillElement.className = 'skill-item';
+                skillElement.innerHTML = `
+                    <i class="${skill.icon} fa-3x ${skill.color} mb-2"></i>
+                    <p class="text-white text-sm">${skill.name}</p>
+                `;
+                skillsContainer.appendChild(skillElement);
+            });
+
+            document.getElementById('skillsDialog').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSkillsDialog() {
+            document.getElementById('skillsDialog').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close dialog when clicking overlay
+        document.getElementById('skillsDialog').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSkillsDialog();
+            }
         });
     </script>
 </body>
