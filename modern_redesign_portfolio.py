@@ -28,6 +28,29 @@ def load_css():
         font-family: 'Inter', sans-serif;
     }
     
+    .centered-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    .social-icons-top {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .social-icon-link {
+        font-size: 2rem;
+        color: #e5e7eb;
+        margin: 0 15px;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .social-icon-link:hover {
+        color: #63b3ed; /* Light contrast blue */
+        transform: translateY(-5px);
+    }
+    
     .hero-section {
         background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(168, 85, 247, 0.05));
         border-radius: 24px;
@@ -71,25 +94,7 @@ def load_css():
         font-weight: 400;
     }
     
-    .category-card {
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 32px 24px;
-        margin: 16px 0;
-        backdrop-filter: blur(20px);
-        transition: all 0.4s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .category-card:hover {
-        transform: translateY(-8px) scale(1.02);
-        border-color: rgba(99, 102, 241, 0.3);
-        box-shadow: 0 20px 40px -12px rgba(99, 102, 241, 0.2);
-    }
-    
-    .project-card, .timeline-item {
+    .category-card, .project-card, .dashboard-card, .experience-card, .contact-card {
         background: rgba(255, 255, 255, 0.02);
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 20px;
@@ -97,17 +102,20 @@ def load_css():
         margin: 24px 0;
         backdrop-filter: blur(20px);
         transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
     }
-    
-    .project-card:hover, .timeline-item:hover {
-        border-color: rgba(99, 102, 241, 0.3);
-        box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
-        transform: translateY(-4px);
+
+    .category-card:hover, .project-card:hover, .dashboard-card:hover, .experience-card:hover, .contact-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        border-color: #63b3ed; /* Light contrast blue */
+        box-shadow: 0 20px 40px -12px rgba(99, 102, 241, 0.2);
     }
     
     .metric-card {
         background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
-        border: 1px solid rgba(99, 102, 241, 0.2);
+        border: 1px solid #63b3ed; /* Light contrast blue */
         border-radius: 16px;
         padding: 24px;
         text-align: center;
@@ -124,7 +132,7 @@ def load_css():
     .metric-value {
         font-size: 2.5rem;
         font-weight: 700;
-        background: linear-gradient(135deg, #6366F1, #A855F7);
+        background: linear-gradient(135deg, #63b3ed, #9f7aea); /* Light contrast blue gradient */
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -159,10 +167,10 @@ def load_css():
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
-
+    
     .tech-tag {
         background: rgba(99, 102, 241, 0.1);
-        color: #6366F1;
+        color: #63b3ed;
         font-size: 0.75rem;
         font-weight: 500;
         padding: 6px 12px;
@@ -173,11 +181,11 @@ def load_css():
     }
     
     .timeline-item {
-        border-left: 4px solid #6366F1;
+        border-left: 4px solid #63b3ed; /* Light contrast blue */
     }
     
     .btn-primary {
-        background: linear-gradient(135deg, #6366F1, #A855F7);
+        background: linear-gradient(135deg, #63b3ed, #9f7aea); /* Light contrast blue gradient */
         color: white;
         border: none;
         padding: 14px 28px;
@@ -209,14 +217,14 @@ def load_css():
     
     .btn-secondary:hover {
         background: rgba(255, 255, 255, 0.1);
-        border-color: #6366F1;
+        border-color: #63b3ed; /* Light contrast blue */
         color: white;
         transform: translateY(-2px);
     }
     
     .section-divider {
         height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
+        background: linear-gradient(90deg, transparent, #63b3ed, transparent); /* Light contrast blue */
         margin: 80px 0;
         border-radius: 1px;
     }
@@ -242,14 +250,14 @@ def load_css():
     
     .stTabs [aria-selected="true"] {
         background: rgba(99, 102, 241, 0.2);
-        border-color: rgba(99, 102, 241, 0.4);
+        border-color: #63b3ed; /* Light contrast blue */
         color: white;
         box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
     }
     
     .stTabs [data-baseweb="tab"]:hover {
         background: rgba(99, 102, 241, 0.15);
-        border-color: rgba(99, 102, 241, 0.3);
+        border-color: #63b3ed; /* Light contrast blue */
     }
     
     .devops-visual {
@@ -291,10 +299,17 @@ def load_css():
     
     .skill-item:hover {
         background: rgba(99, 102, 241, 0.1);
-        border-color: rgba(99, 102, 241, 0.3);
+        border-color: #63b3ed; /* Light contrast blue */
         transform: translateY(-2px);
     }
-    
+
+    .project-card-grid, .dashboard-card-grid, .experience-card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+    }
+
     /* Responsive Design with Media Queries */
     @media (max-width: 1024px) {
         .section-title { font-size: 2.5rem; }
@@ -312,7 +327,10 @@ def load_css():
         .metric-card { padding: 12px; margin: 4px; }
         .metric-value { font-size: 1.8rem; }
         .st-emotion-cache-1r650jc { gap: 10px; } /* Adjust column gap in Streamlit */
-        .project-card, .timeline-item { padding: 20px; }
+        .category-card, .project-card, .dashboard-card, .experience-card, .contact-card { padding: 20px; }
+        .project-card-grid, .dashboard-card-grid, .experience-card-grid {
+            grid-template-columns: 1fr;
+        }
         .skill-grid {
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
         }
@@ -324,10 +342,12 @@ def load_css():
         .hero-section > div > h3 { font-size: 1rem; }
         .hero-section > div > p { font-size: 0.9rem; }
         .hero-section > div > div { flex-direction: column; gap: 10px; }
-        .project-card, .timeline-item { padding: 15px; }
         .metric-value { font-size: 1.5rem; }
         .metric-label { font-size: 0.75rem; }
         .skill-grid { grid-template-columns: 1fr; }
+        .contact-card-grid {
+            grid-template-columns: 1fr;
+        }
     }
     </style>
     """, unsafe_allow_html=True)
@@ -335,11 +355,18 @@ def load_css():
 # Load CSS
 load_css()
 
+# Social media links
+SOCIAL_LINKS = {
+    "LinkedIn": "https://linkedin.com/in/mukesh-mlops",
+    "GitHub": "https://github.com/MukeshPyatla",
+    "Email": "mailto:mukeshyadavp91@gmail.com"
+}
+
 # Skills data
 skills_data = {
     'Cloud & DevOps': {
         'icon': '<i class="fa-solid fa-cloud"></i>',
-        'color': '#6366F1',
+        'color': '#63b3ed', # Light contrast blue
         'skills': ['AWS', 'Azure', 'Terraform', 'Docker', 'Kubernetes', 'CI/CD'],
         'count': 6
     },
@@ -357,7 +384,7 @@ skills_data = {
     },
     'Data & Databases': {
         'icon': '<i class="fa-solid fa-database"></i>',
-        'color': '#8B5CF6',
+        'color': '#9f7aea', # Light contrast purple
         'skills': ['Pandas', 'Spark', 'DVC', 'Pinecone', 'Qdrant'],
         'count': 5
     },
@@ -375,7 +402,7 @@ skills_data = {
     },
     'AI/ML Concepts': {
         'icon': '<i class="fa-solid fa-robot"></i>',
-        'color': '#6366F1',
+        'color': '#63b3ed', # Light contrast blue
         'skills': ['MLOps', 'GenAI', 'RAG', 'Federated Learning', 'Homomorphic Encryption', 'NLP'],
         'count': 6
     },
@@ -393,7 +420,7 @@ skills_data = {
     },
     'Networking': {
         'icon': '<i class="fa-solid fa-globe"></i>',
-        'color': '#6366F1',
+        'color': '#63b3ed', # Light contrast blue
         'skills': ['VPC/VNet', 'DNS', 'Load Balancers', 'Security Groups'],
         'count': 4
     }
@@ -517,14 +544,25 @@ dashboard_metrics = {
 }
 
 def main():
+    st.markdown('<div class="centered-container">', unsafe_allow_html=True)
+    
+    # Top Social Icons
+    st.markdown("""
+    <div class="social-icons-top">
+        <a href="https://linkedin.com/in/mukesh-mlops" target="_blank" class="social-icon-link"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/MukeshPyatla" target="_blank" class="social-icon-link"><i class="fab fa-github"></i></a>
+        <a href="mailto:mukeshyadavp91@gmail.com" class="social-icon-link"><i class="fas fa-envelope"></i></a>
+    </div>
+    """, unsafe_allow_html=True)
+
     # Hero Section
     st.markdown("""
     <div class="hero-section">
         <div style="position: relative; z-index: 1;">
             <h1 class="section-title">Mukesh Yadav</h1>
-            <h2 style="font-size: 2.5rem; color: #6366F1; margin-bottom: 20px; text-align: center; font-weight: 600;">MLOPS & DEVOPS ENGINEER</h2>
+            <h2 style="font-size: 2.5rem; color: #63b3ed; margin-bottom: 20px; text-align: center; font-weight: 600;">MLOPS & DEVOPS ENGINEER</h2>
             <h3 style="font-size: 1.5rem; color: #9CA3AF; margin-bottom: 40px; text-align: center; font-weight: 400;">Building Intelligent Systems on Azure & AWS Cloud</h3>
-            <p style="font-size: 1.3rem; color: #D1D5DB; line-height: 1.8; margin-bottom: 40px; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <p style="font-size: 1.3rem; color: #D1D5DB; line-height: 1.8; margin-bottom: 40px; text-align: center;">
                 Specializing in end-to-end MLOps pipelines, automated CI/CD workflows, and scalable cloud infrastructure. 
                 Passionate about deploying production-ready AI/ML systems with robust monitoring and observability.
             </p>
@@ -561,71 +599,36 @@ def main():
     st.markdown('<h1 class="section-title">About Me</h1>', unsafe_allow_html=True)
     st.markdown('<p class="section-subtitle">Architecting the future of AI infrastructure</p>', unsafe_allow_html=True)
     
-    # DevOps Visual Representation
     st.markdown("""
-    <div class="devops-visual">
-        <div style="position: relative; z-index: 1;">
-            <h3 style="color: white; font-size: 1.5rem; margin-bottom: 20px; text-align: center;">MLOps Pipeline Architecture</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px;">
-                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
-                    <span style="font-size: 2rem; margin-bottom: 10px; display: block;">📊</span>
-                    <h4 style="color: #6366F1; margin: 10px 0;">Data Ingestion</h4>
-                    <p style="color: #9CA3AF; font-size: 0.9rem;">Real-time data processing with Apache Kafka</p>
-                </div>
-                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
-                    <span style="font-size: 2rem; margin-bottom: 10px; display: block;">🤖</span>
-                    <h4 style="color: #6366F1; margin: 10px 0;">Model Training</h4>
-                    <p style="color: #9CA3AF; font-size: 0.9rem;">Automated ML pipeline with MLflow</p>
-                </div>
-                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
-                    <span style="font-size: 2rem; margin-bottom: 10px; display: block;">🚀</span>
-                    <h4 style="color: #6366F1; margin: 10px 0;">Deployment</h4>
-                    <p style="color: #9CA3AF; font-size: 0.9rem;">Kubernetes orchestration with ArgoCD</p>
-                </div>
-                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
-                    <span style="font-size: 2rem; margin-bottom: 10px; display: block;">📈</span>
-                    <h4 style="color: #6366F1; margin: 10px 0;">Monitoring</h4>
-                    <p style="color: #9CA3AF; font-size: 0.9rem;">Prometheus & Grafana observability</p>
-                </div>
-            </div>
+    <div style="text-align: center; margin-bottom: 50px;">
+        <div style="width: 200px; height: 200px; background: linear-gradient(135deg, #63b3ed, #9f7aea);
+                    border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
+                    font-size: 4rem; color: white; box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);">
+            MY
         </div>
+        <h3 style="color: #63b3ed; margin-bottom: 10px; font-weight: 600;">Mukesh Yadav</h3>
+        <p style="color: #9CA3AF;">MLOps & DevOps Engineer</p>
     </div>
     """, unsafe_allow_html=True)
-    
-    col1, col2 = st.columns([2, 1])
-    
-    with col1:
-        st.markdown("""
-        <div style="background: rgba(255, 255, 255, 0.02); border-radius: 20px; padding: 40px; margin: 20px 0; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px);">
-            <p style="font-size: 1.1rem; line-height: 1.8; color: #D1D5DB; margin-bottom: 20px;">
-                As an MLOps Engineer at Aidoc, I architect and deploy intelligent systems that process millions of data points daily. 
-                My expertise spans from building robust monitoring systems with Prometheus and Grafana to implementing CI/CD pipelines 
-                that reduce deployment time by 80%.
-            </p>
-            <p style="font-size: 1.1rem; line-height: 1.8; color: #D1D5DB; margin-bottom: 20px;">
-                I specialize in privacy-preserving AI using Federated Learning and Homomorphic Encryption, ensuring compliance while 
-                maintaining model performance. My work includes developing containerized GenAI microservices with BentoML and Kubernetes, 
-                solving the classic "it works on my machine" problem.
-            </p>
-            <p style="font-size: 1.1rem; line-height: 1.8; color: #D1D5DB;">
-                Currently exploring cutting-edge technologies like LLMOps, Vector Databases for RAG systems, and blockchain integration 
-                for immutable audit trails in MLOps pipelines.
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown("""
-        <div style="text-align: center; padding: 20px;">
-            <div style="width: 200px; height: 200px; background: linear-gradient(135deg, #6366F1, #A855F7); 
-                        border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; 
-                        font-size: 4rem; color: white; box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);">
-                MY
-            </div>
-            <h3 style="color: #6366F1; margin-bottom: 10px; font-weight: 600;">Mukesh Yadav</h3>
-            <p style="color: #9CA3AF;">MLOps & DevOps Engineer</p>
-        </div>
-        """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="category-card">
+        <p style="font-size: 1.1rem; line-height: 1.8; color: #D1D5DB; text-align: left;">
+            As an MLOps Engineer at Aidoc, I architect and deploy intelligent systems that process millions of data points daily. 
+            My expertise spans from building robust monitoring systems with Prometheus and Grafana to implementing CI/CD pipelines 
+            that reduce deployment time by 80%.
+        </p>
+        <p style="font-size: 1.1rem; line-height: 1.8; color: #D1D5DB; text-align: left;">
+            I specialize in privacy-preserving AI using Federated Learning and Homomorphic Encryption, ensuring compliance while 
+            maintaining model performance. My work includes developing containerized GenAI microservices with BentoML and Kubernetes, 
+            solving the classic "it works on my machine" problem.
+        </p>
+        <p style="font-size: 1.1rem; line-height: 1.8; color: #D1D5DB; text-align: left;">
+            Currently exploring cutting-edge technologies like LLMOps, Vector Databases for RAG systems, and blockchain integration 
+            for immutable audit trails in MLOps pipelines.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
     
     # Section Divider
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
@@ -633,26 +636,6 @@ def main():
     # Skills Section
     st.markdown('<h1 class="section-title">Technical Skills</h1>', unsafe_allow_html=True)
     st.markdown('<p class="section-subtitle">Comprehensive skills across the MLOps and DevOps ecosystem</p>', unsafe_allow_html=True)
-    
-    # Create columns for skill categories
-    cols = st.columns(3)
-    
-    for i, (category, data) in enumerate(skills_data.items()):
-        with cols[i % 3]:
-            st.markdown(f"""
-            <div class="category-card">
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <span style="font-size: 3rem; color: {data['color']};">{data['icon']}</span>
-                </div>
-                <h3 style="color: white; font-size: 1.3rem; margin-bottom: 10px; text-align: center; font-weight: 600;">{category}</h3>
-                <p style="color: #9CA3AF; font-size: 0.9rem; text-align: center; margin-bottom: 15px;">
-                    {', '.join(data['skills'][:3])}{'...' if len(data['skills']) > 3 else ''}
-                </p>
-                <div style="text-align: center;">
-                    <span style="color: {data['color']}; font-size: 0.8rem; font-weight: 500;">{data['count']} skills</span>
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
     
     # Skills details with interactive tabs
     st.markdown('<h2 style="color: white; margin-top: 60px; text-align: center; font-size: 2rem;">Detailed Skills Breakdown</h2>', unsafe_allow_html=True)
@@ -663,7 +646,7 @@ def main():
     for i, (category, data) in enumerate(skills_data.items()):
         with skill_tabs[i]:
             st.markdown(f"""
-            <div style="background: rgba(255, 255, 255, 0.02); border-radius: 16px; padding: 30px; margin: 10px 0; border: 1px solid rgba(255, 255, 255, 0.1);">
+            <div class="category-card">
                 <h3 style="color: {data['color']}; font-size: 1.8rem; margin-bottom: 25px; text-align: center; font-weight: 600;">{category}</h3>
                 <div class="skill-grid">
             """, unsafe_allow_html=True)
@@ -684,30 +667,28 @@ def main():
     st.markdown('<h1 class="section-title" id="projects">Featured Projects</h1>', unsafe_allow_html=True)
     st.markdown('<p class="section-subtitle">End-to-end MLOps and DevOps solutions with live dashboards</p>', unsafe_allow_html=True)
     
+    st.markdown('<div class="project-card-grid">', unsafe_allow_html=True)
     for project in projects_data:
         st.markdown(f"""
         <div class="project-card">
-            <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                <span style="font-size: 2.5rem; margin-right: 20px; color: #6366F1;">{project['icon']}</span>
-                <div>
-                    <h3 style="color: white; font-size: 1.8rem; margin: 0; font-weight: 600;">{project['title']}</h3>
-                    <div style="display: flex; align-items: center; margin-top: 8px;">
-                        <span class="status-live"></span>
-                        <span style="color: #10B981; font-size: 1rem; font-weight: 600;">{project['status']}</span>
-                    </div>
-                </div>
+            <span style="font-size: 2.5rem; margin-bottom: 20px; display: block; color: #63b3ed;">{project['icon']}</span>
+            <h3 style="color: white; font-size: 1.8rem; margin: 0; font-weight: 600;">{project['title']}</h3>
+            <div style="display: flex; align-items: center; justify-content: center; margin-top: 8px;">
+                <span class="status-live"></span>
+                <span style="color: #10B981; font-size: 1rem; font-weight: 600;">{project['status']}</span>
             </div>
-            <p style="color: #9CA3AF; line-height: 1.7; margin-bottom: 20px; font-size: 1.1rem;">{project['description']}</p>
+            <p style="color: #9CA3AF; line-height: 1.7; margin: 20px 0; font-size: 1.1rem;">{project['description']}</p>
             <div style="margin-bottom: 25px;">
                 {''.join([f'<span class="tech-tag">{tech}</span>' for tech in project['tech']])}
             </div>
-            <div style="display: flex; gap: 15px;">
+            <div style="display: flex; gap: 15px; justify-content: center;">
                 <a href="{project['github']}" target="_blank" class="btn-secondary">GitHub</a>
                 <a href="{project['demo']}" target="_blank" class="btn-primary">Live Demo</a>
             </div>
         </div>
         """, unsafe_allow_html=True)
-    
+    st.markdown('</div>', unsafe_allow_html=True)
+
     # Section Divider
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
     
@@ -715,12 +696,13 @@ def main():
     st.markdown('<h1 class="section-title" id="dashboards">Live Dashboards</h1>', unsafe_allow_html=True)
     st.markdown('<p class="section-subtitle">Real-time monitoring and analytics dashboards for my projects</p>', unsafe_allow_html=True)
     
+    st.markdown('<div class="dashboard-card-grid">', unsafe_allow_html=True)
     for project_name, metrics in dashboard_metrics.items():
         st.markdown(f"""
-        <div class="project-card">
+        <div class="dashboard-card">
             <h3 style="color: white; font-size: 1.8rem; margin-bottom: 15px; font-weight: 600;">{project_name} Dashboard</h3>
             <p style="color: #9CA3AF; margin-bottom: 25px; font-size: 1.1rem;">Real-time metrics and performance monitoring</p>
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 25px;">
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 25px;">
         """, unsafe_allow_html=True)
         
         for metric_name, value in metrics.items():
@@ -733,13 +715,14 @@ def main():
         
         st.markdown("""
             </div>
-            <div style="display: flex; gap: 15px;">
+            <div style="display: flex; gap: 15px; justify-content: center;">
                 <a href="#" class="btn-primary">View Dashboard</a>
                 <a href="#" class="btn-secondary">Source Code</a>
             </div>
         </div>
         """, unsafe_allow_html=True)
-    
+    st.markdown('</div>', unsafe_allow_html=True)
+
     # Section Divider
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
     
@@ -747,14 +730,15 @@ def main():
     st.markdown('<h1 class="section-title">Professional Journey</h1>', unsafe_allow_html=True)
     st.markdown('<p class="section-subtitle">Building the future of AI infrastructure</p>', unsafe_allow_html=True)
     
+    st.markdown('<div class="experience-card-grid">', unsafe_allow_html=True)
     for exp in experience_data:
         st.markdown(f"""
-        <div class="timeline-item">
+        <div class="experience-card" style="text-align: left;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h3 style="color: white; font-size: 1.5rem; margin: 0; font-weight: 600;">{exp['title']}</h3>
                 <span style="color: #10B981; font-size: 1rem; font-weight: 500;">{exp['period']}</span>
             </div>
-            <h4 style="color: #6366F1; font-size: 1.3rem; margin-bottom: 20px; font-weight: 600;">{exp['company']}</h4>
+            <h4 style="color: #63b3ed; font-size: 1.3rem; margin-bottom: 20px; font-weight: 600;">{exp['company']}</h4>
             <ul style="color: #9CA3AF; line-height: 1.8; font-size: 1.1rem; list-style-type: '—  '; padding-left: 20px;">
         """, unsafe_allow_html=True)
         
@@ -762,49 +746,46 @@ def main():
             st.markdown(f'<li style="margin-bottom: 8px;">{achievement}</li>', unsafe_allow_html=True)
         
         st.markdown("</ul></div>", unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
     
     # Section Divider
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
     
     # Contact Section
     st.markdown('<h1 class="section-title">Let\'s Connect</h1>', unsafe_allow_html=True)
-    st.markdown('<h2 style="text-align: center; color: #6366F1; font-size: 2.5rem; margin-bottom: 20px; font-weight: 600;">Ready to Build the Future Together</h2>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align: center; color: #9CA3AF; font-size: 1.2rem; margin-bottom: 50px; max-width: 600px; margin-left: auto; margin-right: auto;">I\'m actively seeking opportunities to architect and scale AI solutions. If you\'re looking for a passionate engineer to solve complex challenges in MLOps and DevOps, let\'s connect.</p>', unsafe_allow_html=True)
+    st.markdown('<h2 style="text-align: center; color: #63b3ed; font-size: 2.5rem; margin-bottom: 20px; font-weight: 600;">Ready to Build the Future Together</h2>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align: center; color: #9CA3AF; font-size: 1.2rem; margin-bottom: 50px;">I\'m actively seeking opportunities to architect and scale AI solutions. If you\'re looking for a passionate engineer to solve complex challenges in MLOps and DevOps, let\'s connect.</p>', unsafe_allow_html=True)
     
-    col1, col2, col3 = st.columns(3)
+    st.markdown('<div class="project-card-grid contact-card-grid">', unsafe_allow_html=True)
     
-    with col1:
-        st.markdown("""
-        <div style="text-align: center; padding: 40px; background: rgba(255, 255, 255, 0.02); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px);">
-            <span style="font-size: 3rem;">📧</span>
-            <h3 style="color: white; margin: 20px 0; font-weight: 600;">Email</h3>
-            <p style="color: #9CA3AF; font-size: 1.1rem;">mukeshyadavp91@gmail.com</p>
-        </div>
-        """, unsafe_allow_html=True)
+    st.markdown(f"""
+    <div class="contact-card">
+        <span style="font-size: 3rem; color: #63b3ed;">📧</span>
+        <h3 style="color: white; margin: 20px 0; font-weight: 600;">Email</h3>
+        <p style="color: #9CA3AF; font-size: 1.1rem;">mukeshyadavp91@gmail.com</p>
+    </div>
+    <div class="contact-card">
+        <span style="font-size: 3rem; color: #63b3ed;">💼</span>
+        <h3 style="color: white; margin: 20px 0; font-weight: 600;">LinkedIn</h3>
+        <p style="color: #9CA3AF; font-size: 1.1rem;">linkedin.com/in/mukesh-mlops</p>
+    </div>
+    <div class="contact-card">
+        <span style="font-size: 3rem; color: #63b3ed;">🐙</span>
+        <h3 style="color: white; margin: 20px 0; font-weight: 600;">GitHub</h3>
+        <p style="color: #9CA3AF; font-size: 1.1rem;">github.com/MukeshPyatla</p>
+    </div>
+    """, unsafe_allow_html=True)
     
-    with col2:
-        st.markdown("""
-        <div style="text-align: center; padding: 40px; background: rgba(255, 255, 255, 0.02); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px);">
-            <span style="font-size: 3rem;">💼</span>
-            <h3 style="color: white; margin: 20px 0; font-weight: 600;">LinkedIn</h3>
-            <p style="color: #9CA3AF; font-size: 1.1rem;">linkedin.com/in/mukesh-mlops</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown("""
-        <div style="text-align: center; padding: 40px; background: rgba(255, 255, 255, 0.02); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px);">
-            <span style="font-size: 3rem;">🐙</span>
-            <h3 style="color: white; margin: 20px 0; font-weight: 600;">GitHub</h3>
-            <p style="color: #9CA3AF; font-size: 1.1rem;">github.com/MukeshPyatla</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
+    st.markdown('</div>', unsafe_allow_html=True)
+
     st.markdown("""
     <div style="text-align: center; margin-top: 50px;">
         <a href="mailto:mukeshyadavp91@gmail.com" class="btn-primary">Get In Touch</a>
     </div>
     """, unsafe_allow_html=True)
+
+    # Closing centered container
+    st.markdown('</div>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
