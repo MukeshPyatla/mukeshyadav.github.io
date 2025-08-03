@@ -169,15 +169,15 @@ def load_css():
     }
     
     .tech-tag {
-        background: #e5e7eb; /* Light grey background */
-        color: #1a1a1a; /* Black text */
+        background: rgba(99, 102, 241, 0.1);
+        color: white; /* Changed text color to white for better contrast on a dark background */
         font-size: 0.75rem;
         font-weight: 500;
         padding: 6px 12px;
         border-radius: 20px;
         margin: 4px;
         display: inline-block;
-        border: 1px solid #d1d5db;
+        border: 1px solid rgba(99, 102, 241, 0.2);
     }
     
     .timeline-item {
@@ -258,6 +258,10 @@ def load_css():
     .stTabs [data-baseweb="tab"]:hover {
         background: rgba(99, 102, 241, 0.15);
         border-color: #63b3ed; /* Light contrast blue */
+    }
+
+    .stTabs [data-baseweb="tab"] > div[data-testid="stMarkdownContainer"] p {
+        color: white;
     }
     
     .devops-visual {
@@ -641,11 +645,12 @@ def main():
     st.markdown('<h2 style="color: white; margin-top: 60px; text-align: center; font-size: 2rem;">Detailed Skills Breakdown</h2>', unsafe_allow_html=True)
     
     # Create tabs with plain text titles.
+    # The fix: Pass only the category name to st.tabs
     skill_tabs = st.tabs([category for category in skills_data.keys()])
     
     for i, (category, data) in enumerate(skills_data.items()):
         with skill_tabs[i]:
-            # Render the icon and title inside the tab using markdown
+            # The fix: Render the icon and title inside the tab using markdown
             st.markdown(f"""
             <div class="category-card" style="padding-top: 20px;">
                 <h3 style="color: {data['color']}; font-size: 1.8rem; margin-bottom: 25px; text-align: center; font-weight: 600;">
@@ -683,7 +688,7 @@ def main():
             </div>
             <p style="color: #9CA3AF; line-height: 1.7; margin: 20px 0; font-size: 1.1rem;">{project['description']}</p>
             <div style="margin-bottom: 25px;">
-                {''.join([f'<span class="tech-tag">{tech}</span>' for tech in project['tech']])}
+                {''.join([f'<span class="tech-tag" style="color: black;">{tech}</span>' for tech in project['tech']])}
             </div>
             <div style="display: flex; gap: 15px; justify-content: center;">
                 <a href="{project['github']}" target="_blank" class="btn-secondary">GitHub</a>
