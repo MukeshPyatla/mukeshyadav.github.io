@@ -169,8 +169,8 @@ def load_css():
     }
     
     .tech-tag {
-        background: rgba(99, 102, 241, 0.1);
-        color: white; /* Changed text color to white for better contrast on a dark background */
+        background: #63b3ed; /* Light blue background as requested */
+        color: #1a1a1a; /* Black text color for high contrast */
         font-size: 0.75rem;
         font-weight: 500;
         padding: 6px 12px;
@@ -688,7 +688,7 @@ def main():
             </div>
             <p style="color: #9CA3AF; line-height: 1.7; margin: 20px 0; font-size: 1.1rem;">{project['description']}</p>
             <div style="margin-bottom: 25px;">
-                {''.join([f'<span class="tech-tag" style="color: black;">{tech}</span>' for tech in project['tech']])}
+                {''.join([f'<span class="tech-tag">{tech}</span>' for tech in project['tech']])}
             </div>
             <div style="display: flex; gap: 15px; justify-content: center;">
                 <a href="{project['github']}" target="_blank" class="btn-secondary">GitHub</a>
