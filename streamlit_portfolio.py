@@ -362,18 +362,43 @@ def load_css():
     }
     
     /* Button hover effects */
-    button.btn-primary:hover {
+    .btn-primary:hover {
         transform: translateY(-2px);
         box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
     }
     
-    button.btn-secondary:hover {
+    .btn-secondary:hover {
         background: rgba(255, 255, 255, 0.1);
         border-color: #63b3ed;
         color: white;
         transform: translateY(-2px);
     }
+    
+    /* Ensure anchor links work properly */
+    html {
+        scroll-padding-top: 100px;
+    }
     </style>
+    
+    <script>
+    // Add smooth scrolling for anchor links
+    document.addEventListener('DOMContentLoaded', function() {
+        const links = document.querySelectorAll('a[href^="#"]');
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    });
+    </script>
     """, unsafe_allow_html=True)
 
 # Load CSS
@@ -601,9 +626,12 @@ def main():
                 Passionately deploying production-ready AI/ML systems with robust monitoring and observability.
             </p>
             <div style="display: flex; gap: 20px; margin-top: 40px; justify-content: center;">
-                <button onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})" class="btn-primary" style="cursor: pointer; border: none; font-family: inherit; background: linear-gradient(135deg, #63b3ed, #9f7aea); color: #1a1a1a; padding: 14px 28px; border-radius: 12px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s ease; font-size: 0.95rem;">View Projects</button>
-                <button onclick="document.getElementById('dashboards').scrollIntoView({behavior: 'smooth'})" class="btn-secondary" style="cursor: pointer; border: none; font-family: inherit; background: rgba(255, 255, 255, 0.05); color: #D1D5DB; border: 1px solid rgba(255, 255, 255, 0.2); padding: 14px 28px; border-radius: 12px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s ease; font-size: 0.95rem;">Live Dashboards</button>
+                <a href="#projects" class="btn-primary" style="text-decoration: none; display: inline-block;">View Projects</a>
+                <a href="#dashboards" class="btn-secondary" style="text-decoration: none; display: inline-block;">Live Dashboards</a>
             </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
         </div>
     </div>
     """, unsafe_allow_html=True)
