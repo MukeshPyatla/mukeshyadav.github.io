@@ -381,23 +381,16 @@ def load_css():
     </style>
     
     <script>
-    // Add smooth scrolling for anchor links
-    document.addEventListener('DOMContentLoaded', function() {
-        const links = document.querySelectorAll('a[href^="#"]');
-        links.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+    // Simple function to scroll to sections
+    function scrollToSection(sectionId) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
             });
-        });
-    });
+        }
+    }
     </script>
     """, unsafe_allow_html=True)
 
@@ -603,6 +596,10 @@ def get_project_links(project_name):
     return "#", "#"
 
 def main():
+    # Initialize session state for navigation
+    if 'current_section' not in st.session_state:
+        st.session_state.current_section = 'hero'
+    
     st.markdown('<div class="centered-container">', unsafe_allow_html=True)
     
     # Top Social Icons
@@ -626,8 +623,12 @@ def main():
                 Passionately deploying production-ready AI/ML systems with robust monitoring and observability.
             </p>
             <div style="display: flex; gap: 20px; margin-top: 40px; justify-content: center;">
-                <a href="#projects" class="btn-primary" style="text-decoration: none; display: inline-block;">View Projects</a>
-                <a href="#dashboards" class="btn-secondary" style="text-decoration: none; display: inline-block;">Live Dashboards</a>
+                <div style="display: inline-block;">
+                    <button onclick="scrollToSection('projects')" class="btn-primary" style="cursor: pointer; border: none; font-family: inherit; background: linear-gradient(135deg, #63b3ed, #9f7aea); color: #1a1a1a; padding: 14px 28px; border-radius: 12px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s ease; font-size: 0.95rem;">View Projects</button>
+                </div>
+                <div style="display: inline-block;">
+                    <button onclick="scrollToSection('dashboards')" class="btn-secondary" style="cursor: pointer; border: none; font-family: inherit; background: rgba(255, 255, 255, 0.05); color: #D1D5DB; border: 1px solid rgba(255, 255, 255, 0.2); padding: 14px 28px; border-radius: 12px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s ease; font-size: 0.95rem;">Live Dashboards</button>
+                </div>
             </div>
         </div>
     </div>
