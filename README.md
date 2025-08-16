@@ -1,6 +1,6 @@
-# Mukesh Yadav - MLOps & DevOps Engineer Portfolio
+# Mukesh Yadav - Portfolio Website
 
-A modern, interactive portfolio website showcasing MLOps and DevOps expertise with live project previews and full-screen modal functionality.
+A modern, interactive portfolio website showcasing Mukesh Yadav's expertise in Framer, UI/UX design, and interactive prototyping. Built with multiple approaches including Streamlit, React, and a standalone Framer-inspired HTML/CSS implementation.
 
 ## 🚀 Features
 
@@ -24,6 +24,13 @@ A modern, interactive portfolio website showcasing MLOps and DevOps expertise wi
 - **API integration** - Fetch and display modern web components
 - **Cloud deployment** - Ready for Streamlit Cloud hosting
 
+### Framer-Inspired Design
+- **Modern dark theme** - Professional dark color scheme
+- **Clean typography** - Space Grotesk and Inter fonts
+- **Responsive layout** - Two-column desktop, single-column mobile
+- **Interactive elements** - Hover effects and smooth transitions
+- **Contact form** - Functional contact form with validation
+
 ## 🛠️ Tech Stack
 
 ### Frontend
@@ -38,6 +45,12 @@ A modern, interactive portfolio website showcasing MLOps and DevOps expertise wi
 - **Python 3.8+** - Modern Python features
 - **JSON** - Data serialization and storage
 
+### Static HTML/CSS
+- **HTML5** - Semantic markup and accessibility
+- **CSS3** - Modern styling with CSS Grid and Flexbox
+- **JavaScript** - Interactive form handling and animations
+- **Google Fonts** - Space Grotesk and Inter typography
+
 ### Development Tools
 - **Babel** - JavaScript transpilation for browser compatibility
 - **CDN Resources** - External libraries for rapid development
@@ -48,6 +61,9 @@ A modern, interactive portfolio website showcasing MLOps and DevOps expertise wi
 ```
 mukeshyadav.github.io/
 ├── portfolio_app.py          # Main Streamlit application
+├── streamlit_portfolio.py    # Alternative Streamlit implementation
+├── framer_portfolio.html     # Framer-inspired HTML portfolio
+├── framer_styles.css         # Framer portfolio styles
 ├── index.html               # HTML entry point
 ├── styles.css               # Global CSS styles
 ├── app.js                   # Main React application
@@ -112,7 +128,8 @@ mukeshyadav.github.io/
    ```
 
 4. **Open in browser**
-   - Navigate to `http://localhost:8501`
+   - Navigate to `http://localhost:8501` for Streamlit app
+   - Open `framer_portfolio.html` for Framer-inspired portfolio
    - The portfolio will load with live project previews
 
 ### Development
@@ -121,6 +138,7 @@ mukeshyadav.github.io/
 2. **Customize styling** - Edit `styles.css` for visual changes
 3. **Add components** - Create new React components in `components/`
 4. **Update projects** - Add new projects to the portfolio data
+5. **Framer portfolio** - Edit `framer_portfolio.html` and `framer_styles.css`
 
 ## 📱 Responsive Design
 
