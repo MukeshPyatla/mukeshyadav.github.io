@@ -633,58 +633,232 @@ body::before {
     margin: 0;
 }
 
-/* Skills Grid */
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+/* Hero Text Styles */
+.hero-name {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 4rem;
+    font-weight: 700;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0 0 1rem 0;
+    line-height: 1.1;
 }
 
-.skill-item {
+.hero-title {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--primary-green);
+    margin: 0 0 2rem 0;
+}
+
+.hero-description {
+    font-family: "Inter", sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: var(--token-bbcd8ba6-eefc-47f9-82b5-ceb71d01e538);
+    margin: 0;
+}
+
+/* Experience Achievements */
+.achievements {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0 0;
+}
+
+.achievements li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--token-bbcd8ba6-eefc-47f9-82b5-ceb71d01e538);
+}
+
+.achievements li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--primary-green);
+    font-weight: bold;
+}
+
+/* Project Styles */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.project-item {
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
-    border-radius: 15px;
-    padding: 1.5rem;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--token-258ef8c7-ff75-4402-b09e-8e1423116f70);
-    transition: all 0.4s ease;
-    position: relative;
+    border-radius: 20px;
     overflow: hidden;
-    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.skill-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
+.project-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    border-color: var(--primary-green);
+}
+
+.project-preview {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.project-image {
     width: 100%;
     height: 100%;
-    background: var(--gradient-1);
-    opacity: 0.1;
-    transition: left 0.4s ease;
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-.skill-item:hover::before {
-    left: 0;
+.project-item:hover .project-image {
+    transform: scale(1.05);
 }
 
-.skill-item:hover {
-    transform: translateY(-8px) scale(1.05);
+.project-overlay {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.project-status {
+    background: var(--primary-green);
+    color: #000;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.project-content {
+    padding: 1.5rem;
+}
+
+.project-content h3 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--token-258ef8c7-ff75-4402-b09e-8e1423116f70);
+    margin: 0 0 1rem 0;
+}
+
+.project-content p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--token-bbcd8ba6-eefc-47f9-82b5-ceb71d01e538);
+    margin: 0 0 1rem 0;
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.project-tech span {
+    background: rgba(40, 233, 140, 0.1);
+    color: var(--primary-green);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.demo-link, .github-link {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.demo-link {
+    background: var(--primary-green);
+    color: #000;
+}
+
+.github-link {
+    background: transparent;
+    color: var(--token-258ef8c7-ff75-4402-b09e-8e1423116f70);
+    border: 1px solid var(--glass-border);
+}
+
+.demo-link:hover, .github-link:hover {
+    transform: translateY(-2px);
+}
+
+/* Skills Grid */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.skill-category {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.skill-category:hover {
+    transform: translateY(-5px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     border-color: var(--primary-green);
-    color: var(--primary-green);
 }
 
-.skill-item:nth-child(1):hover { border-color: #f24e1e; color: #f24e1e; }
-.skill-item:nth-child(2):hover { border-color: #0055ff; color: #0055ff; }
-.skill-item:nth-child(3):hover { border-color: #ff6b35; color: #ff6b35; }
-.skill-item:nth-child(4):hover { border-color: #000000; color: #000000; }
-.skill-item:nth-child(5):hover { border-color: #ff9a00; color: #ff9a00; }
-.skill-item:nth-child(6):hover { border-color: #00d4ff; color: #00d4ff; }
+.skill-category h3 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--token-258ef8c7-ff75-4402-b09e-8e1423116f70);
+    margin: 0 0 1.5rem 0;
+    text-align: center;
+}
+
+.skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.skill-tag {
+    background: rgba(40, 233, 140, 0.1);
+    color: var(--primary-green);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid rgba(40, 233, 140, 0.2);
+    transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+    background: var(--primary-green);
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(40, 233, 140, 0.3);
+}
 
 /* Responsive Design */
 @media (max-width: 1199px) and (min-width: 810px) {
