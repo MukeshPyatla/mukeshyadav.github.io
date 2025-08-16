@@ -9,75 +9,81 @@ import pandas as pd
 
 # Page configuration
 st.set_page_config(
-    page_title="Mukesh Yadav - MLOps & DevOps Engineer",
-    page_icon="🚀",
+    page_title="John Anderson - UI/UX Designer",
+    page_icon="🎨",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# Custom CSS for Framer-style design
+# Custom CSS for exact Framer clone
 def load_css():
     st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
     
     .main {
-        background: #ffffff;
-        color: #1a1a1a;
+        background: #1a1a1a;
+        color: #ffffff;
         font-family: 'Inter', sans-serif;
+        padding: 0 !important;
+        margin: 0 !important;
     }
     
     .stApp {
-        background: #ffffff;
+        background: #1a1a1a;
+        padding: 0 !important;
+        margin: 0 !important;
     }
     
-    /* Header Section */
-    .header-section {
-        background: #ffffff;
-        padding: 40px 0;
-        border-bottom: 1px solid #f0f0f0;
-    }
-    
-    .header-content {
+    /* Main Layout Container */
+    .portfolio-container {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
+        min-height: 100vh;
+        background: #1a1a1a;
     }
     
-    .profile-info {
-        display: flex;
-        align-items: center;
-        gap: 20px;
+    /* Fixed Left Sidebar */
+    .sidebar {
+        width: 350px;
+        background: #1a1a1a;
+        border-right: 1px solid #333;
+        position: fixed;
+        height: 100vh;
+        overflow-y: auto;
+        padding: 40px 30px;
+        box-sizing: border-box;
+    }
+    
+    /* Profile Card */
+    .profile-card {
+        background: #2a2a2a;
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        border: 1px solid #333;
+        margin-bottom: 30px;
     }
     
     .profile-avatar {
-        width: 80px;
-        height: 80px;
+        width: 120px;
+        height: 120px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #333;
         display: flex;
         align-items: center;
         justify-content: center;
         color: white;
-        font-size: 2rem;
+        font-size: 3rem;
         font-weight: 700;
+        margin: 0 auto 20px;
+        overflow: hidden;
     }
     
-    .profile-details h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #1a1a1a;
-        margin: 0 0 8px 0;
-    }
-    
-    .profile-details p {
-        font-size: 1.1rem;
-        color: #666;
-        margin: 0;
-        font-weight: 500;
+    .profile-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
     }
     
     .availability-badge {
@@ -87,178 +93,245 @@ def load_css():
         border-radius: 20px;
         font-size: 0.9rem;
         font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 20px;
     }
     
-    .header-actions {
+    .availability-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+    }
+    
+    .profile-name {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 10px;
+    }
+    
+    .profile-title {
+        font-size: 1.1rem;
+        color: #999;
+        margin-bottom: 25px;
+        font-weight: 500;
+    }
+    
+    /* Social Links */
+    .social-links {
         display: flex;
+        justify-content: center;
         gap: 15px;
+        margin-bottom: 30px;
+    }
+    
+    .social-icon {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: #333;
+        border: 1px solid #444;
+        display: flex;
         align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    
+    .social-icon:hover {
+        background: #444;
+        transform: translateY(-2px);
+    }
+    
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
     }
     
     .btn-download {
-        background: #1a1a1a;
+        background: #333;
         color: white;
-        padding: 12px 24px;
-        border-radius: 8px;
+        padding: 15px 25px;
+        border-radius: 12px;
         text-decoration: none;
         font-weight: 600;
         transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border: 1px solid #444;
+        cursor: pointer;
     }
     
     .btn-download:hover {
-        background: #333;
+        background: #444;
         transform: translateY(-2px);
     }
     
     .btn-contact {
-        background: #f8f9fa;
-        color: #1a1a1a;
-        padding: 12px 24px;
-        border-radius: 8px;
+        background: #10b981;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 12px;
         text-decoration: none;
         font-weight: 600;
-        border: 1px solid #e9ecef;
         transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border: none;
+        cursor: pointer;
     }
     
     .btn-contact:hover {
-        background: #e9ecef;
+        background: #059669;
         transform: translateY(-2px);
+    }
+    
+    /* Main Content Area */
+    .main-content {
+        flex: 1;
+        margin-left: 350px;
+        padding: 40px;
+        background: #1a1a1a;
+        overflow-y: auto;
     }
     
     /* Hero Section */
     .hero-section {
-        background: #ffffff;
-        padding: 80px 0;
-        text-align: center;
-    }
-    
-    .hero-content {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 0 20px;
+        margin-bottom: 60px;
     }
     
     .hero-greeting {
         font-size: 1.2rem;
-        color: #666;
+        color: #999;
         margin-bottom: 20px;
         font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
     
     .hero-title {
-        font-size: 4rem;
+        font-size: 3.5rem;
         font-weight: 800;
-        color: #1a1a1a;
-        margin-bottom: 20px;
+        color: #ffffff;
+        margin-bottom: 15px;
         line-height: 1.2;
     }
     
     .hero-subtitle {
-        font-size: 2rem;
-        color: #666;
-        margin-bottom: 30px;
-        font-weight: 400;
+        font-size: 2.5rem;
+        color: #10b981;
+        margin-bottom: 25px;
+        font-weight: 700;
     }
     
     .hero-description {
-        font-size: 1.3rem;
-        color: #666;
-        line-height: 1.6;
-        margin-bottom: 50px;
+        font-size: 1.2rem;
+        color: #999;
+        line-height: 1.7;
+        margin-bottom: 40px;
+        max-width: 600px;
     }
     
     /* Stats Section */
     .stats-section {
-        background: #f8f9fa;
-        padding: 60px 0;
+        margin-bottom: 60px;
     }
     
     .stats-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 40px;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
     }
     
     .stat-card {
+        background: #2a2a2a;
+        border-radius: 16px;
+        padding: 30px 20px;
         text-align: center;
-        background: white;
-        padding: 40px 20px;
-        border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        border: 1px solid #333;
         transition: all 0.3s ease;
     }
     
     .stat-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
     
     .stat-number {
-        font-size: 3rem;
+        font-size: 2.5rem;
         font-weight: 800;
-        color: #1a1a1a;
-        margin-bottom: 10px;
+        color: #ffffff;
+        margin-bottom: 8px;
     }
     
     .stat-label {
-        font-size: 1rem;
-        color: #666;
+        font-size: 0.9rem;
+        color: #999;
         font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
     
     /* Section Styles */
     .section {
-        padding: 80px 0;
-        background: #ffffff;
-    }
-    
-    .section-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
+        margin-bottom: 80px;
     }
     
     .section-header {
-        text-align: center;
-        margin-bottom: 60px;
+        margin-bottom: 40px;
     }
     
     .section-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
         font-weight: 700;
-        color: #1a1a1a;
-        margin-bottom: 20px;
+        color: #ffffff;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .section-icon {
+        font-size: 2rem;
+        color: #10b981;
     }
     
     .section-subtitle {
-        font-size: 1.2rem;
-        color: #666;
-        max-width: 600px;
-        margin: 0 auto;
+        font-size: 1.1rem;
+        color: #999;
         line-height: 1.6;
+        max-width: 500px;
     }
     
     /* Experience Section */
     .experience-grid {
         display: grid;
-        gap: 30px;
+        gap: 25px;
     }
     
     .experience-card {
-        background: #f8f9fa;
-        border-radius: 12px;
+        background: #2a2a2a;
+        border-radius: 16px;
         padding: 30px;
+        border: 1px solid #333;
         transition: all 0.3s ease;
-        border: 1px solid #e9ecef;
     }
     
     .experience-card:hover {
         transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
     
     .experience-header {
@@ -272,7 +345,7 @@ def load_css():
         width: 60px;
         height: 60px;
         border-radius: 12px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #ff6b35;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -282,60 +355,76 @@ def load_css():
     }
     
     .experience-info h3 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         font-weight: 700;
-        color: #1a1a1a;
+        color: #ffffff;
         margin: 0 0 5px 0;
     }
     
     .experience-info h4 {
-        font-size: 1.2rem;
-        color: #666;
+        font-size: 1.1rem;
+        color: #10b981;
         margin: 0 0 5px 0;
         font-weight: 600;
     }
     
     .experience-period {
-        font-size: 1rem;
+        font-size: 0.9rem;
         color: #999;
         font-weight: 500;
     }
     
     .experience-description {
-        font-size: 1.1rem;
-        color: #666;
+        font-size: 1rem;
+        color: #999;
         line-height: 1.6;
     }
     
     /* Projects Section */
     .projects-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 30px;
     }
     
     .project-card {
-        background: #f8f9fa;
-        border-radius: 12px;
+        background: #2a2a2a;
+        border-radius: 16px;
         overflow: hidden;
+        border: 1px solid #333;
         transition: all 0.3s ease;
-        border: 1px solid #e9ecef;
     }
     
     .project-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
     }
     
     .project-image {
         width: 100%;
         height: 200px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #333;
         display: flex;
         align-items: center;
         justify-content: center;
         color: white;
         font-size: 3rem;
+        position: relative;
+    }
+    
+    .project-arrow {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        width: 35px;
+        height: 35px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
     }
     
     .project-content {
@@ -345,15 +434,15 @@ def load_css():
     .project-title {
         font-size: 1.3rem;
         font-weight: 700;
-        color: #1a1a1a;
+        color: #ffffff;
         margin-bottom: 10px;
     }
     
     .project-category {
         font-size: 0.9rem;
-        color: #666;
-        margin-bottom: 15px;
-        font-weight: 500;
+        color: #10b981;
+        margin-bottom: 8px;
+        font-weight: 600;
     }
     
     .project-pages {
@@ -368,171 +457,265 @@ def load_css():
     }
     
     .btn-view {
-        background: #1a1a1a;
+        background: #333;
         color: white;
-        padding: 8px 16px;
-        border-radius: 6px;
+        padding: 10px 20px;
+        border-radius: 8px;
         text-decoration: none;
         font-size: 0.9rem;
         font-weight: 600;
         transition: all 0.3s ease;
+        flex: 1;
+        text-align: center;
+        border: 1px solid #444;
     }
     
     .btn-view:hover {
-        background: #333;
+        background: #444;
     }
     
     /* Skills Section */
     .skills-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 30px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
     }
     
     .skill-category {
-        background: #f8f9fa;
-        border-radius: 12px;
+        background: #2a2a2a;
+        border-radius: 16px;
         padding: 30px;
         text-align: center;
+        border: 1px solid #333;
         transition: all 0.3s ease;
-        border: 1px solid #e9ecef;
     }
     
     .skill-category:hover {
         transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
     
     .skill-icon {
-        font-size: 3rem;
+        font-size: 2.5rem;
         margin-bottom: 20px;
     }
     
     .skill-title {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         font-weight: 700;
-        color: #1a1a1a;
+        color: #ffffff;
         margin-bottom: 15px;
     }
     
     .skill-description {
-        font-size: 1rem;
-        color: #666;
+        font-size: 0.95rem;
+        color: #999;
         line-height: 1.6;
     }
     
     /* Contact Section */
     .contact-section {
-        background: #f8f9fa;
-        padding: 80px 0;
+        background: #2a2a2a;
+        border-radius: 20px;
+        padding: 40px;
+        border: 1px solid #333;
     }
     
-    .contact-content {
+    .contact-header {
         text-align: center;
-        max-width: 600px;
-        margin: 0 auto;
+        margin-bottom: 40px;
     }
     
     .contact-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
         font-weight: 700;
-        color: #1a1a1a;
-        margin-bottom: 20px;
+        color: #ffffff;
+        margin-bottom: 10px;
+    }
+    
+    .contact-subtitle {
+        font-size: 1.1rem;
+        color: #999;
+    }
+    
+    .contact-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: start;
     }
     
     .contact-info {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 30px;
-        margin: 40px 0;
+        gap: 20px;
     }
     
     .contact-item {
-        text-align: center;
+        background: #333;
+        border-radius: 12px;
+        padding: 20px;
+        border: 1px solid #444;
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
     
     .contact-icon {
-        font-size: 2rem;
-        margin-bottom: 15px;
-        color: #667eea;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: #10b981;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
     }
     
-    .contact-label {
+    .contact-details h4 {
         font-size: 0.9rem;
-        color: #666;
+        color: #999;
         margin-bottom: 5px;
         font-weight: 500;
     }
     
-    .contact-value {
-        font-size: 1.1rem;
-        color: #1a1a1a;
+    .contact-details p {
+        font-size: 1rem;
+        color: #ffffff;
         font-weight: 600;
+        margin: 0;
+    }
+    
+    .contact-form {
+        background: #333;
+        border-radius: 12px;
+        padding: 30px;
+        border: 1px solid #444;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        display: block;
+        font-size: 0.9rem;
+        color: #999;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+    
+    .form-input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1px solid #444;
+        border-radius: 8px;
+        font-size: 1rem;
+        background: #2a2a2a;
+        color: #ffffff;
+        transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+        outline: none;
+        border-color: #10b981;
+        background: #333;
+    }
+    
+    .form-textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1px solid #444;
+        border-radius: 8px;
+        font-size: 1rem;
+        background: #2a2a2a;
+        color: #ffffff;
+        min-height: 120px;
+        resize: vertical;
+        transition: all 0.3s ease;
+    }
+    
+    .form-textarea:focus {
+        outline: none;
+        border-color: #10b981;
+        background: #333;
     }
     
     .btn-send-message {
-        background: #1a1a1a;
+        background: #10b981;
         color: white;
         padding: 15px 30px;
         border-radius: 8px;
         text-decoration: none;
         font-weight: 600;
-        font-size: 1.1rem;
+        font-size: 1rem;
         transition: all 0.3s ease;
         display: inline-block;
-        margin-top: 30px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
     }
     
     .btn-send-message:hover {
-        background: #333;
+        background: #059669;
         transform: translateY(-2px);
     }
     
     /* Footer */
     .footer {
-        background: #1a1a1a;
-        color: white;
-        padding: 40px 0;
         text-align: center;
+        padding: 40px 0;
+        border-top: 1px solid #333;
+        margin-top: 60px;
     }
     
     .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 20px;
     }
     
     .footer-text {
-        font-size: 1rem;
+        font-size: 0.9rem;
         color: #999;
-        margin-bottom: 10px;
     }
     
     .footer-signature {
         font-size: 1.1rem;
-        color: white;
+        color: #ffffff;
         font-weight: 600;
+        font-style: italic;
+    }
+    
+    .footer-badges {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .footer-badge {
+        background: #333;
+        color: #999;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        border: 1px solid #444;
     }
     
     /* Responsive Design */
-    @media (max-width: 768px) {
-        .header-content {
-            flex-direction: column;
-            gap: 20px;
-            text-align: center;
+    @media (max-width: 1200px) {
+        .sidebar {
+            width: 300px;
         }
         
-        .hero-title {
-            font-size: 2.5rem;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.5rem;
+        .main-content {
+            margin-left: 300px;
         }
         
         .stats-grid {
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
         }
         
         .projects-grid {
@@ -540,11 +723,52 @@ def load_css():
         }
         
         .skills-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .contact-content {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .portfolio-container {
+            flex-direction: column;
+        }
+        
+        .sidebar {
+            width: 100%;
+            position: relative;
+            height: auto;
+            padding: 30px 20px;
+        }
+        
+        .main-content {
+            margin-left: 0;
+            padding: 30px 20px;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 2rem;
+        }
+        
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .skills-grid {
             grid-template-columns: 1fr;
         }
         
-        .contact-info {
-            grid-template-columns: 1fr;
+        .footer-content {
+            flex-direction: column;
+            gap: 20px;
         }
     }
     </style>
@@ -553,152 +777,162 @@ def load_css():
 # Load CSS
 load_css()
 
-# Portfolio data
+# Portfolio data - Exact copy of John Anderson's content
 portfolio_data = {
     'personal': {
-        'name': "Mukesh Yadav",
-        'title': "MLOps & DevOps Engineer",
-        'location': "Based in United States",
-        'description': "I specialize in building scalable, production-ready AI/ML systems and automating complex DevOps workflows. With expertise in cloud infrastructure, CI/CD pipelines, and MLOps best practices, I help organizations deploy intelligent solutions that drive business value.",
-        'email': "mukeshyadavp91@gmail.com",
-        'linkedin': "linkedin.com/in/mukesh-mlops",
-        'github': "github.com/MukeshPyatla",
-        'phone': "+1 (555) 123-4567",
-        'address': "United States"
+        'name': "John Anderson",
+        'title': "UI/UX Designer",
+        'description': "I specialize in creating clean, user-friendly digital experiences by blending creativity with functionality. With a strong background in interactive design, I focus on crafting designs that not only look great but also provide smooth and engaging user interactions, helping ideas come to life seamlessly.",
+        'email': "andrew@website.com",
+        'phone': "+(02) 4057 2930",
+        'address': "Beverly Hills, Los Angeles, California, USA"
     },
     'stats': [
-        {'number': "6", 'label': "Live Projects"},
-        {'number': "47", 'label': "Technical Skills"},
-        {'number': "3+", 'label': "Years Experience"},
-        {'number': "100%", 'label': "Success Rate"}
+        {'number': "24", 'label': "Completed Projects"},
+        {'number': "1+", 'label': "Years of Experience"},
+        {'number': "26", 'label': "Happy Clients"},
+        {'number': "1+", 'label': "Awards Received"}
     ],
     'experience': [
         {
-            'title': 'MLOps Engineer',
-            'company': 'Aidoc',
+            'title': 'Framer & UI/UX Designer',
+            'company': 'Circlum Tech',
             'period': '2023 - Present',
-            'description': 'Engineered monitoring systems with Prometheus and Grafana, reducing MTTR by 70%. Deployed CI/CD pipelines for GenAI applications, decreasing deployment time by 80%. Automated cloud infrastructure with Terraform, reducing costs by 20%.'
+            'description': 'Designing interactive prototypes with Framer, focusing on seamless user experiences and scalable solutions through user feedback and collaboration.'
         },
         {
-            'title': 'Graduate Research Assistant',
-            'company': 'Missouri University of Science and Technology',
-            'period': '2023',
-            'description': 'Managed Azure cloud resources for ML experiments supporting 10 researchers. Implemented DVC for reproducible ML experiments. Designed CI/CD pipelines with Prefect, reducing setup time by 90%.'
+            'title': 'UI/UX Designer',
+            'company': 'CoreOS',
+            'period': '2021 - 2023',
+            'description': 'Created intuitive web and mobile designs, conducted user research, and collaborated with developers to ensure consistent and functional design delivery.'
         },
         {
-            'title': 'Junior Systems Administrator | DevOps Engineer',
-            'company': 'PineLabs',
-            'period': '2021 - 2022',
-            'description': 'Developed CI/CD pipeline using Jenkins and Docker, reducing deployment errors by 30%. Automated system administration tasks, saving 5 hours/week. Maintained Linux servers achieving 99.9% uptime.'
+            'title': 'Graphics Designer',
+            'company': 'Pixel Square',
+            'period': '2020 - 2021',
+            'description': 'Designed marketing assets, UI components, and brand visuals, enhancing digital campaigns and overall visual identity through creative collaboration.'
         }
     ],
     'projects': [
         {
-            'title': 'DeFi Fraud Detection',
-            'category': 'MLOps & AI',
+            'title': 'HelloBot',
+            'category': 'SaaS & Startup',
             'pages': '8 Pages',
-            'icon': '🛡️',
-            'github': 'https://github.com/MukeshPyatla/DeFi_Fraud-Detection_MLOps_Pipeline',
-            'demo': 'https://defifraud-detectionmlopspipeline.streamlit.app/'
-        },
-        {
-            'title': 'Guardian AI Auditor',
-            'category': 'AI & Security',
-            'pages': '6 Pages',
             'icon': '🤖',
-            'github': 'https://github.com/MukeshPyatla/guardian-ai-auditor',
-            'demo': 'https://mukeshpyatla-guardian-ai-auditor-srcuiapp-c6jflx.streamlit.app/'
+            'github': '#',
+            'demo': 'https://hellobot.framer.website'
         },
         {
-            'title': 'MLOps Q&A System',
-            'category': 'LLM & RAG',
-            'pages': '8 Pages',
-            'icon': '💬',
-            'github': 'https://github.com/MukeshPyatla/mlops-qa-system',
-            'demo': 'https://mlops-app-system.streamlit.app/'
-        },
-        {
-            'title': 'Azure Anomaly Detector',
-            'category': 'Cloud & ML',
-            'pages': '7 Pages',
-            'icon': '📡',
-            'github': 'https://github.com/MukeshPyatla/Azure-MLOPS-Anomaly-Detector',
-            'demo': 'https://azure-mlops-anomaly-detector.streamlit.app/'
-        },
-        {
-            'title': 'Secure Churn Prediction',
-            'category': 'Data Science',
+            'title': 'Flexisoft',
+            'category': 'SaaS & Startup',
             'pages': '6 Pages',
-            'icon': '👤',
-            'github': 'https://github.com/MukeshPyatla/MLOPS-Secure-Churn',
-            'demo': 'https://mlops-secure-churn.streamlit.app/'
+            'icon': '💻',
+            'github': '#',
+            'demo': '#'
         },
         {
-            'title': 'Demand Forecasting',
-            'category': 'MLOps & Analytics',
-            'pages': '5 Pages',
-            'icon': '📈',
-            'github': 'https://github.com/MukeshPyatla/MLOPS-Demand-Forecasting',
-            'demo': 'https://mlops-demand-forecasting.streamlit.app/'
+            'title': 'Excludia',
+            'category': 'Digital Agency',
+            'pages': '8 Pages',
+            'icon': '🎨',
+            'github': '#',
+            'demo': '#'
+        },
+        {
+            'title': 'CryptoraHub',
+            'category': 'Crypto & Web3',
+            'pages': '7 Pages',
+            'icon': '₿',
+            'github': '#',
+            'demo': '#'
         }
     ],
     'skills': [
         {
-            'title': 'Cloud & DevOps',
-            'icon': '☁️',
-            'description': 'AWS, Azure, Terraform, Docker, Kubernetes, CI/CD pipelines, Infrastructure as Code'
+            'title': 'Figma',
+            'icon': '🎨',
+            'description': 'Design Tool'
         },
         {
-            'title': 'AI/ML Frameworks',
-            'icon': '🧠',
-            'description': 'PyTorch, TensorFlow, LangChain, FastAPI, MLflow, BentoML, MLOps pipelines'
+            'title': 'Framer',
+            'icon': '⚡',
+            'description': 'No Code Development'
         },
         {
-            'title': 'Programming',
-            'icon': '💻',
-            'description': 'Python, Go, C++, Bash, SQL, JavaScript, React, Node.js'
+            'title': 'Lemon Squeezy',
+            'icon': '🍋',
+            'description': 'Payment'
         },
         {
-            'title': 'Data & Monitoring',
-            'icon': '📊',
-            'description': 'Pandas, Spark, Prometheus, Grafana, ELK Stack, Data validation & monitoring'
+            'title': 'Notion',
+            'icon': '📝',
+            'description': 'Notion'
+        },
+        {
+            'title': 'Illustrators',
+            'icon': '✏️',
+            'description': 'Illustrators'
+        },
+        {
+            'title': 'SS Icons',
+            'icon': '🔗',
+            'description': 'Icon Library'
         }
     ]
 }
 
-def create_header():
+def create_sidebar():
     st.markdown(f"""
-    <div class="header-section">
-        <div class="header-content">
-            <div class="profile-info">
-                <div class="profile-avatar">MY</div>
-                <div class="profile-details">
-                    <h1>{portfolio_data['personal']['name']}</h1>
-                    <p>{portfolio_data['personal']['title']}</p>
-                </div>
+    <div class="sidebar">
+        <div class="profile-card">
+            <div class="profile-avatar">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=face" alt="John Anderson">
             </div>
-            <div class="header-actions">
-                <span class="availability-badge">Available for work</span>
-                <a href="#" class="btn-download">Download CV</a>
-                <a href="#contact" class="btn-contact">Contact Me</a>
+            <div class="availability-badge">
+                <div class="availability-dot"></div>
+                Available for work
+            </div>
+            <h1 class="profile-name">{portfolio_data['personal']['name']}</h1>
+            <p class="profile-title">{portfolio_data['personal']['title']}</p>
+            
+            <div class="social-links">
+                <a href="#" class="social-icon">📷</a>
+                <a href="#" class="social-icon">🐦</a>
+                <a href="#" class="social-icon">▶️</a>
+                <a href="#" class="social-icon">🏀</a>
+                <a href="#" class="social-icon">Bē</a>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="#" class="btn-download">
+                    📥 Download CV
+                </a>
+                <a href="#contact" class="btn-contact">
+                    ✉️ Contact Me
+                </a>
             </div>
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-def create_hero():
+def create_main_content():
+    st.markdown("""
+    <div class="main-content">
+    """, unsafe_allow_html=True)
+    
+    # Hero Section
     st.markdown(f"""
     <div class="hero-section">
-        <div class="hero-content">
-            <div class="hero-greeting">👋 Say Hello</div>
-            <h1 class="hero-title">I'm {portfolio_data['personal']['name']},</h1>
-            <h2 class="hero-subtitle">{portfolio_data['personal']['location']}</h2>
-            <p class="hero-description">{portfolio_data['personal']['description']}</p>
+        <div class="hero-greeting">
+            👋 Say Hello
         </div>
+        <h1 class="hero-title">I'm {portfolio_data['personal']['name']},</h1>
+        <h2 class="hero-subtitle">Based in Los Angeles, CA.</h2>
+        <p class="hero-description">{portfolio_data['personal']['description']}</p>
     </div>
     """, unsafe_allow_html=True)
-
-def create_stats():
+    
+    # Stats Section
     st.markdown("""
     <div class="stats-section">
         <div class="stats-grid">
@@ -713,16 +947,17 @@ def create_stats():
         """, unsafe_allow_html=True)
     
     st.markdown("</div></div>", unsafe_allow_html=True)
-
-def create_experience():
+    
+    # Experience Section
     st.markdown("""
     <div class="section">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">Experience</h2>
-                <p class="section-subtitle">My professional journey in MLOps and DevOps engineering</p>
-            </div>
-            <div class="experience-grid">
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="section-icon">💼</span>
+                Experience
+            </h2>
+        </div>
+        <div class="experience-grid">
     """, unsafe_allow_html=True)
     
     for exp in portfolio_data['experience']:
@@ -741,46 +976,51 @@ def create_experience():
         </div>
         """, unsafe_allow_html=True)
     
-    st.markdown("</div></div></div>", unsafe_allow_html=True)
-
-def create_projects():
+    st.markdown("</div></div>", unsafe_allow_html=True)
+    
+    # Projects Section
     st.markdown("""
     <div class="section">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">Projects</h2>
-                <p class="section-subtitle">Featured MLOps and DevOps projects showcasing my expertise</p>
-            </div>
-            <div class="projects-grid">
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="section-icon">🚀</span>
+                Projects
+            </h2>
+        </div>
+        <div class="projects-grid">
     """, unsafe_allow_html=True)
     
     for project in portfolio_data['projects']:
         st.markdown(f"""
         <div class="project-card">
-            <div class="project-image">{project['icon']}</div>
+            <div class="project-image">
+                {project['icon']}
+                <div class="project-arrow">↗</div>
+            </div>
             <div class="project-content">
                 <h3 class="project-title">{project['title']}</h3>
                 <div class="project-category">{project['category']}</div>
                 <div class="project-pages">{project['pages']}</div>
                 <div class="project-actions">
-                    <a href="{project['github']}" target="_blank" class="btn-view">GitHub</a>
-                    <a href="{project['demo']}" target="_blank" class="btn-view">Live Demo</a>
+                    <a href="{project['github']}" target="_blank" class="btn-view">View</a>
+                    <a href="{project['demo']}" target="_blank" class="btn-view">Demo</a>
                 </div>
             </div>
         </div>
         """, unsafe_allow_html=True)
     
-    st.markdown("</div></div></div>", unsafe_allow_html=True)
-
-def create_skills():
+    st.markdown("</div></div>", unsafe_allow_html=True)
+    
+    # Skills Section
     st.markdown("""
     <div class="section">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">Skills</h2>
-                <p class="section-subtitle">Technical expertise across the MLOps and DevOps ecosystem</p>
-            </div>
-            <div class="skills-grid">
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="section-icon">🎯</span>
+                Stakes
+            </h2>
+        </div>
+        <div class="skills-grid">
     """, unsafe_allow_html=True)
     
     for skill in portfolio_data['skills']:
@@ -792,71 +1032,93 @@ def create_skills():
         </div>
         """, unsafe_allow_html=True)
     
-    st.markdown("</div></div></div>", unsafe_allow_html=True)
-
-def create_contact():
+    st.markdown("</div></div>", unsafe_allow_html=True)
+    
+    # Contact Section
     st.markdown(f"""
-    <div class="contact-section" id="contact">
-        <div class="section-container">
+    <div class="section" id="contact">
+        <div class="contact-section">
+            <div class="contact-header">
+                <h2 class="contact-title">Contact</h2>
+                <p class="contact-subtitle">Let's Get in Touch!</p>
+            </div>
             <div class="contact-content">
-                <h2 class="contact-title">Let's Get in Touch!</h2>
                 <div class="contact-info">
                     <div class="contact-item">
                         <div class="contact-icon">📞</div>
-                        <div class="contact-label">Contact No</div>
-                        <div class="contact-value">{portfolio_data['personal']['phone']}</div>
+                        <div class="contact-details">
+                            <h4>Contact No</h4>
+                            <p>{portfolio_data['personal']['phone']}</p>
+                        </div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">📧</div>
-                        <div class="contact-label">Email</div>
-                        <div class="contact-value">{portfolio_data['personal']['email']}</div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>{portfolio_data['personal']['email']}</p>
+                        </div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">📍</div>
-                        <div class="contact-label">Address</div>
-                        <div class="contact-value">{portfolio_data['personal']['address']}</div>
+                        <div class="contact-details">
+                            <h4>Address</h4>
+                            <p>{portfolio_data['personal']['address']}</p>
+                        </div>
                     </div>
                 </div>
-                <a href="mailto:{portfolio_data['personal']['email']}" class="btn-send-message">Send Message</a>
+                <div class="contact-form">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" class="form-input" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-input" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" class="form-input" placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea class="form-textarea" placeholder="Enter your message"></textarea>
+                    </div>
+                    <button class="btn-send-message">Send Message</button>
+                </div>
             </div>
         </div>
     </div>
     """, unsafe_allow_html=True)
-
-def create_footer():
+    
+    # Footer
     st.markdown("""
     <div class="footer">
         <div class="footer-content">
-            <p class="footer-text">Built with ❤️ using Streamlit</p>
-            <p class="footer-signature">Mukesh Yadav</p>
+            <div class="footer-text">Built in Framer</div>
+            <div class="footer-signature">John Anderson</div>
+            <div class="footer-badges">
+                <div class="footer-badge">Create</div>
+                <div class="footer-badge">Made in Framer</div>
+            </div>
         </div>
+    </div>
     </div>
     """, unsafe_allow_html=True)
 
 def main():
-    # Header Section
-    create_header()
+    # Main Layout Container
+    st.markdown("""
+    <div class="portfolio-container">
+    """, unsafe_allow_html=True)
     
-    # Hero Section
-    create_hero()
+    # Fixed Left Sidebar
+    create_sidebar()
     
-    # Stats Section
-    create_stats()
+    # Scrollable Main Content
+    create_main_content()
     
-    # Experience Section
-    create_experience()
-    
-    # Projects Section
-    create_projects()
-    
-    # Skills Section
-    create_skills()
-    
-    # Contact Section
-    create_contact()
-    
-    # Footer
-    create_footer()
+    # Close container
+    st.markdown("</div>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
