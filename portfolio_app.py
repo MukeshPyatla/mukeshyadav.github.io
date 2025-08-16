@@ -1,1124 +1,342 @@
 import streamlit as st
 import requests
-import json
-import base64
-from datetime import datetime
-import plotly.graph_objects as go
-import plotly.express as px
-import pandas as pd
+from PIL import Image
 
-# Page configuration
+# ----------------- PAGE CONFIG ----------------- #
 st.set_page_config(
-    page_title="John Anderson - UI/UX Designer",
-    page_icon="🎨",
+    page_title="Mukesh Yadav | Digital CV",
+    page_icon="👨‍💻",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="collapsed",
 )
 
-# Custom CSS for exact Framer clone
-def load_css():
-    st.markdown("""
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-    
-    .main {
-        background: #1a1a1a;
-        color: #ffffff;
-        font-family: 'Inter', sans-serif;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-    
-    .stApp {
-        background: #1a1a1a;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-    
-    /* Main Layout Container */
-    .portfolio-container {
-        display: flex;
-        min-height: 100vh;
-        background: #1a1a1a;
-    }
-    
-    /* Fixed Left Sidebar */
-    .sidebar {
-        width: 350px;
-        background: #1a1a1a;
-        border-right: 1px solid #333;
-        position: fixed;
-        height: 100vh;
-        overflow-y: auto;
-        padding: 40px 30px;
-        box-sizing: border-box;
-    }
-    
-    /* Profile Card */
-    .profile-card {
-        background: #2a2a2a;
-        border-radius: 20px;
-        padding: 30px;
-        text-align: center;
-        border: 1px solid #333;
-        margin-bottom: 30px;
-    }
-    
-    .profile-avatar {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        background: #333;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 3rem;
-        font-weight: 700;
-        margin: 0 auto 20px;
-        overflow: hidden;
-    }
-    
-    .profile-avatar img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 50%;
-    }
-    
-    .availability-badge {
-        background: #10b981;
-        color: white;
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 20px;
-    }
-    
-    .availability-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: white;
-    }
-    
-    .profile-name {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #ffffff;
-        margin-bottom: 10px;
-    }
-    
-    .profile-title {
-        font-size: 1.1rem;
-        color: #999;
-        margin-bottom: 25px;
-        font-weight: 500;
-    }
-    
-    /* Social Links */
-    .social-links {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        margin-bottom: 30px;
-    }
-    
-    .social-icon {
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        background: #333;
-        border: 1px solid #444;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        font-size: 1.2rem;
-        transition: all 0.3s ease;
-        text-decoration: none;
-    }
-    
-    .social-icon:hover {
-        background: #444;
-        transform: translateY(-2px);
-    }
-    
-    /* Action Buttons */
-    .action-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .btn-download {
-        background: #333;
-        color: white;
-        padding: 15px 25px;
-        border-radius: 12px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        border: 1px solid #444;
-        cursor: pointer;
-    }
-    
-    .btn-download:hover {
-        background: #444;
-        transform: translateY(-2px);
-    }
-    
-    .btn-contact {
-        background: #10b981;
-        color: white;
-        padding: 15px 25px;
-        border-radius: 12px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        border: none;
-        cursor: pointer;
-    }
-    
-    .btn-contact:hover {
-        background: #059669;
-        transform: translateY(-2px);
-    }
-    
-    /* Main Content Area */
-    .main-content {
-        flex: 1;
-        margin-left: 350px;
-        padding: 40px;
-        background: #1a1a1a;
-        overflow-y: auto;
-    }
-    
-    /* Hero Section */
-    .hero-section {
-        margin-bottom: 60px;
-    }
-    
-    .hero-greeting {
-        font-size: 1.2rem;
-        color: #999;
-        margin-bottom: 20px;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    .hero-title {
-        font-size: 3.5rem;
-        font-weight: 800;
-        color: #ffffff;
-        margin-bottom: 15px;
-        line-height: 1.2;
-    }
-    
-    .hero-subtitle {
-        font-size: 2.5rem;
-        color: #10b981;
-        margin-bottom: 25px;
-        font-weight: 700;
-    }
-    
-    .hero-description {
-        font-size: 1.2rem;
-        color: #999;
-        line-height: 1.7;
-        margin-bottom: 40px;
-        max-width: 600px;
-    }
-    
-    /* Stats Section */
-    .stats-section {
-        margin-bottom: 60px;
-    }
-    
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 25px;
-    }
-    
-    .stat-card {
-        background: #2a2a2a;
-        border-radius: 16px;
-        padding: 30px 20px;
-        text-align: center;
-        border: 1px solid #333;
-        transition: all 0.3s ease;
-    }
-    
-    .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-    
-    .stat-number {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: #ffffff;
-        margin-bottom: 8px;
-    }
-    
-    .stat-label {
-        font-size: 0.9rem;
-        color: #999;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-    
-    /* Section Styles */
-    .section {
-        margin-bottom: 80px;
-    }
-    
-    .section-header {
-        margin-bottom: 40px;
-    }
-    
-    .section-title {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: #ffffff;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-    
-    .section-icon {
-        font-size: 2rem;
-        color: #10b981;
-    }
-    
-    .section-subtitle {
-        font-size: 1.1rem;
-        color: #999;
-        line-height: 1.6;
-        max-width: 500px;
-    }
-    
-    /* Experience Section */
-    .experience-grid {
-        display: grid;
-        gap: 25px;
-    }
-    
-    .experience-card {
-        background: #2a2a2a;
-        border-radius: 16px;
-        padding: 30px;
-        border: 1px solid #333;
-        transition: all 0.3s ease;
-    }
-    
-    .experience-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-    
-    .experience-header {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        margin-bottom: 20px;
-    }
-    
-    .company-icon {
-        width: 60px;
-        height: 60px;
-        border-radius: 12px;
-        background: #ff6b35;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.5rem;
-        font-weight: 700;
-    }
-    
-    .experience-info h3 {
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: #ffffff;
-        margin: 0 0 5px 0;
-    }
-    
-    .experience-info h4 {
-        font-size: 1.1rem;
-        color: #10b981;
-        margin: 0 0 5px 0;
-        font-weight: 600;
-    }
-    
-    .experience-period {
-        font-size: 0.9rem;
-        color: #999;
-        font-weight: 500;
-    }
-    
-    .experience-description {
-        font-size: 1rem;
-        color: #999;
-        line-height: 1.6;
-    }
-    
-    /* Projects Section */
-    .projects-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
-    }
-    
-    .project-card {
-        background: #2a2a2a;
-        border-radius: 16px;
-        overflow: hidden;
-        border: 1px solid #333;
-        transition: all 0.3s ease;
-    }
-    
-    .project-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-    }
-    
-    .project-image {
-        width: 100%;
-        height: 200px;
-        background: #333;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 3rem;
-        position: relative;
-    }
-    
-    .project-arrow {
-        position: absolute;
-        bottom: 15px;
-        right: 15px;
-        width: 35px;
-        height: 35px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.2rem;
-    }
-    
-    .project-content {
-        padding: 25px;
-    }
-    
-    .project-title {
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: #ffffff;
-        margin-bottom: 10px;
-    }
-    
-    .project-category {
-        font-size: 0.9rem;
-        color: #10b981;
-        margin-bottom: 8px;
-        font-weight: 600;
-    }
-    
-    .project-pages {
-        font-size: 0.9rem;
-        color: #999;
-        margin-bottom: 20px;
-    }
-    
-    .project-actions {
-        display: flex;
-        gap: 10px;
-    }
-    
-    .btn-view {
-        background: #333;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-size: 0.9rem;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        flex: 1;
-        text-align: center;
-        border: 1px solid #444;
-    }
-    
-    .btn-view:hover {
-        background: #444;
-    }
-    
-    /* Skills Section */
-    .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 25px;
-    }
-    
-    .skill-category {
-        background: #2a2a2a;
-        border-radius: 16px;
-        padding: 30px;
-        text-align: center;
-        border: 1px solid #333;
-        transition: all 0.3s ease;
-    }
-    
-    .skill-category:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-    
-    .skill-icon {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-    }
-    
-    .skill-title {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: #ffffff;
-        margin-bottom: 15px;
-    }
-    
-    .skill-description {
-        font-size: 0.95rem;
-        color: #999;
-        line-height: 1.6;
-    }
-    
-    /* Contact Section */
-    .contact-section {
-        background: #2a2a2a;
-        border-radius: 20px;
-        padding: 40px;
-        border: 1px solid #333;
-    }
-    
-    .contact-header {
-        text-align: center;
-        margin-bottom: 40px;
-    }
-    
-    .contact-title {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: #ffffff;
-        margin-bottom: 10px;
-    }
-    
-    .contact-subtitle {
-        font-size: 1.1rem;
-        color: #999;
-    }
-    
-    .contact-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
-        align-items: start;
-    }
-    
-    .contact-info {
-        display: grid;
-        gap: 20px;
-    }
-    
-    .contact-item {
-        background: #333;
-        border-radius: 12px;
-        padding: 20px;
-        border: 1px solid #444;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-    
-    .contact-icon {
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        background: #10b981;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.2rem;
-    }
-    
-    .contact-details h4 {
-        font-size: 0.9rem;
-        color: #999;
-        margin-bottom: 5px;
-        font-weight: 500;
-    }
-    
-    .contact-details p {
-        font-size: 1rem;
-        color: #ffffff;
-        font-weight: 600;
-        margin: 0;
-    }
-    
-    .contact-form {
-        background: #333;
-        border-radius: 12px;
-        padding: 30px;
-        border: 1px solid #444;
-    }
-    
-    .form-group {
-        margin-bottom: 20px;
-    }
-    
-    .form-group label {
-        display: block;
-        font-size: 0.9rem;
-        color: #999;
-        margin-bottom: 8px;
-        font-weight: 500;
-    }
-    
-    .form-input {
-        width: 100%;
-        padding: 12px 16px;
-        border: 1px solid #444;
-        border-radius: 8px;
-        font-size: 1rem;
-        background: #2a2a2a;
-        color: #ffffff;
-        transition: all 0.3s ease;
-    }
-    
-    .form-input:focus {
-        outline: none;
-        border-color: #10b981;
-        background: #333;
-    }
-    
-    .form-textarea {
-        width: 100%;
-        padding: 12px 16px;
-        border: 1px solid #444;
-        border-radius: 8px;
-        font-size: 1rem;
-        background: #2a2a2a;
-        color: #ffffff;
-        min-height: 120px;
-        resize: vertical;
-        transition: all 0.3s ease;
-    }
-    
-    .form-textarea:focus {
-        outline: none;
-        border-color: #10b981;
-        background: #333;
-    }
-    
-    .btn-send-message {
-        background: #10b981;
-        color: white;
-        padding: 15px 30px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        display: inline-block;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-    }
-    
-    .btn-send-message:hover {
-        background: #059669;
-        transform: translateY(-2px);
-    }
-    
-    /* Footer */
-    .footer {
-        text-align: center;
-        padding: 40px 0;
-        border-top: 1px solid #333;
-        margin-top: 60px;
-    }
-    
-    .footer-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    
-    .footer-text {
-        font-size: 0.9rem;
-        color: #999;
-    }
-    
-    .footer-signature {
-        font-size: 1.1rem;
-        color: #ffffff;
-        font-weight: 600;
-        font-style: italic;
-    }
-    
-    .footer-badges {
-        display: flex;
-        gap: 10px;
-    }
-    
-    .footer-badge {
-        background: #333;
-        color: #999;
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 500;
-        border: 1px solid #444;
-    }
-    
-    /* Responsive Design */
-    @media (max-width: 1200px) {
-        .sidebar {
-            width: 300px;
-        }
-        
-        .main-content {
-            margin-left: 300px;
-        }
-        
-        .stats-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        
-        .projects-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .skills-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        
-        .contact-content {
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-    }
-    
-    @media (max-width: 768px) {
-        .portfolio-container {
-            flex-direction: column;
-        }
-        
-        .sidebar {
-            width: 100%;
-            position: relative;
-            height: auto;
-            padding: 30px 20px;
-        }
-        
-        .main-content {
-            margin-left: 0;
-            padding: 30px 20px;
-        }
-        
-        .hero-title {
-            font-size: 2.5rem;
-        }
-        
-        .hero-subtitle {
-            font-size: 2rem;
-        }
-        
-        .stats-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-        
-        .skills-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .footer-content {
-            flex-direction: column;
-            gap: 20px;
-        }
-    }
-    </style>
-    """, unsafe_allow_html=True)
+# ----------------- CUSTOM CSS ----------------- #
+# This function will inject our custom CSS.
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-# Load CSS
-load_css()
-
-# Portfolio data - Exact copy of John Anderson's content
-portfolio_data = {
-    'personal': {
-        'name': "John Anderson",
-        'title': "UI/UX Designer",
-        'description': "I specialize in creating clean, user-friendly digital experiences by blending creativity with functionality. With a strong background in interactive design, I focus on crafting designs that not only look great but also provide smooth and engaging user interactions, helping ideas come to life seamlessly.",
-        'email': "andrew@website.com",
-        'phone': "+(02) 4057 2930",
-        'address': "Beverly Hills, Los Angeles, California, USA"
-    },
-    'stats': [
-        {'number': "24", 'label': "Completed Projects"},
-        {'number': "1+", 'label': "Years of Experience"},
-        {'number': "26", 'label': "Happy Clients"},
-        {'number': "1+", 'label': "Awards Received"}
-    ],
-    'experience': [
-        {
-            'title': 'Framer & UI/UX Designer',
-            'company': 'Circlum Tech',
-            'period': '2023 - Present',
-            'description': 'Designing interactive prototypes with Framer, focusing on seamless user experiences and scalable solutions through user feedback and collaboration.'
-        },
-        {
-            'title': 'UI/UX Designer',
-            'company': 'CoreOS',
-            'period': '2021 - 2023',
-            'description': 'Created intuitive web and mobile designs, conducted user research, and collaborated with developers to ensure consistent and functional design delivery.'
-        },
-        {
-            'title': 'Graphics Designer',
-            'company': 'Pixel Square',
-            'period': '2020 - 2021',
-            'description': 'Designed marketing assets, UI components, and brand visuals, enhancing digital campaigns and overall visual identity through creative collaboration.'
-        }
-    ],
-    'projects': [
-        {
-            'title': 'HelloBot',
-            'category': 'SaaS & Startup',
-            'pages': '8 Pages',
-            'icon': '🤖',
-            'github': '#',
-            'demo': 'https://hellobot.framer.website'
-        },
-        {
-            'title': 'Flexisoft',
-            'category': 'SaaS & Startup',
-            'pages': '6 Pages',
-            'icon': '💻',
-            'github': '#',
-            'demo': '#'
-        },
-        {
-            'title': 'Excludia',
-            'category': 'Digital Agency',
-            'pages': '8 Pages',
-            'icon': '🎨',
-            'github': '#',
-            'demo': '#'
-        },
-        {
-            'title': 'CryptoraHub',
-            'category': 'Crypto & Web3',
-            'pages': '7 Pages',
-            'icon': '₿',
-            'github': '#',
-            'demo': '#'
-        }
-    ],
-    'skills': [
-        {
-            'title': 'Figma',
-            'icon': '🎨',
-            'description': 'Design Tool'
-        },
-        {
-            'title': 'Framer',
-            'icon': '⚡',
-            'description': 'No Code Development'
-        },
-        {
-            'title': 'Lemon Squeezy',
-            'icon': '🍋',
-            'description': 'Payment'
-        },
-        {
-            'title': 'Notion',
-            'icon': '📝',
-            'description': 'Notion'
-        },
-        {
-            'title': 'Illustrators',
-            'icon': '✏️',
-            'description': 'Illustrators'
-        },
-        {
-            'title': 'SS Icons',
-            'icon': '🔗',
-            'description': 'Icon Library'
-        }
-    ]
+# We will create the CSS as a string and then "write" it to a virtual file.
+# This is a workaround to keep everything in one .py file for Streamlit Cloud.
+CSS = """
+/* General Body Styles */
+body {
+    background-color: #0E1117;
+    color: #FAFAFA;
+    font-family: 'Inter', sans-serif; /* A cleaner font */
 }
 
-def create_sidebar():
-    st.markdown(f"""
-    <div class="sidebar">
-        <div class="profile-card">
-            <div class="profile-avatar">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=face" alt="John Anderson">
-            </div>
-            <div class="availability-badge">
-                <div class="availability-dot"></div>
-                Available for work
-            </div>
-            <h1 class="profile-name">{portfolio_data['personal']['name']}</h1>
-            <p class="profile-title">{portfolio_data['personal']['title']}</p>
-            
-            <div class="social-links">
-                <a href="#" class="social-icon">📷</a>
-                <a href="#" class="social-icon">🐦</a>
-                <a href="#" class="social-icon">▶️</a>
-                <a href="#" class="social-icon">🏀</a>
-                <a href="#" class="social-icon">Bē</a>
-            </div>
-            
-            <div class="action-buttons">
-                <a href="#" class="btn-download">
-                    📥 Download CV
-                </a>
-                <a href="#contact" class="btn-contact">
-                    ✉️ Contact Me
-                </a>
-            </div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+/* Main App Container */
+.stApp {
+    background-color: #0E1117;
+}
 
-def create_main_content():
-    st.markdown("""
-    <div class="main-content">
-    """, unsafe_allow_html=True)
-    
-    # Hero Section
-    st.markdown(f"""
-    <div class="hero-section">
-        <div class="hero-greeting">
-            👋 Say Hello
-        </div>
-        <h1 class="hero-title">I'm {portfolio_data['personal']['name']},</h1>
-        <h2 class="hero-subtitle">Based in Los Angeles, CA.</h2>
-        <p class="hero-description">{portfolio_data['personal']['description']}</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Stats Section
-    st.markdown("""
-    <div class="stats-section">
-        <div class="stats-grid">
-    """, unsafe_allow_html=True)
-    
-    for stat in portfolio_data['stats']:
-        st.markdown(f"""
-        <div class="stat-card">
-            <div class="stat-number">{stat['number']}+</div>
-            <div class="stat-label">{stat['label']}</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.markdown("</div></div>", unsafe_allow_html=True)
-    
-    # Experience Section
-    st.markdown("""
-    <div class="section">
-        <div class="section-header">
-            <h2 class="section-title">
-                <span class="section-icon">💼</span>
-                Experience
-            </h2>
-        </div>
-        <div class="experience-grid">
-    """, unsafe_allow_html=True)
-    
-    for exp in portfolio_data['experience']:
-        company_initials = ''.join([word[0] for word in exp['company'].split()])
-        st.markdown(f"""
-        <div class="experience-card">
-            <div class="experience-header">
-                <div class="company-icon">{company_initials}</div>
-                <div class="experience-info">
-                    <h3>{exp['title']}</h3>
-                    <h4>{exp['company']}</h4>
-                    <div class="experience-period">{exp['period']}</div>
-                </div>
-            </div>
-            <p class="experience-description">{exp['description']}</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.markdown("</div></div>", unsafe_allow_html=True)
-    
-    # Projects Section
-    st.markdown("""
-    <div class="section">
-        <div class="section-header">
-            <h2 class="section-title">
-                <span class="section-icon">🚀</span>
-                Projects
-            </h2>
-        </div>
-        <div class="projects-grid">
-    """, unsafe_allow_html=True)
-    
-    for project in portfolio_data['projects']:
-        st.markdown(f"""
-        <div class="project-card">
-            <div class="project-image">
-                {project['icon']}
-                <div class="project-arrow">↗</div>
-            </div>
-            <div class="project-content">
-                <h3 class="project-title">{project['title']}</h3>
-                <div class="project-category">{project['category']}</div>
-                <div class="project-pages">{project['pages']}</div>
-                <div class="project-actions">
-                    <a href="{project['github']}" target="_blank" class="btn-view">View</a>
-                    <a href="{project['demo']}" target="_blank" class="btn-view">Demo</a>
-                </div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.markdown("</div></div>", unsafe_allow_html=True)
-    
-    # Skills Section
-    st.markdown("""
-    <div class="section">
-        <div class="section-header">
-            <h2 class="section-title">
-                <span class="section-icon">🎯</span>
-                Stakes
-            </h2>
-        </div>
-        <div class="skills-grid">
-    """, unsafe_allow_html=True)
-    
-    for skill in portfolio_data['skills']:
-        st.markdown(f"""
-        <div class="skill-category">
-            <div class="skill-icon">{skill['icon']}</div>
-            <h3 class="skill-title">{skill['title']}</h3>
-            <p class="skill-description">{skill['description']}</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.markdown("</div></div>", unsafe_allow_html=True)
-    
-    # Contact Section
-    st.markdown(f"""
-    <div class="section" id="contact">
-        <div class="contact-section">
-            <div class="contact-header">
-                <h2 class="contact-title">Contact</h2>
-                <p class="contact-subtitle">Let's Get in Touch!</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">📞</div>
-                        <div class="contact-details">
-                            <h4>Contact No</h4>
-                            <p>{portfolio_data['personal']['phone']}</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div class="contact-details">
-                            <h4>Email</h4>
-                            <p>{portfolio_data['personal']['email']}</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div class="contact-details">
-                            <h4>Address</h4>
-                            <p>{portfolio_data['personal']['address']}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" class="form-input" placeholder="Enter your full name">
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-input" placeholder="Enter your email">
-                    </div>
-                    <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="tel" class="form-input" placeholder="Enter your phone number">
-                    </div>
-                    <div class="form-group">
-                        <label>Message</label>
-                        <textarea class="form-textarea" placeholder="Enter your message"></textarea>
-                    </div>
-                    <button class="btn-send-message">Send Message</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Footer
-    st.markdown("""
-    <div class="footer">
-        <div class="footer-content">
-            <div class="footer-text">Built in Framer</div>
-            <div class="footer-signature">John Anderson</div>
-            <div class="footer-badges">
-                <div class="footer-badge">Create</div>
-                <div class="footer-badge">Made in Framer</div>
-            </div>
-        </div>
-    </div>
-    </div>
-    """, unsafe_allow_html=True)
+/* Remove Streamlit Header/Footer */
+header, footer {
+    visibility: hidden;
+}
 
-def main():
-    # Main Layout Container
-    st.markdown("""
-    <div class="portfolio-container">
-    """, unsafe_allow_html=True)
-    
-    # Fixed Left Sidebar
-    create_sidebar()
-    
-    # Scrollable Main Content
-    create_main_content()
-    
-    # Close container
-    st.markdown("</div>", unsafe_allow_html=True)
+/* Main Content Area Styling */
+.main .block-container {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
 
-if __name__ == "__main__":
-    main()
+/* --- Sticky Left Column --- */
+/* This is the magic that makes the left column sticky */
+div[data-testid="stHorizontalBlock"] > div:first-child {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 3rem; /* Adjust this value to control the top offset */
+    z-index: 100;
+}
+
+
+/* Card-like container styling */
+.css-1d391kg, .css-1avcm0n, .st-emotion-cache-1d391kg, .st-emotion-cache-1avcm0n {
+    border-radius: 1rem;
+    padding: 1.5rem;
+    background-color: #1E1E1E; /* Darker card background */
+    border: 1px solid #2c2c2c;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.css-1d391kg:hover, .css-1avcm0n:hover, .st-emotion-cache-1d391kg:hover, .st-emotion-cache-1avcm0n:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+
+/* Profile Section Specifics */
+#profile-section {
+    background-color: #161b22; /* Slightly different background for profile card */
+    border: 1px solid #30363d;
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+}
+
+#profile-section img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 3px solid #1DB954; /* Green accent border */
+    margin-bottom: 1rem;
+}
+
+/* Custom styled link to look like a button */
+.button-link {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 0;
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    background-color: #1DB954;
+    color: #ffffff !important; /* Important to override default link color */
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+.button-link:hover {
+    background-color: #1ed760;
+    color: #ffffff !important;
+}
+
+
+.stDownloadButton>button {
+    background-color: #333333;
+    color: #ffffff;
+    width: 100%;
+    border-radius: 0.5rem;
+}
+.stDownloadButton>button:hover {
+    background-color: #444444;
+}
+
+/* Social Icons Styling */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+.social-icons a {
+    color: #ccc;
+    font-size: 1.2rem; /* Adjusted size */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.social-icons a:hover {
+    color: #1DB954;
+}
+
+/* Section Headers */
+h1, h2, h3 {
+    font-weight: 600;
+}
+h2 {
+    color: #FAFAFA;
+    border-bottom: 2px solid #1DB954;
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+"""
+
+# "Write" the CSS to a virtual file and load it
+with open("style.css", "w") as f:
+    f.write(CSS)
+local_css("style.css")
+
+# ----------------- SETTINGS & DATA ----------------- #
+# --- PERSONAL INFO ---
+NAME = "Mukesh Yadav"
+TAGLINE = "Framer Expert & UI/UX Designer"
+DESCRIPTION = """
+I specialize in creating clean, user-friendly digital experiences by blending creativity with functionality. With a strong background in interactive design, I focus on crafting designs that not only look great but also provide smooth and engaging user interactions, helping ideas come to life seamlessly.
+"""
+EMAIL = "contact@mukesh.dev"
+PHONE = "+91 12345 67890"
+ADDRESS = "New Delhi, India"
+PROFILE_PIC_URL = "https://i.ibb.co/3s9gKcf/profile-pic.png"  # Replace with your image URL
+CV_FILE_PATH = "Mukesh_Yadav_CV.pdf"  # Place your CV in the same folder
+
+# --- SOCIAL MEDIA ---
+SOCIAL_MEDIA = {
+    "Instagram": "https://instagram.com",
+    "Twitter": "https://twitter.com",
+    "Dribbble": "https://dribbble.com",
+    "Behance": "https://www.behance.net",
+}
+
+# --- STATS ---
+STATS = {
+    "Completed Projects": "30+",
+    "Years of Experience": "8+",
+    "Happy Clients": "36+",
+    "Awards Received": "10+",
+}
+
+# --- EXPERIENCE ---
+EXPERIENCE = [
+    {
+        "title": "Framer & UI/UX Designer",
+        "company": "Deckim Tech",
+        "period": "2023 - Present",
+        "description": "Designing interactive prototypes with Framer, focusing on seamless user experiences and scalable solutions through user feedback and collaboration.",
+    },
+    {
+        "title": "UI/UX Designer",
+        "company": "CoreOS",
+        "period": "2021 - 2023",
+        "description": "Created intuitive web and mobile designs, conducted user research, and collaborated with developers to ensure pixel-perfect implementation.",
+    },
+]
+
+# --- PROJECTS ---
+PROJECTS = {
+    "🏆 HelloBot - Revolutionize Your Customer Experience": "https://example.com/hellobot",
+    "🏆 Flexisoft - Full-Suite Software Solutions for Startups": "https://example.com/flexisoft",
+    "🏆 Excludia - Transform your digital presence": "https://example.com/excludia",
+    "🏆 CryptoraHub - Trusted platform for crypto investments": "https://example.com/cryptorahub",
+}
+
+# --- EDUCATION ---
+EDUCATION = [
+    {
+        "degree": "UI/UX Design Certification",
+        "institution": "Interaction Design Foundation, Online",
+        "period": "2018 - 2019",
+        "description": "Gained hands-on experience in UX research, prototyping, wireframing, and usability testing, focusing on designing seamless, user-friendly digital experiences.",
+    },
+    {
+        "degree": "Bachelor of Design in Interaction Design",
+        "institution": "National University of Singapore",
+        "period": "2015 - 2017",
+        "description": "Completed a comprehensive program focused on designing user-centered digital products, integrating aesthetics and functionality through practical interaction design principles.",
+    }
+]
+
+# --- SKILLS ---
+SKILLS = {
+    "Figma": "🎨",
+    "Framer": "💻",
+    "Lemon Squeezy": "🍋",
+    "Notion": "📝",
+    "Illustrator": "✍️",
+    "SS Icons": "✨",
+}
+
+# ----------------- LAYOUT ----------------- #
+# Create a two-column layout: Left for profile, Right for main content
+left_col, right_col = st.columns([1, 2.5], gap="large")
+
+# ----------------- LEFT COLUMN (PROFILE) ----------------- #
+with left_col:
+    st.markdown('<div id="profile-section">', unsafe_allow_html=True)
+
+    st.image(PROFILE_PIC_URL)
+    st.markdown(f"## {NAME}")
+    st.success("🟢 Available for work")
+
+    # --- Social Icons ---
+    social_icons_html = '<div class="social-icons">'
+    for platform, link in SOCIAL_MEDIA.items():
+        social_icons_html += f'<a href="{link}" target="_blank">{platform}</a>'
+    social_icons_html += '</div>'
+    st.markdown(social_icons_html, unsafe_allow_html=True)
+
+    # --- Buttons ---
+    try:
+        with open(CV_FILE_PATH, "rb") as pdf_file:
+            PDFbyte = pdf_file.read()
+        st.download_button(
+            label="📄 Download CV",
+            data=PDFbyte,
+            file_name=CV_FILE_PATH.split('/')[-1],
+            mime="application/octet-stream",
+            use_container_width=True,
+        )
+    except FileNotFoundError:
+        st.warning(f"CV file not found. Please add '{CV_FILE_PATH}' to your project folder.")
+    
+    # --- Contact Button (Scrolls to form) ---
+    st.markdown('<a href="#contact-form" class="button-link">✉️ Contact Me</a>', unsafe_allow_html=True)
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+
+# ----------------- RIGHT COLUMN (MAIN CONTENT) ----------------- #
+with right_col:
+    # --- Introduction ---
+    st.markdown("### Say Hello 👋")
+    st.markdown(f"# I'm {NAME},")
+    st.markdown(f"### {TAGLINE}")
+    st.write(DESCRIPTION)
+
+    # --- Stats ---
+    st.markdown("---")
+    cols = st.columns(len(STATS))
+    for i, (title, value) in enumerate(STATS.items()):
+        with cols[i]:
+            st.markdown(f"<h3 style='text-align: center;'>{value}</h3>", unsafe_allow_html=True)
+            st.markdown(f"<p style='text-align: center;'>{title}</p>", unsafe_allow_html=True)
+
+    # --- Experience ---
+    st.markdown("<h2 id='experience'>Experience</h2>", unsafe_allow_html=True)
+    for exp in EXPERIENCE:
+        with st.container(border=True):
+            st.markdown(f"**{exp['title']} | {exp['company']}**")
+            st.caption(exp['period'])
+            st.write(exp['description'])
+
+    # --- Projects ---
+    st.markdown("<h2 id='projects'>Projects</h2>", unsafe_allow_html=True)
+    for project, link in PROJECTS.items():
+        with st.container(border=True):
+            st.markdown(f"[{project}]({link})")
+
+    # --- Education ---
+    st.markdown("<h2 id='education'>Education</h2>", unsafe_allow_html=True)
+    for edu in EDUCATION:
+        with st.container(border=True):
+            st.markdown(f"**{edu['degree']} | {edu['institution']}**")
+            st.caption(edu['period'])
+            st.write(edu['description'])
+
+    # --- Skills ---
+    st.markdown("<h2 id='skills'>Skills & Tools</h2>", unsafe_allow_html=True)
+    cols = st.columns(3)
+    skill_items = list(SKILLS.items())
+    for i in range(len(skill_items)):
+        with cols[i % 3]:
+            skill, icon = skill_items[i]
+            st.markdown(f"<div style='background-color:#2c2c2c; border-radius:0.5rem; padding:1rem; text-align:center;'>{icon} {skill}</div>", unsafe_allow_html=True)
+            st.markdown("<br>", unsafe_allow_html=True) # Add space between skill cards
+
+    # --- Contact Form ---
+    st.markdown("<h2 id='contact-form'>Let's Get In Touch!</h2>", unsafe_allow_html=True)
+    with st.container(border=True):
+        col1, col2 = st.columns(2)
+        with col1:
+            st.text(f"📞 {PHONE}")
+            st.text(f"✉️ {EMAIL}")
+            st.text(f"📍 {ADDRESS}")
+        with col2:
+            with st.form("contact_form", clear_on_submit=True):
+                name = st.text_input("Full Name", placeholder="Your Name")
+                email = st.text_input("Email", placeholder="your.email@example.com")
+                message = st.text_area("Message", placeholder="Your message here...")
+                submitted = st.form_submit_button("Send Message", use_container_width=True)
+
+                if submitted:
+                    st.success("Message sent successfully! I will get back to you soon.")
+
+# --- FOOTER ---
+st.markdown("---")
+st.markdown("<p style='text-align: center;'>Built with ❤️ using Streamlit</p>", unsafe_allow_html=True)
+st.markdown(f"<p style='text-align: center;'>© {NAME} 2024</p>", unsafe_allow_html=True)
