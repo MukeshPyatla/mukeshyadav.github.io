@@ -3,181 +3,345 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mukesh Yadav | MLOps Architect</title>
+    <title>Mukesh Yadav | MLOps & DevOps Architect</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        cyber: '#00f2ff',
-                        darkbg: '#0a0a0a',
-                        cardbg: '#111111'
+                        cyber: {
+                            DEFAULT: '#00f2ff',
+                            dark: '#00b8cc',
+                            light: '#80f8ff',
+                            purple: '#8b5cf6',
+                            green: '#28e98c',
+                        },
+                        darkbg: '#06060c',
+                        cardbg: 'rgba(17, 17, 25, 0.75)'
                     },
                     fontFamily: {
-                        mono: ['Courier New', 'monospace'],
-                        sans: ['Inter', 'sans-serif']
+                        mono: ['JetBrains Mono', 'Courier New', 'monospace'],
+                        sans: ['Inter', 'sans-serif'],
+                        space: ['Space Grotesk', 'sans-serif']
                     }
                 }
             }
         }
     </script>
     <style>
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #00f2ff; }
-        
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        /* Custom Premium Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
-        .neon-text { text-shadow: 0 0 10px rgba(0, 242, 255, 0.5); }
+        ::-webkit-scrollbar-track {
+            background: #06060c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 99px;
+            border: 2px solid #06060c;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f2ff;
+        }
+        
+        /* Ambient Glassmorphism */
+        .glass {
+            background: rgba(15, 15, 30, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .glass-premium {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Glowing Text and Elements */
+        .neon-text-cyan {
+            text-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+        }
+        .neon-text-green {
+            text-shadow: 0 0 15px rgba(40, 233, 140, 0.4);
+        }
+        .neon-text-purple {
+            text-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+        }
+        
+        .neon-border-hover:hover {
+            border-color: #00f2ff;
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.15);
+        }
+
+        .neon-border-green-hover:hover {
+            border-color: #28e98c;
+            box-shadow: 0 0 25px rgba(40, 233, 140, 0.15);
+        }
+
+        /* Ambient Dynamic Background Particles */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 242, 255, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(40, 233, 140, 0.04) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -2;
+            animation: bgDrift 25s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgDrift {
+            0% { transform: scale(1) translate(0px, 0px); }
+            50% { transform: scale(1.1) translate(-20px, 15px); }
+            100% { transform: scale(0.95) translate(20px, -15px); }
+        }
+
+        /* Grid Pattern Overlay */
+        .grid-overlay {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+        }
+
+        /* Pulse Animations for K8s Active Nodes */
+        .pulse-glowing {
+            animation: glowPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes glowPulse {
+            0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 8px rgba(40, 233, 140, 0.6); }
+            50% { opacity: .6; transform: scale(1.15); box-shadow: 0 0 16px rgba(40, 233, 140, 0.9); }
+        }
+
+        /* Shimmer effect for buttons */
+        .shimmer-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 30%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(25deg);
+            animation: shimmerEffect 4s infinite;
+        }
+        @keyframes shimmerEffect {
+            0% { left: -150%; }
+            50% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        /* Smooth tab styling */
+        .tab-active {
+            color: #00f2ff;
+            border-bottom: 2px solid #00f2ff;
+            background: rgba(0, 242, 255, 0.05);
+        }
+
+        /* Terminal line typing simulation styling */
+        .terminal-cursor::after {
+            content: "▋";
+            animation: flashCursor 1s infinite;
+        }
+        @keyframes flashCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
     </style>
 </head>
-<body class="bg-darkbg text-gray-300 font-sans antialiased selection:bg-cyber selection:text-black">
+<body class="bg-darkbg text-gray-200 font-sans antialiased selection:bg-cyber selection:text-black min-h-screen relative overflow-x-hidden">
 
-    <nav class="fixed w-full z-50 glass border-b border-gray-800">
+    <!-- Global Grid Background -->
+    <div class="absolute inset-0 grid-overlay pointer-events-none -z-10"></div>
+
+    <!-- Glowing Background Orbs -->
+    <div class="absolute top-[20%] left-[-10%] w-[500px] h-[500px] bg-cyber/10 rounded-full filter blur-[120px] pointer-events-none -z-10"></div>
+    <div class="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] bg-cyber-purple/10 rounded-full filter blur-[150px] pointer-events-none -z-10"></div>
+
+    <!-- Navigation Header -->
+    <nav class="fixed w-full z-50 glass border-b border-white/5 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex-shrink-0 font-mono text-cyber font-bold tracking-wider">
-                    &lt;MY /&gt;
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#home" class="hover:text-cyber transition px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                        <a href="#dashboard" class="hover:text-cyber transition px-3 py-2 rounded-md text-sm font-medium">Live Dashboard</a>
-                        <a href="#projects" class="hover:text-cyber transition px-3 py-2 rounded-md text-sm font-medium">Architecture</a>
-                        <a href="#contact" class="bg-cyber text-black hover:bg-white transition px-4 py-2 rounded-full text-sm font-bold shadow-[0_0_15px_rgba(0,242,255,0.4)]">Initialize Contact</a>
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 flex items-center space-x-3">
+                    <div class="font-mono text-cyber text-xl font-bold tracking-widest relative group cursor-pointer">
+                        <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">&lt;MY</span>
+                        <span class="text-white">.OPS</span>
+                        <span class="text-cyber inline-block transition-transform duration-300 group-hover:-translate-x-1">/&gt;</span>
                     </div>
                 </div>
+                
+                <!-- Desktop Navigation Links -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="#home" class="text-sm font-medium text-gray-400 hover:text-cyber transition-all duration-200 px-4 py-2 rounded-lg hover:bg-white/5">Home</a>
+                    <a href="#dashboard" class="text-sm font-medium text-gray-400 hover:text-cyber transition-all duration-200 px-4 py-2 rounded-lg hover:bg-white/5">System Sandbox</a>
+                    <a href="#skills" class="text-sm font-medium text-gray-400 hover:text-cyber transition-all duration-200 px-4 py-2 rounded-lg hover:bg-white/5">Capabilities</a>
+                    <a href="#projects" class="text-sm font-medium text-gray-400 hover:text-cyber transition-all duration-200 px-4 py-2 rounded-lg hover:bg-white/5">Architectures</a>
+                    <a href="#experience" class="text-sm font-medium text-gray-400 hover:text-cyber transition-all duration-200 px-4 py-2 rounded-lg hover:bg-white/5">Journey</a>
+                    <a href="#contact" class="ml-4 shimmer-btn bg-gradient-to-r from-cyber to-cyber-purple hover:from-cyber-light hover:to-cyber text-black px-6 py-2.5 rounded-full text-sm font-bold shadow-[0_0_20px_rgba(0,242,255,0.35)] hover:shadow-[0_0_30px_rgba(0,242,255,0.6)] transition-all duration-300">
+                        Initialize Contact
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" onclick="toggleMobileMenu()" class="text-gray-400 hover:text-cyber focus:outline-none p-2 rounded-lg hover:bg-white/5">
+                        <i id="menu-icon" class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-white/5 bg-darkbg/95 backdrop-blur-xl">
+            <div class="px-2 pt-2 pb-4 space-y-1">
+                <a href="#home" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-cyber hover:bg-white/5">Home</a>
+                <a href="#dashboard" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-cyber hover:bg-white/5">System Sandbox</a>
+                <a href="#skills" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-cyber hover:bg-white/5">Capabilities</a>
+                <a href="#projects" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-cyber hover:bg-white/5">Architectures</a>
+                <a href="#experience" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-cyber hover:bg-white/5">Journey</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="block text-center mt-4 bg-gradient-to-r from-cyber to-cyber-purple text-black px-4 py-3 rounded-full text-base font-bold shadow-[0_0_15px_rgba(0,242,255,0.3)]">
+                    Initialize Contact
+                </a>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
-        <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-darkbg to-darkbg"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div class="inline-block px-3 py-1 mb-4 text-xs font-mono text-cyber border border-cyber/30 rounded-full bg-cyber/10">
-                SYSTEM STATUS: ONLINE
-            </div>
-            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6">
-                MUKESH <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber to-purple-600 neon-text">YADAV</span>
-            </h1>
-            <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-400">
-                MLOps Architect specializing in <span class="text-cyber">Kubernetes</span>, <span class="text-cyber">Zero-Trust AI</span>, and Scalable Infrastructure.
-            </p>
-            <div class="mt-10 flex justify-center gap-4">
-                <a href="#projects" class="group relative px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-cyber transition overflow-hidden">
-                    <span class="relative z-10">View Deployments</span>
-                </a>
-                <a href="#" class="px-8 py-3 border border-gray-600 hover:border-cyber hover:text-cyber rounded-full transition font-mono">
-                    Download CV
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="dashboard" class="py-20 bg-cardbg/50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-end mb-10">
-                <div>
-                    <h2 class="text-3xl font-bold text-white">Live Infrastructure</h2>
-                    <p class="text-gray-500 mt-2 font-mono text-sm">Cluster: us-east-1 | Nodes: 12 | GPU: A100x8</p>
-                </div>
-                <span class="animate-pulse flex h-3 w-3 rounded-full bg-green-500"></span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                <div class="glass p-6 rounded-xl border-l-4 border-cyber">
-                    <p class="text-gray-400 text-xs font-mono uppercase">Avg Inference Latency</p>
-                    <h3 class="text-3xl font-bold text-white mt-1">12<span class="text-sm text-gray-500">ms</span></h3>
-                    <p class="text-green-400 text-xs mt-2">▼ 14% vs last hour</p>
-                </div>
-                <div class="glass p-6 rounded-xl border-l-4 border-purple-500">
-                    <p class="text-gray-400 text-xs font-mono uppercase">Threats Blocked</p>
-                    <h3 class="text-3xl font-bold text-white mt-1">842</h3>
-                    <p class="text-gray-500 text-xs mt-2">Zero-Trust Policy Active</p>
-                </div>
-                <div class="glass p-6 rounded-xl border-l-4 border-blue-500">
-                    <p class="text-gray-400 text-xs font-mono uppercase">Federated Nodes</p>
-                    <h3 class="text-3xl font-bold text-white mt-1">12<span class="text-sm text-gray-500">/12</span></h3>
-                    <p class="text-green-400 text-xs mt-2">All Systems Operational</p>
-                </div>
-                <div class="glass p-6 rounded-xl border-l-4 border-yellow-500">
-                    <p class="text-gray-400 text-xs font-mono uppercase">Cost / Hr</p>
-                    <h3 class="text-3xl font-bold text-white mt-1">$4.20</h3>
-                    <p class="text-gray-500 text-xs mt-2">Spot Instances Optimized</p>
-                </div>
-            </div>
-
-            <div class="glass p-6 rounded-xl">
-                <canvas id="trafficChart" height="80"></canvas>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-white mb-10">Deployed Architectures</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-24 pb-16 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
-                <div class="group relative glass p-8 rounded-2xl hover:border-cyber/50 transition duration-300">
-                    <div class="absolute top-4 right-4 bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-1 text-xs font-bold rounded">CONFIDENTIAL</div>
-                    <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-cyber transition">Guardian AI</h3>
-                    <p class="text-gray-400 mb-6 line-clamp-3">
-                        Zero-Trust Multi-Modal Compliance system. Leverages Federated Learning (FL) and Homomorphic Encryption (HE) to audit sensitive banking data without exposing raw PII.
+                <!-- Hero Core Content -->
+                <div class="lg:col-span-7 text-left space-y-6">
+                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass border border-white/10">
+                        <span class="relative flex h-2.5 w-2.5">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyber-green opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyber-green"></span>
+                        </span>
+                        <span class="text-xs font-mono font-bold tracking-widest text-cyber-green uppercase">INFRASTRUCTURE ACTIVE • US-EAST</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-space font-extrabold tracking-tight text-white leading-tight">
+                        MUKESH <br class="hidden sm:inline">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber via-cyber-light to-cyber-purple neon-text-cyan">YADAV</span>
+                    </h1>
+
+                    <h2 class="text-xl sm:text-2xl font-space font-semibold text-cyber">
+                        MLOps & DevOps Architect
+                    </h2>
+
+                    <p class="max-w-xl text-lg text-gray-400 font-sans leading-relaxed">
+                        Engineering production-grade microservices, zero-trust ML architectures, and self-healing Kubernetes ecosystems. Eliminating operational bottlenecks for high-frequency intelligent workloads.
                     </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">Python</span>
-                        <span class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">Blockchain</span>
-                        <span class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">Docker</span>
+
+                    <!-- Interactive Terminal Banner -->
+                    <div class="glass p-4 rounded-xl font-mono text-xs border border-white/10 max-w-xl relative overflow-hidden shadow-inner">
+                        <div class="flex items-center space-x-2 border-b border-white/5 pb-2 mb-2 text-gray-500">
+                            <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500/60"></div>
+                            <span class="ml-2 text-[10px] tracking-wider uppercase">mukeshyadav@k8s-controlplane</span>
+                        </div>
+                        <div class="text-cyber-green/95 space-y-1">
+                            <p class="text-gray-500">$ kubectl get deployments -n prod-ai</p>
+                            <p class="text-white"><span class="text-cyber">NAME</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-cyber">READY</span>&nbsp;&nbsp;&nbsp;<span class="text-cyber">UP-TO-DATE</span>&nbsp;&nbsp;&nbsp;<span class="text-cyber">AVAILABLE</span>&nbsp;&nbsp;&nbsp;<span class="text-cyber">AGE</span></p>
+                            <p>guardian-ai-auditor-v2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12/12&nbsp;&nbsp;&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;183d</p>
+                            <p>defi-fraud-monitor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8/8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;112d</p>
+                            <p>enterprise-rag-router&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4/4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;45d</p>
+                            <p class="text-gray-500 terminal-cursor">$ <span class="text-cyber-light">system_status_check</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Call To Actions -->
+                    <div class="pt-4 flex flex-wrap gap-4 items-center">
+                        <a href="#projects" class="group relative px-8 py-3.5 bg-white text-black font-bold rounded-full hover:bg-cyber transition duration-300 shadow-[0_4px_20px_rgba(255,255,255,0.15)] flex items-center space-x-2">
+                            <span>Explore Architectures</span>
+                            <i class="fa-solid fa-arrow-right transition-transform duration-300 group-hover:translate-x-1.5 text-sm"></i>
+                        </a>
+                        <a href="#dashboard" class="px-8 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyber/40 rounded-full transition duration-300 flex items-center space-x-2 text-gray-300 hover:text-white font-mono text-sm">
+                            <i class="fa-solid fa-flask"></i>
+                            <span>Access Live Sandbox</span>
+                        </a>
                     </div>
                 </div>
 
-                <div class="group relative glass p-8 rounded-2xl hover:border-cyber/50 transition duration-300">
-                    <div class="absolute top-4 right-4 bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-1 text-xs font-bold rounded">INTERNAL TOOL</div>
-                    <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-cyber transition">Enterprise RAG Engine</h3>
-                    <p class="text-gray-400 mb-6 line-clamp-3">
-                        Legal compliance search engine processing 5TB+ of contracts. Reduced discovery time by 60% using AWS SageMaker and Pinecone vector database.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">LangChain</span>
-                        <span class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">AWS</span>
-                        <span class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">RAG</span>
-                    </div>
-                </div>
+                <!-- Profile Card & Stats Visualizer -->
+                <div class="lg:col-span-5 relative mt-8 lg:mt-0">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-cyber/10 to-cyber-purple/10 rounded-3xl blur-2xl"></div>
+                    <div class="relative glass-premium p-8 rounded-3xl border border-white/10 hover:border-white/20 transition-all duration-500 shadow-2xl">
+                        <!-- Profile Image Section -->
+                        <div class="relative w-36 h-36 mx-auto mb-6 group">
+                            <div class="absolute inset-0 bg-gradient-to-r from-cyber via-cyber-purple to-cyber-green rounded-full blur opacity-75 animate-spin-slow group-hover:opacity-100 transition duration-500" style="animation-duration: 12s;"></div>
+                            <div class="absolute inset-[3px] bg-darkbg rounded-full flex items-center justify-center font-space font-bold text-3xl text-cyber relative z-10 overflow-hidden">
+                                <span class="absolute inset-0 bg-gradient-to-tr from-cyber/15 to-cyber-purple/15 flex items-center justify-center text-4xl font-extrabold tracking-tight">MY</span>
+                            </div>
+                        </div>
 
-                <div class="group relative glass p-8 rounded-2xl hover:border-cyber/50 transition duration-300">
-                    <div class="absolute top-4 right-4 bg-green-500/10 text-green-400 border border-green-500/20 px-2 py-1 text-xs font-bold rounded">FINTECH</div>
-                    <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-cyber transition">Fraud Detection Pipeline</h3>
-                    <p class="text-gray-400 mb-6 line-clamp-3">
-                        High-frequency transaction monitoring system. Processes 50k TPS with &lt;10ms latency using Apache Flink and Kubernetes HPA.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">Flink</span>
-                        <span class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">Redis</span>
-                        <span class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">K8s</span>
-                    </div>
-                </div>
+                        <!-- Bio Info -->
+                        <div class="text-center space-y-2 mb-8">
+                            <h3 class="text-2xl font-space font-bold text-white">Mukesh Yadav</h3>
+                            <p class="text-sm text-cyber uppercase tracking-widest font-mono font-semibold">Specialist Infrastructure Engineer</p>
+                            <div class="flex items-center justify-center space-x-2 text-sm text-gray-400">
+                                <i class="fa-solid fa-location-dot text-cyber"></i>
+                                <span>United States</span>
+                            </div>
+                        </div>
 
-                 <div class="group relative glass p-8 rounded-2xl hover:border-cyber/50 transition duration-300">
-                    <div class="absolute top-4 right-4 bg-purple-500/10 text-purple-400 border border-purple-500/20 px-2 py-1 text-xs font-bold rounded">HEALTHCARE</div>
-                    <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-cyber transition">CBTS Infrastructure</h3>
-                    <p class="text-gray-400 mb-6 line-clamp-3">
-                        Orchestrated ETL pipelines for medical imaging. Achieved zero rollback incidents using GitLab CI/CD and Terraform infrastructure-as-code.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">Terraform</span>
-                        <span class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">GitLab CI</span>
+                        <!-- Mini Cloud Stat Deck -->
+                        <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-6">
+                            <div class="text-center p-3 rounded-xl bg-white/5 border border-white/5">
+                                <span class="block text-2xl font-space font-bold text-cyber">80%</span>
+                                <span class="text-[10px] text-gray-500 uppercase tracking-wider font-mono">Deployment Acceleration</span>
+                            </div>
+                            <div class="text-center p-3 rounded-xl bg-white/5 border border-white/5">
+                                <span class="block text-2xl font-space font-bold text-cyber-green">70%</span>
+                                <span class="text-[10px] text-gray-500 uppercase tracking-wider font-mono">MTTR Reductions</span>
+                            </div>
+                            <div class="text-center p-3 rounded-xl bg-white/5 border border-white/5">
+                                <span class="block text-2xl font-space font-bold text-cyber-purple">47</span>
+                                <span class="text-[10px] text-gray-500 uppercase tracking-wider font-mono">Validated Capabilities</span>
+                            </div>
+                            <div class="text-center p-3 rounded-xl bg-white/5 border border-white/5">
+                                <span class="block text-2xl font-space font-bold text-white">100%</span>
+                                <span class="text-[10px] text-gray-500 uppercase tracking-wider font-mono">Uptime Targets</span>
+                            </div>
+                        </div>
+
+                        <!-- Fast Contacts Panel -->
+                        <div class="mt-6 flex justify-center space-x-6 text-xl">
+                            <a href="https://linkedin.com/in/mukesh-mlops" target="_blank" class="text-gray-400 hover:text-cyber transition-all duration-300 hover:scale-110"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://github.com/MukeshPyatla" target="_blank" class="text-gray-400 hover:text-cyber-purple transition-all duration-300 hover:scale-110"><i class="fab fa-github"></i></a>
+                            <a href="mailto:mukeshyadavp91@gmail.com" class="text-gray-400 hover:text-cyber-green transition-all duration-300 hover:scale-110"><i class="fas fa-envelope"></i></a>
+                        </div>
                     </div>
                 </div>
 
@@ -185,69 +349,863 @@
         </div>
     </section>
 
-    <section id="contact" class="py-20 bg-cardbg/50">
-        <div class="max-w-3xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold text-white mb-6">Initiate Handshake</h2>
-            <p class="text-gray-400 mb-8">
-                Open to MLOps, Cloud Infrastructure, and AI Engineering roles.<br>
-                Based in the United States.
+    <!-- Section Divider (Glow element) -->
+    <div class="h-px max-w-7xl mx-auto bg-gradient-to-r from-transparent via-cyber/20 to-transparent"></div>
+
+    <!-- Live Infrastructure Dashboard Sandbox Section -->
+    <section id="dashboard" class="py-24 bg-cardbg/40 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+                <div>
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 mb-3 rounded-full bg-cyber/10 text-cyber border border-cyber/20 text-xs font-mono">
+                        <i class="fa-solid fa-terminal animate-pulse"></i>
+                        <span>SANDBOX SIMULATION PLATFORM</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-space font-bold text-white">Live Infrastructure Cluster</h2>
+                    <p class="text-gray-400 mt-2 font-mono text-sm">Explore real-time infrastructure metrics. Trigger active chaos experiments below.</p>
+                </div>
+                
+                <!-- Active Controller State -->
+                <div class="glass px-4 py-2 rounded-xl flex items-center space-x-4 border border-white/10">
+                    <div class="flex items-center space-x-2 font-mono text-xs">
+                        <span class="pulse-glowing h-3 w-3 rounded-full bg-cyber-green"></span>
+                        <span class="text-cyber-green font-bold">K8s Orchestrator Active</span>
+                    </div>
+                    <div class="h-4 w-px bg-white/10"></div>
+                    <p class="font-mono text-[11px] text-gray-500">Nodes: 12 Nodes operational</p>
+                </div>
+            </div>
+
+            <!-- Active Metric Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Avg Latency Card -->
+                <div class="glass p-6 rounded-2xl border-l-4 border-cyber transition-all duration-300 hover:bg-white/5 relative overflow-hidden group">
+                    <div class="absolute -right-4 -bottom-4 text-white/5 text-6xl group-hover:scale-110 transition duration-300"><i class="fa-solid fa-gauge"></i></div>
+                    <p class="text-gray-400 text-xs font-mono uppercase tracking-wider">Avg Inference Latency</p>
+                    <div class="flex items-baseline space-x-1 mt-2">
+                        <h3 id="latencyVal" class="text-4xl font-space font-bold text-white transition duration-300">12</h3>
+                        <span class="text-sm font-mono text-gray-400">ms</span>
+                    </div>
+                    <p id="latencyTrend" class="text-cyber-green text-xs mt-2 font-mono flex items-center space-x-1">
+                        <i class="fa-solid fa-caret-down"></i>
+                        <span>▼ 14% optimal spot allocation</span>
+                    </p>
+                </div>
+
+                <!-- Threat Vector Card -->
+                <div class="glass p-6 rounded-2xl border-l-4 border-cyber-purple transition-all duration-300 hover:bg-white/5 relative overflow-hidden group">
+                    <div class="absolute -right-4 -bottom-4 text-white/5 text-6xl group-hover:scale-110 transition duration-300"><i class="fa-solid fa-shield-virus"></i></div>
+                    <p class="text-gray-400 text-xs font-mono uppercase tracking-wider">Zero-Trust Threats Blocked</p>
+                    <div class="flex items-baseline space-x-1 mt-2">
+                        <h3 id="threatsVal" class="text-4xl font-space font-bold text-white transition duration-300">842</h3>
+                    </div>
+                    <p class="text-cyber-purple text-xs mt-2 font-mono">
+                        <span>Sec-Ops policy active (TLSv1.3)</span>
+                    </p>
+                </div>
+
+                <!-- Federated Node State -->
+                <div class="glass p-6 rounded-2xl border-l-4 border-cyber-green transition-all duration-300 hover:bg-white/5 relative overflow-hidden group">
+                    <div class="absolute -right-4 -bottom-4 text-white/5 text-6xl group-hover:scale-110 transition duration-300"><i class="fa-solid fa-network-wired"></i></div>
+                    <p class="text-gray-400 text-xs font-mono uppercase tracking-wider">Federated Cluster Nodes</p>
+                    <div class="flex items-baseline space-x-1 mt-2">
+                        <h3 id="nodesVal" class="text-4xl font-space font-bold text-white transition duration-300">12<span class="text-base text-gray-500 font-normal"> / 12</span></h3>
+                    </div>
+                    <p id="nodesStatusText" class="text-cyber-green text-xs mt-2 font-mono">
+                        All Nodes Reporting Operational
+                    </p>
+                </div>
+
+                <!-- Live Optimizer -->
+                <div class="glass p-6 rounded-2xl border-l-4 border-yellow-500 transition-all duration-300 hover:bg-white/5 relative overflow-hidden group">
+                    <div class="absolute -right-4 -bottom-4 text-white/5 text-6xl group-hover:scale-110 transition duration-300"><i class="fa-solid fa-coins"></i></div>
+                    <p class="text-gray-400 text-xs font-mono uppercase tracking-wider">Compute Spend Rate</p>
+                    <div class="flex items-baseline space-x-1 mt-2">
+                        <span class="text-lg text-gray-500 font-mono">$</span>
+                        <h3 id="costVal" class="text-4xl font-space font-bold text-white transition duration-300">4.20</h3>
+                        <span class="text-xs font-mono text-gray-400">/hr</span>
+                    </div>
+                    <p id="costStatus" class="text-yellow-500 text-xs mt-2 font-mono">
+                        Spot Instances Optimized (85%)
+                    </p>
+                </div>
+            </div>
+
+            <!-- Dashboard Control Room -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Main Infrastructure Monitoring Graphs -->
+                <div class="lg:col-span-8 glass p-6 rounded-3xl border border-white/10 space-y-6">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            <span class="inline-block h-3 w-3 rounded-full bg-cyber animate-pulse"></span>
+                            <span class="text-sm font-mono font-bold uppercase tracking-wider text-white">Inference Traffic Monitor (Live feed)</span>
+                        </div>
+                        <span class="text-xs font-mono text-gray-500 bg-white/5 px-2 py-1 rounded">RPS Metrics</span>
+                    </div>
+                    <div class="relative w-full h-[320px]">
+                        <canvas id="trafficChart" class="w-full h-full"></canvas>
+                    </div>
+                </div>
+
+                <!-- Interactive Chaos Console -->
+                <div class="lg:col-span-4 glass p-6 rounded-3xl border border-white/10 flex flex-col h-full min-h-[400px]">
+                    <div class="border-b border-white/10 pb-4 mb-4">
+                        <h3 class="font-space font-bold text-lg text-white">Cluster Interactive Sandbox</h3>
+                        <p class="text-xs text-gray-400 mt-1">Simulate cloud failures, execute training commands, and verify real-time platform responses.</p>
+                    </div>
+
+                    <!-- Actions Stack -->
+                    <div class="space-y-4 mb-6">
+                        <button onclick="triggerPodFailover()" id="chaosBtn" class="w-full flex items-center justify-between p-3.5 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/15 text-red-400 hover:text-red-300 transition-all duration-300 group">
+                            <div class="flex items-center space-x-3 text-left">
+                                <span class="p-2 rounded-lg bg-red-500/10"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase font-space tracking-wider">Execute Chaos Pod Failover</h4>
+                                    <p class="text-[10px] text-gray-500 font-mono">Simulate master-node infrastructure crash</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-angles-right text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
+                        </button>
+
+                        <button onclick="triggerPipelineRetraining()" id="retrainBtn" class="w-full flex items-center justify-between p-3.5 rounded-xl border border-cyber/20 bg-cyber/5 hover:bg-cyber/15 text-cyber-light hover:text-cyber transition-all duration-300 group">
+                            <div class="flex items-center space-x-3 text-left">
+                                <span class="p-2 rounded-lg bg-cyber/10"><i class="fa-solid fa-rotate"></i></span>
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase font-space tracking-wider">Trigger AutoML Retrain</h4>
+                                    <p class="text-[10px] text-gray-500 font-mono">Kick off automated dataset retraining pipeline</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-angles-right text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
+                        </button>
+                    </div>
+
+                    <!-- Sandbox Logs Output Console -->
+                    <div class="flex-grow flex flex-col font-mono text-[11px] rounded-xl bg-black/50 border border-white/5 p-4 overflow-hidden relative shadow-inner">
+                        <div class="absolute top-2 right-2 text-[9px] text-gray-600 font-bold uppercase tracking-widest bg-white/5 px-2 py-0.5 rounded">Log Output</div>
+                        <div id="logsConsole" class="flex-grow overflow-y-auto space-y-1.5 scrollbar-thin text-gray-400 max-h-[180px] pr-2">
+                            <p class="text-gray-500">[INFO] Bootstrap completed.</p>
+                            <p class="text-cyber-green">[READY] Pod replicas online & stable.</p>
+                            <p class="text-gray-500">[INFO] Latency target &lt; 15ms matched successfully.</p>
+                            <p class="text-gray-500">[MONITOR] Collecting telemetry details...</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section Divider (Glow element) -->
+    <div class="h-px max-w-7xl mx-auto bg-gradient-to-r from-transparent via-cyber/20 to-transparent"></div>
+
+    <!-- Capabilities / Skill Matrix Section -->
+    <section id="skills" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 mb-3 rounded-full bg-cyber/10 text-cyber border border-cyber/20 text-xs font-mono">
+                    <i class="fa-solid fa-brain"></i>
+                    <span>CAPABILITIES INDEX</span>
+                </div>
+                <h2 class="text-4xl sm:text-5xl font-space font-bold text-white">Deep Technical Stack</h2>
+                <p class="text-gray-400 mt-3 text-lg leading-relaxed">Continuous delivery, infrastructure code, secure systems orchestration, and performance monitoring layers.</p>
+            </div>
+
+            <!-- Interactively filtered skill system -->
+            <div class="flex flex-wrap justify-center gap-2 mb-12">
+                <button onclick="filterSkills('all')" class="skill-tab-btn px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-xs font-mono font-bold tracking-wider hover:border-cyber/30 transition-all duration-300 active" id="skill-tab-all">ALL CHANNELS</button>
+                <button onclick="filterSkills('devops')" class="skill-tab-btn px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-xs font-mono font-bold tracking-wider hover:border-cyber/30 transition-all duration-300" id="skill-tab-devops">CLOUD & DEVOPS</button>
+                <button onclick="filterSkills('mlops')" class="skill-tab-btn px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-xs font-mono font-bold tracking-wider hover:border-cyber/30 transition-all duration-300" id="skill-tab-mlops">MLOPS & AI ENGINEERING</button>
+                <button onclick="filterSkills('pipeline')" class="skill-tab-btn px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-xs font-mono font-bold tracking-wider hover:border-cyber/30 transition-all duration-300" id="skill-tab-pipeline">CI/CD & AUTOMATION</button>
+                <button onclick="filterSkills('data')" class="skill-tab-btn px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-xs font-mono font-bold tracking-wider hover:border-cyber/30 transition-all duration-300" id="skill-tab-data">DATA & SECURITY</button>
+            </div>
+
+            <!-- Skill Grid Modules -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="skillsContainer">
+                
+                <!-- Cloud & DevOps Category Card -->
+                <div class="skill-card-module glass p-8 rounded-3xl border border-white/10 transition-all duration-500 hover:-translate-y-2 hover:border-cyber/40 hover:shadow-[0_10px_30px_rgba(0,242,255,0.08)]" data-groups="['devops']">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="text-3xl text-cyber"><i class="fa-solid fa-cloud"></i></span>
+                        <span class="text-[10px] font-mono font-bold bg-cyber/15 text-cyber border border-cyber/20 px-2 py-1 rounded">INFRASTRUCTURE</span>
+                    </div>
+                    <h3 class="font-space font-bold text-xl text-white mb-4">Cloud & DevOps Systems</h3>
+                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">Orchestrating robust serverless configurations, isolated networks, scalable container pools, and resilient environments.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">AWS (EKS, IAM, VPC)</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Azure Cloud</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Terraform (IaC)</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Docker Core</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Kubernetes Pools</span>
+                    </div>
+                </div>
+
+                <!-- AI/ML Frameworks Category Card -->
+                <div class="skill-card-module glass p-8 rounded-3xl border border-white/10 transition-all duration-500 hover:-translate-y-2 hover:border-cyber/40 hover:shadow-[0_10px_30px_rgba(0,242,255,0.08)]" data-groups="['mlops']">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="text-3xl text-cyber-purple"><i class="fa-solid fa-microchip"></i></span>
+                        <span class="text-[10px] font-mono font-bold bg-cyber-purple/15 text-cyber-purple border border-cyber-purple/20 px-2 py-1 rounded">MODELS</span>
+                    </div>
+                    <h3 class="font-space font-bold text-xl text-white mb-4">AI Frameworks & LLMOps</h3>
+                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">Deploying complex Large Language Model orchestrations, model packaging microservices, and continuous telemetry tracks.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">PyTorch Ecosystem</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">LangChain / LlamaIndex</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">FastAPI Frameworks</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">MLflow Telemetry</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">BentoML Deploy</span>
+                    </div>
+                </div>
+
+                <!-- Programming Languages -->
+                <div class="skill-card-module glass p-8 rounded-3xl border border-white/10 transition-all duration-500 hover:-translate-y-2 hover:border-cyber-green/40 hover:shadow-[0_10px_30px_rgba(40,233,140,0.08)]" data-groups="['devops', 'mlops']">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="text-3xl text-cyber-green"><i class="fa-solid fa-code"></i></span>
+                        <span class="text-[10px] font-mono font-bold bg-cyber-green/15 text-cyber-green border border-cyber-green/20 px-2 py-1 rounded">DEVELOPMENT</span>
+                    </div>
+                    <h3 class="font-space font-bold text-xl text-white mb-4">Programming Core</h3>
+                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">Writing high-performance algorithms, system automation playbooks, and secure low-latency APIs.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Python (SciPy, OOP)</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Golang Architecture</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">C++ Optimization</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Bash Automation</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Structured SQL</span>
+                    </div>
+                </div>
+
+                <!-- CI/CD Automation tools -->
+                <div class="skill-card-module glass p-8 rounded-3xl border border-white/10 transition-all duration-500 hover:-translate-y-2 hover:border-cyber/40 hover:shadow-[0_10px_30px_rgba(0,242,255,0.08)]" data-groups="['pipeline']">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="text-3xl text-cyber"><i class="fa-solid fa-arrows-spin"></i></span>
+                        <span class="text-[10px] font-mono font-bold bg-cyber/15 text-cyber border border-cyber/20 px-2 py-1 rounded">PIPELINES</span>
+                    </div>
+                    <h3 class="font-space font-bold text-xl text-white mb-4">CI/CD & Delivery Engines</h3>
+                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">Continuous automation design ensuring non-disruptive rollbacks and repeatable deployments.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">GitLab CI Modules</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">ArgoCD (GitOps)</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Jenkins Automations</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">GitHub Actions</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Tekton Engines</span>
+                    </div>
+                </div>
+
+                <!-- Data & Databases -->
+                <div class="skill-card-module glass p-8 rounded-3xl border border-white/10 transition-all duration-500 hover:-translate-y-2 hover:border-cyber-purple/40 hover:shadow-[0_10px_30px_rgba(139,92,246,0.08)]" data-groups="['data']">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="text-3xl text-cyber-purple"><i class="fa-solid fa-database"></i></span>
+                        <span class="text-[10px] font-mono font-bold bg-cyber-purple/15 text-cyber-purple border border-cyber-purple/20 px-2 py-1 rounded">STORES</span>
+                    </div>
+                    <h3 class="font-space font-bold text-xl text-white mb-4">Vector Databases & Big Data</h3>
+                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">Processing big data loads, semantic searching structures, and secure high-frequency pipelines.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Pinecone Vector Storage</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Qdrant Clusters</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">DVC Versioning</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Spark Clusters</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Pandas Analytics</span>
+                    </div>
+                </div>
+
+                <!-- Observability & Telemetry -->
+                <div class="skill-card-module glass p-8 rounded-3xl border border-white/10 transition-all duration-500 hover:-translate-y-2 hover:border-cyber-green/40 hover:shadow-[0_10px_30px_rgba(40,233,140,0.08)]" data-groups="['devops', 'mlops']">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="text-3xl text-cyber-green"><i class="fa-solid fa-eye"></i></span>
+                        <span class="text-[10px] font-mono font-bold bg-cyber-green/15 text-cyber-green border border-cyber-green/20 px-2 py-1 rounded">OBSERVABILITY</span>
+                    </div>
+                    <h3 class="font-space font-bold text-xl text-white mb-4">Telemetry & Observability</h3>
+                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">Aggregating granular cluster telemetry, custom metric dashboards, alert handlers, and trace pathways.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Prometheus Time-Series</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Grafana Visualization</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">ELK Aggregation</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Backstage Portals</span>
+                        <span class="text-[11px] font-mono bg-white/5 text-gray-300 px-3 py-1 rounded-full border border-white/5">Weights & Biases (W&B)</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider (Glow element) -->
+    <div class="h-px max-w-7xl mx-auto bg-gradient-to-r from-transparent via-cyber/20 to-transparent"></div>
+
+    <!-- Project Architectures Section -->
+    <section id="projects" class="py-24 bg-cardbg/40 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
+                <div>
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 mb-3 rounded-full bg-cyber/10 text-cyber border border-cyber/20 text-xs font-mono">
+                        <i class="fa-solid fa-box-archive"></i>
+                        <span>DEPLOYMENT ARCHIVE</span>
+                    </div>
+                    <h2 class="text-4xl font-space font-bold text-white">Featured Architectures</h2>
+                    <p class="text-gray-400 mt-2">Production-validated pipelines and systems focusing on high throughput and data sovereignty.</p>
+                </div>
+                
+                <!-- Project Architecture filter buttons -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterProjects('all')" class="proj-tab-btn px-4 py-2 rounded-lg border border-white/5 bg-white/5 text-xs font-mono font-bold tracking-wider hover:border-cyber/30 transition-all duration-300 active" id="proj-tab-all">ALL LABELS</button>
+                    <button onclick="filterProjects('prod')" class="proj-tab-btn px-4 py-2 rounded-lg border border-white/5 bg-white/5 text-xs font-mono font-bold tracking-wider hover:border-cyber/30 transition-all duration-300" id="proj-tab-prod">PRODUCTION</button>
+                    <button onclick="filterProjects('internal')" class="proj-tab-btn px-4 py-2 rounded-lg border border-white/5 bg-white/5 text-xs font-mono font-bold tracking-wider hover:border-cyber/30 transition-all duration-300" id="proj-tab-internal">INTERNAL TOOLS</button>
+                    <button onclick="filterProjects('confidential')" class="proj-tab-btn px-4 py-2 rounded-lg border border-white/5 bg-white/5 text-xs font-mono font-bold tracking-wider hover:border-cyber/30 transition-all duration-300" id="proj-tab-confidential">CONFIDENTIAL</button>
+                </div>
+            </div>
+
+            <!-- Architecture Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="projectsContainer">
+                
+                <!-- Guardian AI Card -->
+                <div class="project-card-module group relative glass-premium p-8 rounded-3xl border border-white/10 hover:border-cyber/50 hover:shadow-[0_20px_40px_rgba(0,242,255,0.12)] transition-all duration-500 flex flex-col justify-between" data-category="['confidential', 'prod']">
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="text-3xl text-cyber"><i class="fa-solid fa-robot"></i></span>
+                            <span class="bg-red-500/10 text-red-400 border border-red-500/20 px-2.5 py-1 text-[10px] font-mono font-bold rounded-md uppercase tracking-wider">CONFIDENTIAL AUDITOR</span>
+                        </div>
+                        <h3 class="text-2xl font-space font-bold text-white mb-3 group-hover:text-cyber transition-all duration-300">Guardian AI Auditor</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            A zero-trust multi-modal compliance auditor designed to audit multi-million ledger records. Leverages private Federated Learning nodes and Homomorphic Encryption routines to evaluate sensitive transactional logs without revealing raw PII structures.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-white/5 text-gray-300 text-[10px] font-mono px-2.5 py-1 rounded border border-white/5">Federated Learning</span>
+                            <span class="bg-white/5 text-gray-300 text-[10px] font-mono px-2.5 py-1 rounded border border-white/5">Homomorphic Encryption</span>
+                            <span class="bg-white/5 text-gray-300 text-[10px] font-mono px-2.5 py-1 rounded border border-white/5">Private Blockchain</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="https://github.com/MukeshPyatla/guardian-ai-auditor" target="_blank" class="flex-1 text-center bg-white/5 hover:bg-white/10 text-white font-mono text-xs py-3 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">
+                                <i class="fab fa-github mr-2"></i>Source Code
+                            </a>
+                            <a href="https://mukeshpyatla-guardian-ai-auditor-srcuiapp-c6jflx.streamlit.app/" target="_blank" class="flex-1 text-center bg-cyber text-black font-space font-bold text-xs py-3 rounded-xl hover:bg-white transition-all duration-300 shadow-[0_4px_15px_rgba(0,242,255,0.2)]">
+                                Live Audit Panel <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DeFi Fraud Pipeline Card -->
+                <div class="project-card-module group relative glass-premium p-8 rounded-3xl border border-white/10 hover:border-cyber-green/50 hover:shadow-[0_20px_40px_rgba(40,233,140,0.12)] transition-all duration-500 flex flex-col justify-between" data-category="['prod']">
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="text-3xl text-cyber-green"><i class="fa-solid fa-shield-halved"></i></span>
+                            <span class="bg-cyber-green/10 text-cyber-green border border-cyber-green/20 px-2.5 py-1 text-[10px] font-mono font-bold rounded-md uppercase tracking-wider">FINTECH PROD</span>
+                        </div>
+                        <h3 class="text-2xl font-space font-bold text-white mb-3 group-hover:text-cyber-green transition-all duration-300">DeFi Fraud Monitoring Pipeline</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Scalable MLOps pipeline evaluating high-frequency cryptocurrency transactions with a sub-15ms response envelope. Includes automatic model drift hooks and a live Streamlit dashboard monitoring active telemetry.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-white/5 text-gray-300 text-[10px] font-mono px-2.5 py-1 rounded border border-white/5">MLOps Execution</span>
+                            <span class="bg-white/5 text-gray-300 text-[10px] font-mono px-2.5 py-1 rounded border border-white/5">Python Core</span>
+                            <span class="bg-white/5 text-gray-300 text-[10px] font-mono px-2.5 py-1 rounded border border-white/5">Streamlit Deploy</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="https://github.com/MukeshPyatla/DeFi_Fraud-Detection_MLOps_Pipeline" target="_blank" class="flex-1 text-center bg-white/5 hover:bg-white/10 text-white font-mono text-xs py-3 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">
+                                <i class="fab fa-github mr-2"></i>Source Code
+                            </a>
+                            <a href="https://defifraud-detectionmlopspipeline.streamlit.app/" target="_blank" class="flex-1 text-center bg-cyber-green text-black font-space font-bold text-xs py-3 rounded-xl hover:bg-white transition-all duration-300 shadow-[0_4px_15px_rgba(40,233,140,0.2)]">
+                                Live Pipeline <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enterprise RAG Engine -->
+                <div class="project-card-module group relative glass-premium p-8 rounded-3xl border border-white/10 hover:border-cyber-purple/50 hover:shadow-[0_20px_40px_rgba(139,92,246,0.12)] transition-all duration-500 flex flex-col justify-between" data-category="['internal']">
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="text-3xl text-cyber-purple"><i class="fa-solid fa-network-wired"></i></span>
+                            <span class="bg-cyber-purple/10 text-cyber-purple border border-cyber-purple/20 px-2.5 py-1 text-[10px] font-mono font-bold rounded-md uppercase tracking-wider">INTERNAL TOOL</span>
+                        </div>
+                        <h3 class="text-2xl font-space font-bold text-white mb-3 group-hover:text-cyber-purple transition-all duration-300">Enterprise RAG Engine & Q&A</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Scalable legal semantic indexing engine built to contextually evaluate and index 5TB+ of active operational contracts. Utilizes localized vector partitions and automated data freshness triggers to minimize ingestion lag.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-white/5 text-gray-300 text-[10px] font-mono px-2.5 py-1 rounded border border-white/5">LangChain</span>
+                            <span class="bg-white/5 text-gray-300 text-[10px] font-mono px-2.5 py-1 rounded border border-white/5">Vector Databases</span>
+                            <span class="bg-white/5 text-gray-300 text-[10px] font-mono px-2.5 py-1 rounded border border-white/5">RAG Routines</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="https://github.com/MukeshPyatla/mlops-qa-system" target="_blank" class="flex-1 text-center bg-white/5 hover:bg-white/10 text-white font-mono text-xs py-3 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">
+                                <i class="fab fa-github mr-2"></i>Source Code
+                            </a>
+                            <a href="https://mlops-app-system.streamlit.app/" target="_blank" class="flex-1 text-center bg-cyber-purple text-black font-space font-bold text-xs py-3 rounded-xl hover:bg-white transition-all duration-300 shadow-[0_4px_15px_rgba(139,92,246,0.2)]">
+                                Live QA Deck <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Azure Anomaly Detector -->
+                <div class="project-card-module group relative glass-premium p-8 rounded-3xl border border-white/10 hover:border-cyber/50 hover:shadow-[0_20px_40px_rgba(0,242,255,0.12)] transition-all duration-500 flex flex-col justify-between" data-category="['prod']">
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="text-3xl text-cyber"><i class="fa-solid fa-satellite-dish"></i></span>
+                            <span class="bg-cyber/10 text-cyber border border-cyber/20 px-2.5 py-1 text-[10px] font-mono font-bold rounded-md uppercase tracking-wider">CLOUD MONITORS</span>
+                        </div>
+                        <h3 class="text-2xl font-space font-bold text-white mb-3 group-hover:text-cyber transition-all duration-300">Azure MLOps Anomaly Detector</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Automated anomaly parser executing predictive telemetry models straight over cloud infrastructure outputs. Integrated directly with Azure Databricks clusters and secure communication pipelines.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-white/5 text-gray-300 text-[10px] font-mono px-2.5 py-1 rounded border border-white/5">Azure Cloud</span>
+                            <span class="bg-white/5 text-gray-300 text-[10px] font-mono px-2.5 py-1 rounded border border-white/5">Databricks</span>
+                            <span class="bg-white/5 text-gray-300 text-[10px] font-mono px-2.5 py-1 rounded border border-white/5">Predictive Models</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="https://github.com/MukeshPyatla/Azure-MLOPS-Anomaly-Detector" target="_blank" class="flex-1 text-center bg-white/5 hover:bg-white/10 text-white font-mono text-xs py-3 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">
+                                <i class="fab fa-github mr-2"></i>Source Code
+                            </a>
+                            <a href="https://azure-mlops-anomaly-detector.streamlit.app/" target="_blank" class="flex-1 text-center bg-cyber text-black font-space font-bold text-xs py-3 rounded-xl hover:bg-white transition-all duration-300 shadow-[0_4px_15px_rgba(0,242,255,0.2)]">
+                                Live Monitor <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section Divider (Glow element) -->
+    <div class="h-px max-w-7xl mx-auto bg-gradient-to-r from-transparent via-cyber/20 to-transparent"></div>
+
+    <!-- Professional Experience Timeline Section -->
+    <section id="experience" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 mb-3 rounded-full bg-cyber/10 text-cyber border border-cyber/20 text-xs font-mono">
+                    <i class="fa-solid fa-timeline"></i>
+                    <span>TRACK RECORD</span>
+                </div>
+                <h2 class="text-4xl font-space font-bold text-white">Professional Journey</h2>
+                <p class="text-gray-400 mt-3 text-lg">Detailed history scaling and hardening high-throughput systems infrastructure.</p>
+            </div>
+
+            <!-- Timeline Structure -->
+            <div class="relative max-w-4xl mx-auto">
+                <!-- Center vertical line -->
+                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyber via-cyber-purple to-transparent -translate-x-1/2"></div>
+
+                <!-- Exp Card 1 (Aidoc) -->
+                <div class="relative flex flex-col md:flex-row items-stretch mb-12 group">
+                    <div class="absolute left-4 md:left-1/2 top-10 w-4 h-4 rounded-full bg-cyber pulse-glowing -translate-x-1/2 z-10"></div>
+                    
+                    <div class="w-full md:w-1/2 pl-12 md:pl-0 md:pr-16 text-left md:text-right flex flex-col justify-center">
+                        <span class="font-mono text-xs text-cyber uppercase tracking-widest font-bold">Oct 2023 - Present</span>
+                        <h3 class="text-2xl font-space font-bold text-white mt-1">MLOps Engineer</h3>
+                        <h4 class="text-md text-gray-400 font-semibold">Aidoc</h4>
+                    </div>
+                    
+                    <div class="w-full md:w-1/2 pl-12 md:pl-16 mt-4 md:mt-0 flex items-center">
+                        <div class="glass p-6 rounded-2xl border border-white/10 group-hover:border-cyber/30 transition-all duration-300 w-full">
+                            <ul class="space-y-3 text-sm text-gray-400 list-none">
+                                <li class="relative pl-5 before:content-['▹'] before:absolute before:left-0 before:text-cyber before:font-bold">Engineered complete time-series observability networks using Prometheus & Grafana stacks, lowering overall platform MTTR rates by 70%.</li>
+                                <li class="relative pl-5 before:content-['▹'] before:absolute before:left-0 before:text-cyber before:font-bold">Deployed high-integrity automated pipelines for packaging Generative AI layers, decreasing build wait times by 80%.</li>
+                                <li class="relative pl-5 before:content-['▹'] before:absolute before:left-0 before:text-cyber before:font-bold">Reduced cloud operational budgets by 20% through smart microservice consolidation and Spot instances configurations.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exp Card 2 (Missouri S&T) -->
+                <div class="relative flex flex-col md:flex-row items-stretch mb-12 group">
+                    <div class="absolute left-4 md:left-1/2 top-10 w-4 h-4 rounded-full bg-cyber-purple pulse-glowing -translate-x-1/2 z-10"></div>
+                    
+                    <!-- For layout matching on desktop, reverse the content positions -->
+                    <div class="w-full md:w-1/2 pl-12 md:pl-16 md:order-2 text-left flex flex-col justify-center">
+                        <span class="font-mono text-xs text-cyber-purple uppercase tracking-widest font-bold">Apr 2023 - Sep 2023</span>
+                        <h3 class="text-2xl font-space font-bold text-white mt-1">Graduate Research Assistant</h3>
+                        <h4 class="text-md text-gray-400 font-semibold">Missouri University of Science and Technology</h4>
+                    </div>
+                    
+                    <div class="w-full md:w-1/2 pl-12 md:pr-16 md:pl-0 mt-4 md:mt-0 md:order-1 flex items-center">
+                        <div class="glass p-6 rounded-2xl border border-white/10 group-hover:border-cyber-purple/30 transition-all duration-300 w-full">
+                            <ul class="space-y-3 text-sm text-gray-400 list-none">
+                                <li class="relative pl-5 before:content-['▹'] before:absolute before:left-0 before:text-cyber-purple before:font-bold">Managed clustered Cloud architectures supporting multiple high-performance deep learning research runs.</li>
+                                <li class="relative pl-5 before:content-['▹'] before:absolute before:left-0 before:text-cyber-purple before:font-bold">Configured strict DVC pipelines, ensuring high data reproducibility rates for training networks.</li>
+                                <li class="relative pl-5 before:content-['▹'] before:absolute before:left-0 before:text-cyber-purple before:font-bold">Decreased setup times by 90% through automated cloud infrastructure scripting modules.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exp Card 3 (PineLabs) -->
+                <div class="relative flex flex-col md:flex-row items-stretch mb-12 group">
+                    <div class="absolute left-4 md:left-1/2 top-10 w-4 h-4 rounded-full bg-cyber-green pulse-glowing -translate-x-1/2 z-10"></div>
+                    
+                    <div class="w-full md:w-1/2 pl-12 md:pl-0 md:pr-16 text-left md:text-right flex flex-col justify-center">
+                        <span class="font-mono text-xs text-cyber-green uppercase tracking-widest font-bold">Jun 2021 - Dec 2022</span>
+                        <h3 class="text-2xl font-space font-bold text-white mt-1">Junior Systems Administrator</h3>
+                        <h4 class="text-md text-gray-400 font-semibold">PineLabs</h4>
+                    </div>
+                    
+                    <div class="w-full md:w-1/2 pl-12 md:pl-16 mt-4 md:mt-0 flex items-center">
+                        <div class="glass p-6 rounded-2xl border border-white/10 group-hover:border-cyber-green/30 transition-all duration-300 w-full">
+                            <ul class="space-y-3 text-sm text-gray-400 list-none">
+                                <li class="relative pl-5 before:content-['▹'] before:absolute before:left-0 before:text-cyber-green before:font-bold">Developed clean Jenkins/Docker delivery structures, lowering standard production configuration issues by 30%.</li>
+                                <li class="relative pl-5 before:content-['▹'] before:absolute before:left-0 before:text-cyber-green before:font-bold">Maintained 99.9% high-availability uptimes across core payment networks using automated health monitors.</li>
+                                <li class="relative pl-5 before:content-['▹'] before:absolute before:left-0 before:text-cyber-green before:font-bold">Designed disaster recovery snapshot pipelines, avoiding critical data losses during outages.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section Divider (Glow element) -->
+    <div class="h-px max-w-7xl mx-auto bg-gradient-to-r from-transparent via-cyber/20 to-transparent"></div>
+
+    <!-- Contact & Handshake section -->
+    <section id="contact" class="py-24 bg-cardbg/40 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 mb-3 rounded-full bg-cyber/10 text-cyber border border-cyber/20 text-xs font-mono">
+                <i class="fa-solid fa-handshake-angle animate-pulse"></i>
+                <span>COMMUNICATION HANDSHAKE</span>
+            </div>
+            <h2 class="text-4xl sm:text-5xl font-space font-bold text-white mb-4">Initialize Port Protocol</h2>
+            <p class="text-gray-400 mb-12 max-w-xl mx-auto text-md">
+                Interested in high-availability systems scaling, cloud orchestration architectures, or AI tooling infrastructure? Transmit your metrics below.
             </p>
             
-            <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="space-y-4 text-left">
-                <div class="grid grid-cols-2 gap-4">
-                    <input type="text" name="name" placeholder="Name" class="w-full bg-darkbg border border-gray-700 p-3 rounded-lg text-white focus:border-cyber outline-none transition">
-                    <input type="email" name="email" placeholder="Email" class="w-full bg-darkbg border border-gray-700 p-3 rounded-lg text-white focus:border-cyber outline-none transition">
+            <!-- Dynamic Handshake Form -->
+            <form action="https://formspree.io/f/mldevylq" method="POST" onsubmit="handleFormSubmit(event)" id="handshakeForm" class="space-y-6 text-left glass p-8 sm:p-12 rounded-3xl border border-white/10 shadow-2xl relative">
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-mono text-cyber uppercase tracking-wider mb-2">Visitor Name</label>
+                        <input required type="text" name="name" placeholder="John Doe" class="w-full bg-black/40 border border-white/10 focus:border-cyber p-4 rounded-xl text-white outline-none transition duration-300 placeholder:text-gray-600 font-mono text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-cyber uppercase tracking-wider mb-2">Return Address (Email)</label>
+                        <input required type="email" name="email" placeholder="johndoe@domain.com" class="w-full bg-black/40 border border-white/10 focus:border-cyber p-4 rounded-xl text-white outline-none transition duration-300 placeholder:text-gray-600 font-mono text-sm">
+                    </div>
                 </div>
-                <textarea name="message" rows="4" placeholder="Message Protocol..." class="w-full bg-darkbg border border-gray-700 p-3 rounded-lg text-white focus:border-cyber outline-none transition"></textarea>
-                <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold py-3 rounded-lg hover:shadow-[0_0_20px_rgba(0,242,255,0.4)] transition">
-                    TRANSMIT MESSAGE
+                
+                <div>
+                    <label class="block text-xs font-mono text-cyber uppercase tracking-wider mb-2">Message Payload</label>
+                    <textarea required name="message" rows="5" placeholder="Operational requests, architecture consulting proposals..." class="w-full bg-black/40 border border-white/10 focus:border-cyber p-4 rounded-xl text-white outline-none transition duration-300 placeholder:text-gray-600 font-mono text-sm"></textarea>
+                </div>
+                
+                <button type="submit" id="submitBtn" class="shimmer-btn w-full bg-gradient-to-r from-cyber via-cyber-light to-cyber-purple text-black font-space font-bold py-4 rounded-xl shadow-[0_4px_25px_rgba(0,242,255,0.35)] hover:shadow-[0_0_35px_rgba(0,242,255,0.6)] transition-all duration-300 tracking-wider text-sm flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                    <span>TRANSMIT PACKET MESSAGE</span>
                 </button>
+
+                <!-- Feedback States -->
+                <div id="formFeedback" class="hidden text-center p-4 rounded-xl font-mono text-xs border"></div>
             </form>
 
-            <div class="mt-10 flex justify-center space-x-6">
-                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin text-2xl"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github text-2xl"></i></a>
-                <a href="mailto:mukeshyadavp91@gmail.com" class="text-gray-400 hover:text-white"><i class="fas fa-envelope text-2xl"></i></a>
+            <div class="mt-12 flex justify-center space-x-8 text-2xl">
+                <a href="https://linkedin.com/in/mukesh-mlops" target="_blank" class="text-gray-500 hover:text-cyber transition duration-300"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/MukeshPyatla" target="_blank" class="text-gray-500 hover:text-cyber-purple transition duration-300"><i class="fab fa-github"></i></a>
+                <a href="mailto:mukeshyadavp91@gmail.com" class="text-gray-500 hover:text-cyber-green transition duration-300"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
     </section>
 
-    <footer class="py-6 text-center text-gray-600 text-sm">
-        <p>&copy; 2024 Mukesh Yadav. Deployed on GitHub Pages.</p>
+    <!-- Footer Area -->
+    <footer class="py-12 border-t border-white/5 bg-black/50 text-center relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+            <div class="font-mono text-xs text-gray-500 flex items-center justify-center space-x-2">
+                <span>SYSTEM VERSION: v2.5.12-STABLE</span>
+                <span>•</span>
+                <span>LOC: US_EAST_1</span>
+            </div>
+            <p class="text-gray-600 text-xs font-mono">&copy; 2026 Mukesh Yadav. Configured and secured on GitHub Pages.</p>
+        </div>
     </footer>
 
+    <!-- Client Script Controls -->
     <script>
-        const ctx = document.getElementById('trafficChart').getContext('2d');
-        
-        // Gradient for chart
-        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, 'rgba(0, 242, 255, 0.5)');
-        gradient.addColorStop(1, 'rgba(0, 242, 255, 0)');
+        // Global variables & elements
+        let trafficChartInstance = null;
+        let isChaosActive = false;
+        let isPipelineRetraining = false;
+        let originalChartData = [120, 190, 300, 500, 450, 600];
+        let labelsTimeline = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'];
 
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
-                datasets: [{
-                    label: 'Inference Requests (RPS)',
-                    data: [120, 190, 300, 500, 450, 600],
-                    borderColor: '#00f2ff',
-                    backgroundColor: gradient,
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.4,
-                    pointRadius: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: { grid: { display: false }, ticks: { color: '#555' } },
-                    y: { grid: { color: '#222' }, ticks: { color: '#555' } }
-                }
-            }
+        // On document initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeMetricsChart();
+            startLiveInferenceSimulation();
+            
+            // Default skill and project views
+            filterSkills('all');
+            filterProjects('all');
         });
+
+        // Initialize Live Inference traffic Chart.js
+        function initializeMetricsChart() {
+            const ctx = document.getElementById('trafficChart').getContext('2d');
+            
+            // Soft cyber gradient
+            const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, 'rgba(0, 242, 255, 0.45)');
+            gradient.addColorStop(1, 'rgba(0, 242, 255, 0.01)');
+
+            trafficChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labelsTimeline,
+                    datasets: [{
+                        label: 'Inference Traffic (Req/Sec)',
+                        data: [...originalChartData],
+                        borderColor: '#00f2ff',
+                        backgroundColor: gradient,
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#00f2ff',
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: 'rgba(255,255,255,0.45)', font: { family: 'JetBrains Mono', size: 10 } }
+                        },
+                        y: {
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: 'rgba(255,255,255,0.45)', font: { family: 'JetBrains Mono', size: 10 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Simulates realistic dynamic inference fluctuations in background
+        function startLiveInferenceSimulation() {
+            setInterval(() => {
+                if (trafficChartInstance && !isChaosActive && !isPipelineRetraining) {
+                    // Update latest data point with mild random drift
+                    let count = trafficChartInstance.data.datasets[0].data.length;
+                    let drift = (Math.random() - 0.5) * 40;
+                    let lastValue = trafficChartInstance.data.datasets[0].data[count - 1];
+                    let newValue = Math.max(100, Math.min(800, Math.round(lastValue + drift)));
+                    
+                    trafficChartInstance.data.datasets[0].data.shift();
+                    trafficChartInstance.data.datasets[0].data.push(newValue);
+                    trafficChartInstance.update();
+
+                    // Telemetry card updates
+                    document.getElementById('latencyVal').textContent = Math.round(11 + Math.random() * 3);
+                }
+            }, 3000);
+        }
+
+        // Active Chaos Simulator Trigger
+        function triggerPodFailover() {
+            if (isChaosActive || isPipelineRetraining) return;
+            isChaosActive = true;
+
+            const logs = document.getElementById('logsConsole');
+            const btn = document.getElementById('chaosBtn');
+            const statsNodes = document.getElementById('nodesVal');
+            const statsStatus = document.getElementById('nodesStatusText');
+            
+            // Visual indicators
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            statsNodes.innerHTML = '8<span class="text-base text-red-500 font-normal"> / 12</span>';
+            statsStatus.textContent = 'WARNING: Nodes offline!';
+            statsStatus.className = 'text-red-500 text-xs mt-2 font-mono';
+
+            logToConsole('[WARNING] Pod Replica Failure Detected in Zone-A.', 'text-red-400');
+            logToConsole('[ACTION] Scheduling container evacuations...', 'text-yellow-500');
+
+            // Force immediate traffic chart collapse
+            if (trafficChartInstance) {
+                trafficChartInstance.data.datasets[0].data = [120, 80, 20, 10, 5, 2];
+                trafficChartInstance.data.datasets[0].borderColor = '#ef4444';
+                trafficChartInstance.update();
+            }
+
+            // Recovery phase simulation
+            setTimeout(() => {
+                logToConsole('[AUTO-RECOVER] Active node groups initialized.', 'text-cyber-green');
+                logToConsole('[AUTO-RECOVER] Container routing tables re-allocated.', 'text-cyber-green');
+                statsNodes.innerHTML = '12<span class="text-base text-gray-500 font-normal font-normal"> / 12</span>';
+                statsStatus.textContent = 'All Nodes Operational';
+                statsStatus.className = 'text-cyber-green text-xs mt-2 font-mono';
+
+                if (trafficChartInstance) {
+                    trafficChartInstance.data.datasets[0].data = [...originalChartData];
+                    trafficChartInstance.data.datasets[0].borderColor = '#00f2ff';
+                    trafficChartInstance.update();
+                }
+
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                isChaosActive = false;
+                logToConsole('[SUCCESS] Self-healing routine terminated cleanly.', 'text-cyber-light');
+            }, 5000);
+        }
+
+        // AutoML retraining pipeline trigger
+        function triggerPipelineRetraining() {
+            if (isChaosActive || isPipelineRetraining) return;
+            isPipelineRetraining = true;
+
+            const logs = document.getElementById('logsConsole');
+            const btn = document.getElementById('retrainBtn');
+            const spendVal = document.getElementById('costVal');
+            
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            spendVal.textContent = '8.75'; // Increase cost while training GPU nodes
+            
+            logToConsole('[INIT] Triggering AWS-Sagemaker model evaluation.', 'text-cyber');
+            logToConsole('[TRAINING] Gradient calculation running over Spot instances.', 'text-yellow-500');
+
+            if (trafficChartInstance) {
+                // Peak spikes representing high compute loads
+                trafficChartInstance.data.datasets[0].data = [400, 550, 710, 800, 780, 850];
+                trafficChartInstance.update();
+            }
+
+            setTimeout(() => {
+                logToConsole('[EVALUATING] Accuracy: 99.4% achieved.', 'text-cyber-green');
+                logToConsole('[DEPLOYED] Model weights active in production.', 'text-cyber-green');
+                spendVal.textContent = '4.20'; // Costs normalized
+
+                if (trafficChartInstance) {
+                    trafficChartInstance.data.datasets[0].data = [...originalChartData];
+                    trafficChartInstance.update();
+                }
+
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                isPipelineRetraining = false;
+                logToConsole('[SUCCESS] Retraining finished cleanly.', 'text-cyber-light');
+            }, 6000);
+        }
+
+        // Helper to output to logs panel
+        function logToConsole(message, cssClass = 'text-gray-400') {
+            const consoleEl = document.getElementById('logsConsole');
+            const logLine = document.createElement('p');
+            logLine.className = cssClass;
+            logLine.textContent = message;
+            consoleEl.appendChild(logLine);
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+        }
+
+        // Interactive skills filtering logic
+        function filterSkills(groupName) {
+            // Adjust active tab state classes
+            document.querySelectorAll('.skill-tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active', 'border-cyber', 'bg-cyber/5');
+                btn.classList.add('border-white/10', 'bg-white/5');
+            });
+            document.getElementById(`skill-tab-${groupName}`).classList.add('tab-active', 'border-cyber', 'bg-cyber/5');
+
+            // Hide/Show correct modules
+            document.querySelectorAll('.skill-card-module').forEach(card => {
+                if (groupName === 'all') {
+                    card.style.display = 'block';
+                } else {
+                    const groups = eval(card.getAttribute('data-groups'));
+                    if (groups.includes(groupName)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // Project Archive filter logic
+        function filterProjects(catName) {
+            document.querySelectorAll('.proj-tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active', 'border-cyber', 'bg-cyber/5');
+                btn.classList.add('border-white/5', 'bg-white/5');
+            });
+            document.getElementById(`proj-tab-${catName}`).classList.add('tab-active', 'border-cyber', 'bg-cyber/5');
+
+            document.querySelectorAll('.project-card-module').forEach(card => {
+                if (catName === 'all') {
+                    card.style.display = 'flex';
+                } else {
+                    const category = eval(card.getAttribute('data-category'));
+                    if (category.includes(catName)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // Mobile responsive menu handler
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.className = 'fa-solid fa-xmark text-xl';
+            } else {
+                menu.classList.add('hidden');
+                icon.className = 'fa-solid fa-bars text-xl';
+            }
+        }
+
+        // Contact protocol handshake validation
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const submitBtn = document.getElementById('submitBtn');
+            const feedback = document.getElementById('formFeedback');
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'TRANSMITTING MESSAGE PACKETS...';
+
+            const data = new FormData(form);
+
+            fetch(form.action, {
+                method: form.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    feedback.className = 'p-4 rounded-xl font-mono text-xs border border-cyber-green/20 bg-cyber-green/15 text-cyber-green';
+                    feedback.textContent = '[SUCCESS] Communication packets fully received by destination router!';
+                    feedback.classList.remove('hidden');
+                    form.reset();
+                } else {
+                    throw new Error();
+                }
+            }).catch(error => {
+                feedback.className = 'p-4 rounded-xl font-mono text-xs border border-red-500/20 bg-red-500/15 text-red-400';
+                feedback.textContent = '[ERROR] Failed to establish handshake. Port busy or network down.';
+                feedback.classList.remove('hidden');
+            }).finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane text-xs"></i> <span>TRANSMIT PACKET MESSAGE</span>';
+            });
+        }
     </script>
 </body>
 </html>
